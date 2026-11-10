@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from "react";
-import { Link, Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { useAuth } from "./auth";
 import manifest from "./routes.json";
 import { FeatureGate } from "./features";
@@ -31,6 +31,13 @@ import { MobileClips, MobileFiles, MobileHome, MobileLayout } from "./mobile/Mob
 import ReviewLauncher from "./review/ReviewLauncher";
 import { AgentChat, AgentList } from "./knowledge/Agents";
 import { AppShell } from "./shell";
+import { PortalShell } from "./hojde/Shell";
+import PortalOverview from "./hojde/portal/Overview";
+import PortalLocations from "./hojde/portal/Locations";
+import PortalLocation from "./hojde/portal/Location";
+import PortalOrders from "./hojde/portal/Orders";
+import PortalNewOrder from "./hojde/portal/NewOrder";
+import PortalOrganization from "./hojde/portal/Organization";
 
 function ImpersonationBanner() {
   const { user, impersonator } = useAuth();
@@ -142,6 +149,16 @@ export default function App() {
         <Route path="/klip/:id" element={<RequireUser><FeatureGate feature="klip"><ClipsPage /></FeatureGate></RequireUser>} />
         <Route path="/go" element={<GoPage />} />
         <Route path="/develop" element={<RequireUser><Develop /></RequireUser>} />
+
+        {/* Højde's customer portal (specs/hojde-platform/): own chrome, light Højde theme. */}
+        <Route path="/portal" element={<RequireUser><FeatureGate feature="hojde"><PortalShell><Outlet /></PortalShell></FeatureGate></RequireUser>}>
+          <Route index element={<PortalOverview />} />
+          <Route path="lokationer" element={<PortalLocations />} />
+          <Route path="lokationer/:id" element={<PortalLocation />} />
+          <Route path="bestillinger" element={<PortalOrders />} />
+          <Route path="bestillinger/ny" element={<PortalNewOrder />} />
+          <Route path="organisation" element={<PortalOrganization />} />
+        </Route>
 
         <Route path="/extension/login" element={<Login home="/extension" embedded />} />
         <Route path="/extension/tools" element={<RequireUser login="/extension/login"><ToolLayout /></RequireUser>}>

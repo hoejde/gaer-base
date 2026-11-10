@@ -66,6 +66,9 @@ EVENTS: dict[str, str] = {
     "mail.mailbox.suspended": "En postkasse er suspenderet (postkasse-id)",
     "mail.mailbox.deleted": "En postkasse er slettet eller lavet om til et alias (postkasse-id)",
     "mail.retention.completed": "Sletningen af gammel mail har kørt (kørsel-id, antal slettet, fejl)",
+    "hojde.order.created": "Højde: en kunde har bestilt en opgave (bestillings-id, organisations-id)",
+    "hojde.quote.approved": "Højde: en kunde har godkendt et tilbud (bestillings-id, organisations-id)",
+    "hojde.order.cancelled": "Højde: en kunde har aflyst en bestilling (bestillings-id, organisations-id)",
     "killswitch.changed": "Et nødstop er lukket eller åbnet, i hånden eller af en regel (nøgle, lukket, automatisk)",
 }
 

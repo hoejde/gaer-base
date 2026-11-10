@@ -1,6 +1,6 @@
 # Højde platform
 
-**Status:** In progress — phase 1 (data, access, rules) built in Gær; portal and backoffice pages follow
+**Status:** In progress — phases 1–2 built in Gær (data, access, rules; the customer portal on `/portal`); the backoffice follows
 **Source:** Claude Design canvas "Højde-platformen — skærmbilleder" (32 screens + handover brief), exported 24.10.2026.
 First built as the module `member-hojde` in hoejde/surdej-v2 (commit `dc00be2`, P0–P2) and moved to Gær from there.
 
@@ -33,5 +33,7 @@ quality control and reporting in a backoffice (`/backoffice`).
   erasure the flight stays with the pilot shown as "Slettet bruger".
 - From the brief: accounting system for invoice drafts; real values for [PRIS], [BELØB], [X] delivery days and model
   precision [XX]; who on the customer side may approve a quote (v1: anyone allowed to order).
+- Customers in several organisations see the first one; the server accepts `X-Hojde-Org`, but the portal has no
+  organisation switcher yet.
 - Raised in v1: is "Afventer godkendelse" Højde preparing a quote or a date (v1: yes)? Should a weather hold move the
   date automatically (v1: flag only)?

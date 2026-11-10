@@ -412,6 +412,30 @@
       "title": "Office-router",
       "anchors": []
     },
+    "/portal": {
+      "title": "Overblik",
+      "anchors": []
+    },
+    "/portal/bestillinger": {
+      "title": "Bestillinger",
+      "anchors": []
+    },
+    "/portal/bestillinger/ny": {
+      "title": "Ny bestilling",
+      "anchors": []
+    },
+    "/portal/lokationer": {
+      "title": "Lokationer",
+      "anchors": []
+    },
+    "/portal/lokationer/:id": {
+      "title": "Lokation",
+      "anchors": []
+    },
+    "/portal/organisation": {
+      "title": "Organisation",
+      "anchors": []
+    },
     "/privatliv": {
       "title": "Privatliv",
       "anchors": [

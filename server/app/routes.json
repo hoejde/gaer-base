@@ -135,6 +135,23 @@
    ]
   },
   {
+   "id": "hojde",
+   "docs_path": "`/portal`",
+   "who": {
+    "en": "logged in, with a Højde membership",
+    "da": "logget ind, med et Højde-medlemskab"
+   },
+   "what": {
+    "en": "**Højde customer portal** (`specs/hojde-platform/`): a customer organisation's overview, locations with visits and analyst-approved findings, orders with the four-step order wizard, quotes, cancelling until 24 hours before, and the organisation (users, invitations by e-mail, CVR/EAN, the 2FA policy). Own chrome (light Højde theme), feature `hojde`. Memberships are linked by e-mail at first login; staff and organisations with 2FA need a second factor. The backoffice (`/backoffice`) follows.",
+    "da": "**Højdes kundeportal**: overblik, lokationer med besøg og godkendte fund, bestillinger med bestillingsguiden, tilbud og aflysning frem til 24 timer før, og organisationen (brugere, invitationer på e-mail, CVR/EAN, krav om tofaktor). Eget layout, feature `hojde`."
+   },
+   "code": [
+    "hojde/",
+    "routes/hojde_portal.py",
+    "app/hojde/"
+   ]
+  },
+  {
    "id": "admin",
    "docs_path": "/admin/…",
    "who": {
@@ -421,6 +438,60 @@
    "app": "app",
    "access": "user",
    "title": "Udvikling"
+  },
+  {
+   "path": "/portal",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Overblik",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/portal/lokationer",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Lokationer",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/portal/lokationer/:id",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Lokation",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/portal/bestillinger",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Bestillinger",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/portal/bestillinger/ny",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Ny bestilling",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/portal/organisation",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Organisation",
+   "chrome": "own",
+   "feature": "hojde"
   },
   {
    "path": "/admin",
