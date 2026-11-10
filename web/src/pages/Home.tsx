@@ -9,6 +9,7 @@ import { FeatureGate } from "../features";
 import { PasskeyNudge } from "../security";
 import { Icon, useShell } from "../shell";
 import { Alert, fmtBytes, fmtDate, fmtNumber, Loading, useLoad } from "../ui";
+import { useHojdeLanding } from "../hojde/landing";
 import { activityText, Avatar, name, type Activity, type Overview } from "./userAreaShared";
 
 function greeting(): string {
@@ -113,6 +114,7 @@ export default function Home() {
   const { aiEnabled } = useShell();
   const ai = useAiStatus();
   const ov = useLoad(() => api.get<Overview>("/api/user/overview"));
+  useHojdeLanding(!!user && scope === "full");
 
   if (loading) return null;
   if (!user || scope !== "full") {

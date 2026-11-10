@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Økonomi</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark">
+<header class="top"><a class="logo" href="BO-Overblik.dc.html">Højde</a><x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import><span class="grow"></span><span class="muted small">Emil · Administrator</span><a class="av" href="BO-Admin.dc.html" aria-label="Min profil: Emil">E</a></header>
+<div class="row">
+<nav class="nav" aria-label="Backoffice">
+<a href="BO-Overblik.dc.html">Overblik</a>
+<a href="BO-Opgaver.dc.html">Opgaver</a>
+<a href="BO-Compliance.dc.html">Flyvelog og compliance</a>
+<a href="BO-Data.dc.html">Databehandling</a>
+<a href="BO-Kvalitet.dc.html">Kvalitetskontrol</a>
+<a href="BO-Rapporter.dc.html">Rapporter</a>
+<a href="BO-Kunder.dc.html">Kunder</a>
+<a href="BO-Oekonomi.dc.html" aria-current="page">Økonomi</a>
+<a href="BO-Udstyr.dc.html">Udstyr</a>
+<a href="BO-AI.dc.html">AI-modeller</a>
+<a href="BO-Indhold.dc.html">Indhold</a>
+<a href="BO-Admin.dc.html">Administration</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Økonomi</h1><x-import component-from-global-scope="Hojde.Button" variant="primary">Overfør kladder til regnskab</x-import></div>
+<div class="tabs"><a href="#" aria-current="page">Fakturakladder (3)</a><a href="#">Abonnementer</a><a href="#">Prisliste</a></div>
+<div class="tbl"><table>
+<thead><tr><th>Kunde</th><th>Grundlag</th><th>Linjer</th><th>Beløb ekskl. moms</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Boligforeningen Kystparken</td><td>Abonnement november</td><td class="mono">1</td><td class="mono">[BELØB]</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Klar</x-import></td></tr>
+<tr><td>[Bygherre]</td><td>Byggelånsbesøg 4</td><td class="mono">1</td><td class="mono">[BELØB]</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Afventer levering</x-import></td></tr>
+<tr><td>[Arkitektfirma]</td><td>3D-model, Valby Langgade 40</td><td class="mono">2</td><td class="mono">[BELØB]</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Afventer levering</x-import></td></tr>
+</tbody></table></div>
+<div class="head" style="align-items: center;"><h2 class="h2">Ydelseskatalog og priser</h2><x-import component-from-global-scope="Hojde.Button" size="sm">Ny ydelse</x-import></div>
+<div class="tbl"><table>
+<thead><tr><th>Ydelse</th><th>Branche</th><th>Udstyr</th><th>Tilladelse</th><th>Pris</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Tag- og facadeinspektion med AI</td><td>Bygninger</td><td>Mini 5 Pro</td><td>A1</td><td class="mono">[PRIS] pr. bygning</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+<tr><td>Byggelåns- og fremdriftsdokumentation</td><td>Byggeri</td><td>Mini 5 Pro</td><td>A1</td><td class="mono">[PRIS] pr. besøg</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+<tr><td>3D-model og digital tvilling</td><td>Bygninger</td><td>Mini 5 Pro</td><td>A1</td><td class="mono">[PRIS] pr. model</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+<tr><td>Skadesdokumentation til forsikring</td><td>Bygninger</td><td>Mini 5 Pro</td><td>A1</td><td class="mono">[PRIS] pr. opgave</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+<tr><td>Ejendomsfoto og -video</td><td>Bygninger</td><td>Mini 5 Pro</td><td>A1</td><td class="mono">[PRIS] pr. opgave</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+<tr><td>Volumen og lagerstatus</td><td>Byggeri, landbrug</td><td>RTK-drone</td><td>A2</td><td class="mono">[PRIS] pr. måling</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Kræver udstyr</x-import></td></tr>
+<tr><td>Terrænmodel, landmåling, as-built</td><td>Byggeri</td><td>RTK-drone</td><td>A2</td><td class="mono">[PRIS] pr. ha</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Kræver udstyr</x-import></td></tr>
+<tr><td>Termografi af bygninger og fjernvarme</td><td>Bygninger, energi</td><td>Termisk drone</td><td>A2</td><td class="mono">[PRIS] pr. bygning</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Kræver udstyr</x-import></td></tr>
+<tr><td>Solceller og solcelleparker</td><td>Energi</td><td>Termisk drone</td><td>A2 eller A3</td><td class="mono">[PRIS] pr. MW</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Kræver udstyr</x-import></td></tr>
+<tr><td>Vindmøller, broer og master</td><td>Energi, infrastruktur</td><td>Zoom-drone</td><td>A3 eller specifik</td><td class="mono">[PRIS] pr. objekt</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Kræver udstyr</x-import></td></tr>
+<tr><td>Ledningsanlæg over lange strækninger</td><td>Infrastruktur</td><td>Kortlægningsdrone</td><td>BVLOS</td><td class="mono">[PRIS] pr. km</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Kræver tilladelse</x-import></td></tr>
+<tr><td>Crowd-tæthed og flow</td><td>Events</td><td>Mini 5 Pro</td><td>A1 ved siden af, SORA over</td><td class="mono">[PRIS] pr. event</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+<tr><td>Ukrudtskort og afgrødesundhed</td><td>Landbrug</td><td>Multispektral drone</td><td>A3</td><td class="mono">[PRIS] pr. ha</td><td><x-import component-from-global-scope="Hojde.Badge">Via partner</x-import></td></tr>
+<tr><td>Stormfald, trætælling, biodiversitet</td><td>Skov og natur</td><td>Kortlægningsdrone</td><td>A3</td><td class="mono">[PRIS] pr. ha</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Kræver udstyr</x-import></td></tr>
+<tr><td>Kyst og erosion</td><td>Natur</td><td>Mini 5 Pro</td><td>A1, Natura 2000-tjek</td><td class="mono">[PRIS] pr. område</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+<tr><td>AI-analyse af kundens egne billeder</td><td>Alle</td><td>Kundens drone</td><td>—</td><td class="mono">[PRIS] pr. md.</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Ydelser med status Kræver udstyr vises på hjemmesiden med "Kontakt os" og aktiveres, når udstyret er registreret under Udstyr. Opgaver kan kun planlægges med udstyr og tilladelser, der opfylder ydelsens krav.</p>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

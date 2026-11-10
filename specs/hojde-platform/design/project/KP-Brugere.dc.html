@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Organisation: brugere</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <header style="background: var(--surface-raised); border-bottom: 1px solid var(--line); padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+    <span style="font-family: var(--font-display); font-weight: 700; font-size: 22px;">Højde</span>
+    <button type="button" style="font: inherit; font-size: 14px; border: 1px solid var(--line-strong); background: var(--surface-raised); color: var(--ink); border-radius: var(--radius-md); height: 36px; padding: 0 12px;">Boligforeningen Kystparken ▾</button>
+    <span style="flex: 1;"></span>
+    <button type="button" style="font: inherit; font-size: 14px; border: none; background: var(--kote-soft); color: var(--kote); border-radius: var(--radius-full); width: 40px; height: 40px; font-weight: 600;" aria-label="Min profil: Mette Holm">MH</button>
+  </header>
+  <div style="display: flex; flex-wrap: wrap;">
+    <nav aria-label="Kundeportal" style="flex: 1 1 220px; max-width: 260px; min-width: 200px; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; border-right: 1px solid var(--line);">
+      <a href="KP-Overblik.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Overblik</a>
+      <a href="KP-Lokationer.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Lokationer</a>
+      <a href="KP-Bestillinger.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Bestillinger</a>
+      <a href="KP-Rapporter.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Rapporter</a>
+      <a href="KP-Fund.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Fund</a>
+      <a href="KP-Fakturaer.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Fakturaer</a>
+      <a href="KP-Brugere.dc.html" aria-current="page" style="padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); font-weight: 600; text-decoration: none;">Organisation</a>
+      <a href="KP-Hjaelp.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Hjælp</a>
+    </nav>
+    <main style="flex: 999 1 560px; min-width: 0; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; max-width: 1180px;">
+      <h1 style="margin: 0; font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em;">Organisation</h1>
+      <div role="tablist" aria-label="Organisation" style="display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line);">
+        <button type="button" role="tab" aria-selected="true" style="font: inherit; background: none; border: none; border-bottom: 3px solid var(--signal); padding: 10px 16px; color: var(--ink); font-weight: 600;">Brugere (6)</button>
+        <button type="button" role="tab" aria-selected="false" style="font: inherit; background: none; border: none; padding: 10px 16px; color: var(--ink-muted);">Indstillinger</button>
+        <button type="button" role="tab" aria-selected="false" style="font: inherit; background: none; border: none; padding: 10px 16px; color: var(--ink-muted);">Delte links (2)</button>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+        <section style="flex: 999 1 560px; min-width: 0; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px;">
+            <thead><tr style="background: var(--surface-sunken); text-align: left;"><th style="padding: 12px;">Navn</th><th style="padding: 12px;">Rolle</th><th style="padding: 12px;">Adgang</th><th style="padding: 12px;">Tofaktor</th><th style="padding: 12px;">Status</th><th style="padding: 12px;"><span style="position: absolute; left: -9999px;">Handlinger</span></th></tr></thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line);"><td style="padding: 12px;"><strong>Mette Holm</strong><br><span style="color: var(--ink-muted);">mh@kystparken.dk</span></td><td style="padding: 12px;">Kundeadministrator</td><td style="padding: 12px;">Alle lokationer</td><td style="padding: 12px;">Til</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Button" variant="quiet" size="sm">Redigér</x-import></td></tr>
+              <tr style="border-bottom: 1px solid var(--line);"><td style="padding: 12px;"><strong>Jens Pedersen</strong><br><span style="color: var(--ink-muted);">jp@kystparken.dk</span></td><td style="padding: 12px;">Kundebruger</td><td style="padding: 12px;">3 lokationer</td><td style="padding: 12px;">Til</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Button" variant="quiet" size="sm">Redigér</x-import></td></tr>
+              <tr style="border-bottom: 1px solid var(--line);"><td style="padding: 12px;"><strong>Lars Krogh</strong><br><span style="color: var(--ink-muted);">lk@tagfirma.dk</span></td><td style="padding: 12px;">Kundebruger</td><td style="padding: 12px;">Kystparken blok C</td><td style="padding: 12px;">Til</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Aktiv</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Button" variant="quiet" size="sm">Redigér</x-import></td></tr>
+              <tr style="border-bottom: 1px solid var(--line);"><td style="padding: 12px;"><strong>Sofie Berg</strong><br><span style="color: var(--ink-muted);">sb@kystparken.dk</span></td><td style="padding: 12px;">Kundebruger</td><td style="padding: 12px;">Alle lokationer</td><td style="padding: 12px;">—</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Inviteret</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Button" variant="quiet" size="sm">Send igen</x-import></td></tr>
+              <tr><td style="padding: 12px;"><strong>Peter Lund</strong><br><span style="color: var(--ink-muted);">pl@kystparken.dk</span></td><td style="padding: 12px;">Kundebruger</td><td style="padding: 12px;">Alle lokationer</td><td style="padding: 12px;">Til</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge">Deaktiveret</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Button" variant="quiet" size="sm">Genaktivér</x-import></td></tr>
+            </tbody>
+          </table>
+        </section>
+        <aside style="flex: 1 1 300px; min-width: 0; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+          <h2 style="margin: 0; font-size: 18px; line-height: 26px;">Invitér bruger</h2>
+          <x-import component-from-global-scope="Hojde.Input" label="E-mail" type="email" placeholder="navn@firma.dk" style="width: 100%;"></x-import>
+          <label style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;">Rolle</span><select style="font: inherit; height: 40px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);"><option>Kundebruger</option><option>Kundeadministrator</option></select></label>
+          <label style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;">Adgang</span><select style="font: inherit; height: 40px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);"><option>Alle lokationer</option><option>Udvalgte lokationer</option></select></label>
+          <label style="display: flex; gap: 8px; align-items: center; font-size: 14px;"><input type="checkbox" checked=""> Må bestille opgaver</label>
+          <x-import component-from-global-scope="Hojde.Button" variant="primary" style="width: 100%; justify-content: center;">Send invitation</x-import>
+          <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted);">Invitationen udløber efter 7 dage. Din organisation kræver tofaktor for alle brugere.</p>
+        </aside>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

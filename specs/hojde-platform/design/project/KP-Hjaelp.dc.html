@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Hjælp</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">Boligforeningen Kystparken ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil: Mette Holm">MH</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html" aria-current="page">Hjælp</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Hjælp</h1></div>
+<div class="cols">
+<section class="card">
+<h2 class="h2">Spørgsmål og svar</h2>
+<div>
+<details open=""><summary>Hvad sker der, hvis det blæser på flyvedagen?</summary><p class="muted small">Vi flyver ikke ved vind over 10 m/s eller nedbør. Du får besked og et nyt tidspunkt senest dagen før.</p></details>
+<details><summary>Kan beboere ses på billederne?</summary><p class="muted small">Nej. Personer og nummerplader sløres automatisk, før billederne gemmes.</p></details>
+<details><summary>Hvordan deler jeg en rapport med banken?</summary><p class="muted small">Åbn rapporten og vælg Del. Linket kan have udløbsdato og kode.</p></details>
+<details><summary>Hvem godkender AI-fundene?</summary><p class="muted small">En analytiker gennemgår hvert fund, før det vises for dig.</p></details>
+<details><summary>Hvordan ændrer jeg fakturaadresse?</summary><p class="muted small">Under Organisation › Indstillinger, hvis du er kundeadministrator.</p></details>
+</div>
+</section>
+<section class="card">
+<h2 class="h2">Kontakt os</h2>
+<label class="field"><span>Emne</span><select><option>Spørgsmål til rapport</option><option>Bestilling</option><option>Faktura</option><option>Andet</option></select></label>
+<label class="field"><span>Besked</span><textarea rows="4"></textarea></label>
+<x-import component-from-global-scope="Hojde.Button" variant="primary">Send</x-import>
+<h2 class="h2">Dine supportsager</h2>
+<ul class="list">
+<li><span class="mono">S-118</span><span class="grow">Spørgsmål til fund 2, blok C</span><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Besvaret</x-import></li>
+<li><span class="mono">S-121</span><span class="grow">Ny kontaktperson på Strandvejen 8</span><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Åben</x-import></li>
+</ul>
+</section>
+</div>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

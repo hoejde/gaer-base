@@ -262,6 +262,26 @@
       "title": "Webhooks",
       "anchors": []
     },
+    "/backoffice": {
+      "title": "Backoffice",
+      "anchors": []
+    },
+    "/backoffice/compliance": {
+      "title": "Flyvelog og compliance",
+      "anchors": []
+    },
+    "/backoffice/opgaver": {
+      "title": "Opgaver",
+      "anchors": []
+    },
+    "/backoffice/opgaver/:id": {
+      "title": "Opgave",
+      "anchors": []
+    },
+    "/backoffice/udstyr": {
+      "title": "Udstyr",
+      "anchors": []
+    },
     "/develop": {
       "title": "Udvikling",
       "anchors": [
@@ -410,6 +430,30 @@
     },
     "/office-addin": {
       "title": "Office-router",
+      "anchors": []
+    },
+    "/portal": {
+      "title": "Overblik",
+      "anchors": []
+    },
+    "/portal/bestillinger": {
+      "title": "Bestillinger",
+      "anchors": []
+    },
+    "/portal/bestillinger/ny": {
+      "title": "Ny bestilling",
+      "anchors": []
+    },
+    "/portal/lokationer": {
+      "title": "Lokationer",
+      "anchors": []
+    },
+    "/portal/lokationer/:id": {
+      "title": "Lokation",
+      "anchors": []
+    },
+    "/portal/organisation": {
+      "title": "Organisation",
       "anchors": []
     },
     "/privatliv": {

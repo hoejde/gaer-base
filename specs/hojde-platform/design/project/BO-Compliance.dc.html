@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Flyvelog og compliance</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark">
+<header class="top"><a class="logo" href="BO-Overblik.dc.html">Højde</a><x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import><span class="grow"></span><span class="muted small">Emil · Administrator</span><a class="av" href="BO-Admin.dc.html" aria-label="Min profil: Emil">E</a></header>
+<div class="row">
+<nav class="nav" aria-label="Backoffice">
+<a href="BO-Overblik.dc.html">Overblik</a>
+<a href="BO-Opgaver.dc.html">Opgaver</a>
+<a href="BO-Compliance.dc.html" aria-current="page">Flyvelog og compliance</a>
+<a href="BO-Data.dc.html">Databehandling</a>
+<a href="BO-Kvalitet.dc.html">Kvalitetskontrol</a>
+<a href="BO-Rapporter.dc.html">Rapporter</a>
+<a href="BO-Kunder.dc.html">Kunder</a>
+<a href="BO-Oekonomi.dc.html">Økonomi</a>
+<a href="BO-Udstyr.dc.html">Udstyr</a>
+<a href="BO-AI.dc.html">AI-modeller</a>
+<a href="BO-Indhold.dc.html">Indhold</a>
+<a href="BO-Admin.dc.html">Administration</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Flyvelog og compliance</h1><x-import component-from-global-scope="Hojde.Button">Eksportér logbog som PDF</x-import></div>
+<div class="tabs"><a href="#" aria-current="page">Logbog</a><a href="#">Dokumenter og udløb</a><a href="#">Hændelser (1)</a></div>
+<div class="tbl"><table>
+<thead><tr><th>Flyvning</th><th>Dato og tid</th><th>Lokation</th><th>Pilot</th><th>Drone</th><th>Varighed</th><th>Vejr</th><th>Hændelser</th></tr></thead>
+<tbody>
+<tr><td class="mono">FL-0931</td><td class="mono">09.10.2026 09:12</td><td>Kystparken blok B</td><td>Anders</td><td class="mono">Mini 5 Pro · C0</td><td class="mono">3 × 19 min</td><td class="mono">6 m/s</td><td class="muted">Ingen</td></tr>
+<tr><td class="mono">FL-0928</td><td class="mono">02.10.2026 10:04</td><td>Kystparken blok C</td><td>Emil</td><td class="mono">Mini 5 Pro · C0</td><td class="mono">4 × 18 min</td><td class="mono">8 m/s</td><td class="muted">Ingen</td></tr>
+<tr><td class="mono">FL-0925</td><td class="mono">24.09.2026 13:30</td><td>Kystparken blok A</td><td>Anders</td><td class="mono">Mini 5 Pro · C0</td><td class="mono">2 × 21 min</td><td class="mono">5 m/s</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">GPS-tab</x-import></td></tr>
+</tbody></table></div>
+<section class="card">
+<h2 class="h2">Dokumenter og udløb</h2>
+<ul class="list">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Gyldig</x-import><span class="grow">Operatørregistrering hos Trafikstyrelsen</span><span class="mono">[OPERATØR-ID]</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Udløber om 26 dage</x-import><span class="grow">Ansvarsforsikring, erhverv</span><x-import component-from-global-scope="Hojde.Button" size="sm">Upload ny police</x-import></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Gyldig</x-import><span class="grow">Anders · A1/A3 og A2</span><span class="mono">udløber 2030</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Gyldig</x-import><span class="grow">Emil · A1/A3 og A2</span><span class="mono">udløber 2030</span></li>
+</ul>
+</section>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

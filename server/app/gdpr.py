@@ -12,6 +12,7 @@ from datetime import datetime
 from fastapi import HTTPException
 
 from app import db, jobs, retention, uploads, webhooks
+from app.hojde import gdpr as hojde_gdpr
 from app.logs import RequestMeta, audit
 from app.storage import get_storage
 
@@ -144,6 +145,8 @@ async def build_user_export(conn, user_id: int) -> dict:
                                  user_id),
         "ai_budget_alerts": await rows("""select month, kind, pct, used, limit_tokens, created_at, mailed_at from ai_budget_alerts
                                           where user_id = %s order by created_at""", user_id),
+        # Højde: memberships and what is linked to them (orders, flights, checklist items, findings, certificates).
+        "hojde": await hojde_gdpr.export(conn, user_id, user["email"]),
         "analytics_events": await rows("""select ts, kind, path, referrer, device, browser from analytics_events
                                           where user_id = %s or visitor_id = any(%s) order by ts limit 50000""",
                                        user_id, visitor_ids),
@@ -160,7 +163,8 @@ data.json   alt, vi har gemt om dig: bruger og profil, passkeys og sikkerhedsnø
             GDPR-anmodninger, samtykker, login-log, ændringslog, AI-forbrug, feature-niveau og -brug,
             MCP-adgangsanmodninger (hvad dine MCP-klienter har bedt om, og hvem der godkendte),
             review-sessioner og -noter, testkonti du har oprettet, sider du har åbnet (adoptionsforløb),
-            skub og roller i adoptionsforløb og statistik knyttet til dig.
+            skub og roller i adoptionsforløb, dine Højde-medlemskaber (og de bestillinger, tilbud, flyvninger,
+            tjeklistepunkter, fund og certifikater, der er knyttet til dem) og statistik knyttet til dig.
 files/      kopier af de filer, du har uploadet, dit profilbillede og skærmbilleder og lyd fra review-noter.
 
 Samtaler med AI'en bliver ikke gemt og er derfor ikke med. Dine mails, kalenderaftaler og kontakter ligger i
@@ -241,10 +245,12 @@ async def erase_user(user_id: int, *, actor_id: int | None, meta: RequestMeta, r
         if user["email"]:
             await conn.execute("delete from user_delegations where delegate_id is null and delegate_email = %s",
                                (user["email"],))
+        # Højde: memberships are anonymised (the logbook keeps its pilot reference and shows "Slettet bruger").
+        hojde_members = await hojde_gdpr.erase(conn, user_id, user["email"])
         await conn.execute("delete from users where id = %s", (user_id,))
         await audit(conn, "gdpr.erasure", actor_id=actor_id if actor_id != user_id else None, meta=meta,
                     table="users", row_id=user_id, reason=reason, gdpr_request=gdpr_request, files=len(files),
-                    by_self=actor_id == user_id)
+                    by_self=actor_id == user_id, hojde_members=hojde_members)
         await webhooks.emit(conn, "user.deleted", {"user_id": user_id})
     for f in files:
         try:

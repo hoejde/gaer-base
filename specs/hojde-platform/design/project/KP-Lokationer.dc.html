@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Lokationer</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">Boligforeningen Kystparken ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil: Mette Holm">MH</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html" aria-current="page">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Lokationer</h1><x-import component-from-global-scope="Hojde.Button" variant="primary">Opret lokation</x-import></div>
+<div class="tools">
+<label><span class="muted small">Søg </span><input type="search" placeholder="Navn eller adresse"></label>
+<label><span class="muted small">Type </span><select><option>Alle typer</option><option>Bygning</option><option>Byggeplads</option><option>Område</option></select></label>
+<span class="grow"></span>
+<x-import component-from-global-scope="Hojde.Button" size="sm">Liste</x-import>
+<x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Kort</x-import>
+</div>
+<div class="tbl"><table>
+<thead><tr><th>Lokation</th><th>Type</th><th>Seneste besøg</th><th>Næste besøg</th><th>Åbne fund</th></tr></thead>
+<tbody>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Kystparken blok C</strong></a><br><span class="muted">Strandvejen 14, 2900 Hellerup</span></td><td>Bygning</td><td class="mono">02.10.2026</td><td class="mono">—</td><td><x-import component-from-global-scope="Hojde.Badge" tone="danger" dot="{{yes}}">1 kritisk</x-import> <span class="muted">· 8 øvrige</span></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Kystparken blok B</strong></a><br><span class="muted">Strandvejen 12, 2900 Hellerup</span></td><td>Bygning</td><td class="mono">11.09.2026</td><td class="mono">14.10.2026</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">2 moderate</x-import></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Kystparken blok A</strong></a><br><span class="muted">Strandvejen 10, 2900 Hellerup</span></td><td>Bygning</td><td class="mono">24.09.2026</td><td class="mono">21.10.2026</td><td><span class="muted">Ingen</span></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Strandvejen 8</strong></a><br><span class="muted">Strandvejen 8, 2900 Hellerup</span></td><td>Bygning</td><td class="mono">11.09.2026</td><td class="mono">—</td><td><x-import component-from-global-scope="Hojde.Badge" dot="{{yes}}">5 lave</x-import></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Fællesareal og p-plads</strong></a><br><span class="muted">Strandvejen 10-14</span></td><td>Område</td><td class="mono">03.2026</td><td class="mono">—</td><td><span class="muted">Ingen</span></td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Viser 5 af 14 lokationer.</p>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Log ind</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <div style="flex: 1 1 480px; min-width: 0; background: var(--ink); color: var(--surface); padding: 64px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; position: relative; overflow: hidden;">
+    <div style="font-family: var(--font-display); font-weight: 700; font-size: 28px; letter-spacing: -0.01em;">Højde</div>
+    <div style="display: grid; grid-template-columns: repeat(6, 12px); gap: 36px; position: absolute; right: 64px; top: 120px; opacity: 0.5;" aria-hidden="true">
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0 6H12M6 0V12" stroke="currentColor" stroke-width="2"></path></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0 6H12M6 0V12" stroke="currentColor" stroke-width="2"></path></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0 6H12M6 0V12" stroke="currentColor" stroke-width="2"></path></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0 6H12M6 0V12" stroke="currentColor" stroke-width="2"></path></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0 6H12M6 0V12" stroke="currentColor" stroke-width="2"></path></svg>
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M0 6H12M6 0V12" stroke="currentColor" stroke-width="2"></path></svg>
+    </div>
+    <div style="max-width: 520px; display: flex; flex-direction: column; gap: 16px;">
+      <h1 style="margin: 0; font-family: var(--font-display); font-size: 56px; line-height: 60px; font-weight: 700; letter-spacing: -0.02em;">Præcise data fra luften, omsat til beslutninger.</h1>
+      <p style="margin: 0; font-size: 18px; line-height: 28px; opacity: 0.8;">Følg dine bygninger og byggepladser over tid, hent rapporter og se AI-fund ét sted.</p>
+    </div>
+    <div style="font-family: var(--font-mono); font-size: 13px; line-height: 20px; opacity: 0.7;">Registreret droneoperatør · Data hostes i EU</div>
+  </div>
+  <div style="flex: 1 1 480px; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 48px 24px; box-sizing: border-box;">
+    <form style="width: 100%; max-width: 400px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 24px; line-height: 30px; font-weight: 600;">Log ind</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted);">Kunder og medarbejdere bruger samme login.</p>
+      </div>
+      <x-import component-from-global-scope="Hojde.Input" label="E-mail" type="email" placeholder="navn@firma.dk" style="width: 100%;"></x-import>
+      <x-import component-from-global-scope="Hojde.Input" label="Adgangskode" type="password" placeholder="Mindst 12 tegn" style="width: 100%;"></x-import>
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
+        <label style="display: flex; gap: 8px; align-items: center; color: var(--ink-muted);"><input type="checkbox"> Husk mig</label>
+        <a href="#glemt">Glemt adgangskode?</a>
+      </div>
+      <x-import component-from-global-scope="Hojde.Button" variant="primary" href="KP-Overblik.dc.html" style="width: 100%; justify-content: center;">Log ind</x-import>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); text-align: center;">Prototype: <a href="KP-Overblik.dc.html">log ind som kunde</a> · <a href="BO-Overblik.dc.html">log ind som medarbejder</a></p>
+      <div style="display: flex; align-items: center; gap: 12px; color: var(--ink-muted); font-size: 13px;"><span style="flex: 1; height: 1px; background: var(--line);"></span>eller<span style="flex: 1; height: 1px; background: var(--line);"></span></div>
+      <x-import component-from-global-scope="Hojde.Button" style="width: 100%; justify-content: center;">Log ind med Microsoft</x-import>
+      <x-import component-from-global-scope="Hojde.Button" style="width: 100%; justify-content: center;">Log ind med Google</x-import>
+      <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); text-align: center;">Ny kunde? <a href="Web-Forside.dc.html">Få et tilbud</a></p>
+    </form>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

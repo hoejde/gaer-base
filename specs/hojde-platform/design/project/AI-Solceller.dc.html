@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Analyse: solcellepark</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">[Solcellepark ApS] ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil">SP</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<p class="crumb"><a href="KP-Rapporter.dc.html">Rapporter</a> › Termografi</p>
+<div class="head"><div><h1 class="h1">Solcellepark Vestmark · termografi</h1><div class="tools" style="margin-top: 8px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">AI-ydelse</x-import><span class="mono muted">Fløjet 05.10.2026 kl. 12:10 · indstråling 780 W/m² · termisk drone</span></div></div><span class="tools"><x-import component-from-global-scope="Hojde.Button">Eksportér til O&amp;M-system</x-import><x-import component-from-global-scope="Hojde.Button" variant="primary">Hent rapport</x-import></span></div>
+<div class="grid">
+<x-import component-from-global-scope="Hojde.Stat" label="Paneler analyseret" value="12.480"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Fejl fundet" value="37" delta="9 siden sidste år" trend="down"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Strenge ude" value="2" delta="kritisk" trend="down"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Estimeret tab" value="[X]" unit="MWh/år"></x-import>
+</div>
+<div class="cols">
+<section class="card" style="flex: 3 1 480px;">
+<h2 class="h2">Felt B, række 1–8</h2>
+<svg viewBox="0 0 640 300" role="img" aria-label="Solpaneler i felt B med markerede fejl" style="width: 100%; height: auto; background: var(--surface-sunken); border-radius: var(--radius-lg);">
+<defs><pattern id="panel" width="24" height="30" patternUnits="userSpaceOnUse"><rect x="1" y="1" width="22" height="28" fill="var(--data-3)" opacity="0.55"></rect></pattern></defs>
+<rect x="20" y="20" width="600" height="60" fill="url(#panel)"></rect>
+<rect x="20" y="90" width="600" height="60" fill="url(#panel)"></rect>
+<rect x="20" y="160" width="600" height="60" fill="url(#panel)"></rect>
+<rect x="20" y="230" width="600" height="60" fill="url(#panel)"></rect>
+<rect x="21" y="91" width="190" height="28" fill="none" stroke="var(--warning)" stroke-width="3"></rect>
+<rect x="117" y="21" width="22" height="28" fill="var(--danger)"></rect>
+<rect x="381" y="161" width="22" height="28" fill="var(--danger)"></rect>
+<rect x="501" y="231" width="22" height="28" fill="var(--data-4)"></rect>
+<rect x="525" y="231" width="22" height="28" fill="var(--data-4)"></rect>
+<text x="24" y="138" fill="var(--warning)" font-size="13" font-weight="600">Streng B2-4 ude</text>
+</svg>
+<div class="tools small"><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--danger);"></span> Hotspot</span><span><span style="display: inline-block; width: 12px; height: 12px; border: 2px solid var(--warning);"></span> Streng ude</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--data-4);"></span> Tilsmudsning</span></div>
+</section>
+<section class="card" style="flex: 2 1 320px;">
+<h2 class="h2">Fejl efter type</h2>
+<div class="tbl" style="border: none;"><table style="min-width: 0;">
+<thead><tr><th>Type</th><th>Antal</th><th>Alvor</th></tr></thead>
+<tbody>
+<tr><td>Streng ude</td><td class="mono">2</td><td><x-import component-from-global-scope="Hojde.Badge" tone="danger" dot="{{yes}}">Kritisk</x-import></td></tr>
+<tr><td>Hotspot over 20 °C</td><td class="mono">6</td><td><x-import component-from-global-scope="Hojde.Badge" tone="danger" dot="{{yes}}">Kritisk</x-import></td></tr>
+<tr><td>Defekt bypass-diode</td><td class="mono">11</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Moderat</x-import></td></tr>
+<tr><td>Tilsmudsning og skygge</td><td class="mono">18</td><td><x-import component-from-global-scope="Hojde.Badge" dot="{{yes}}">Lav</x-import></td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Hvert fund har panel-ID, GPS-position og termisk billede, så serviceteknikeren kan gå direkte til panelet.</p>
+</section>
+</div>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Kunder</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark">
+<header class="top"><a class="logo" href="BO-Overblik.dc.html">Højde</a><x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import><span class="grow"></span><span class="muted small">Emil · Administrator</span><a class="av" href="BO-Admin.dc.html" aria-label="Min profil: Emil">E</a></header>
+<div class="row">
+<nav class="nav" aria-label="Backoffice">
+<a href="BO-Overblik.dc.html">Overblik</a>
+<a href="BO-Opgaver.dc.html">Opgaver</a>
+<a href="BO-Compliance.dc.html">Flyvelog og compliance</a>
+<a href="BO-Data.dc.html">Databehandling</a>
+<a href="BO-Kvalitet.dc.html">Kvalitetskontrol</a>
+<a href="BO-Rapporter.dc.html">Rapporter</a>
+<a href="BO-Kunder.dc.html" aria-current="page">Kunder</a>
+<a href="BO-Oekonomi.dc.html">Økonomi</a>
+<a href="BO-Udstyr.dc.html">Udstyr</a>
+<a href="BO-AI.dc.html">AI-modeller</a>
+<a href="BO-Indhold.dc.html">Indhold</a>
+<a href="BO-Admin.dc.html">Administration</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Kunder</h1><span class="tools"><x-import component-from-global-scope="Hojde.Button">Nyt tilbud</x-import><x-import component-from-global-scope="Hojde.Button" variant="primary">Opret kunde</x-import></span></div>
+<div class="tabs"><a href="#" aria-current="page">Kunder (6)</a><a href="#">Leads (4)</a><a href="#">Tilbud (2)</a></div>
+<div class="tools"><label><span class="muted small">Søg </span><input type="search" placeholder="Navn eller CVR"></label></div>
+<div class="tbl"><table>
+<thead><tr><th>Organisation</th><th>CVR</th><th>Lokationer</th><th>Abonnementer</th><th>Seneste aktivitet</th><th></th></tr></thead>
+<tbody>
+<tr><td><strong>Boligforeningen Kystparken</strong><br><span class="muted small">Mette Holm, kundeadministrator</span></td><td class="mono">[CVR]</td><td class="mono">14</td><td>2 aktive</td><td class="muted small">Rapport udgivet 02.10</td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm">Åbn</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet" href="KP-Overblik.dc.html">Vis som kunde</x-import></span></td></tr>
+<tr><td><strong>[Bygherre]</strong><br><span class="muted small">[Byggeleder]</span></td><td class="mono">[CVR]</td><td class="mono">1</td><td>Byggelån, 12 besøg</td><td class="muted small">Besøg 4 planlagt 13.10</td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm">Åbn</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Vis som kunde</x-import></span></td></tr>
+<tr><td><strong>[Arkitektfirma]</strong><br><span class="muted small">[Kontakt]</span></td><td class="mono">[CVR]</td><td class="mono">2</td><td>Ingen</td><td class="muted small">3D-model bestilt 06.10</td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm">Åbn</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Vis som kunde</x-import></span></td></tr>
+</tbody></table></div>
+<section class="card">
+<h2 class="h2">Nyeste leads fra hjemmesiden</h2>
+<ul class="list">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import><span class="grow">[Ejendomsadministrator] · 6 bygninger i Valby</span><span class="mono muted">i går</span><x-import component-from-global-scope="Hojde.Button" size="sm">Lav tilbud</x-import></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="signal">Byggelån</x-import><span class="grow">[Udvikler] · nybyg i Ørestad</span><span class="mono muted">i dag</span><x-import component-from-global-scope="Hojde.Button" size="sm">Lav tilbud</x-import></li>
+</ul>
+</section>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

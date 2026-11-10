@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Backoffice overblik</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div data-theme="dark" style="min-height: 100vh; background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <header style="background: var(--surface-raised); border-bottom: 1px solid var(--line); padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+    <span style="font-family: var(--font-display); font-weight: 700; font-size: 22px;">Højde</span>
+    <x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import>
+    <span style="flex: 1;"></span>
+    <span style="font-size: 14px; color: var(--ink-muted);">Emil · Administrator</span>
+    <button type="button" style="font: inherit; font-size: 14px; border: none; background: var(--kote-soft); color: var(--kote); border-radius: var(--radius-full); width: 40px; height: 40px; font-weight: 600;" aria-label="Min profil: Emil">E</button>
+  </header>
+  <div style="display: flex; flex-wrap: wrap;">
+    <nav aria-label="Backoffice" style="flex: 1 1 220px; max-width: 260px; min-width: 200px; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px; border-right: 1px solid var(--line); font-size: 15px;">
+      <a href="BO-Overblik.dc.html" aria-current="page" style="padding: 9px 12px; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); font-weight: 600; text-decoration: none;">Overblik</a>
+      <a href="BO-Opgaver.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Opgaver</a>
+      <a href="BO-Compliance.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Flyvelog og compliance</a>
+      <a href="BO-Data.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Databehandling</a>
+      <a href="BO-Kvalitet.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Kvalitetskontrol</a>
+      <a href="BO-Rapporter.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Rapporter</a>
+      <a href="BO-Kunder.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Kunder</a>
+      <a href="BO-Oekonomi.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Økonomi</a>
+      <a href="BO-Udstyr.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Udstyr</a>
+      <a href="BO-AI.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">AI-modeller</a>
+      <a href="BO-Indhold.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Indhold</a>
+      <a href="BO-Admin.dc.html" style="padding: 9px 12px; color: var(--ink); text-decoration: none;">Administration</a>
+    </nav>
+    <main style="flex: 999 1 560px; min-width: 0; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px; max-width: 1180px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;">
+        <div>
+          <p style="margin: 0; font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted);">Tirsdag 13.10.2026</p>
+          <h1 style="margin: 0; font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em;">Overblik</h1>
+        </div>
+        <x-import component-from-global-scope="Hojde.Button" variant="primary" href="BO-Opgave.dc.html">Ny opgave</x-import>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <x-import component-from-global-scope="Hojde.Stat" label="Flyvninger i dag" value="3" delta="1 med vejrforbehold" trend="flat"></x-import>
+        <x-import component-from-global-scope="Hojde.Stat" label="Fund til kontrol" value="14" delta="fra 2 opgaver" trend="flat"></x-import>
+        <x-import component-from-global-scope="Hojde.Stat" label="Job i kø" value="2" delta="1 fejlet" trend="down"></x-import>
+        <x-import component-from-global-scope="Hojde.Stat" label="Nye leads" value="4" delta="2 siden i går" trend="up"></x-import>
+      </div>
+      <section style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;"><h2 style="margin: 0; font-size: 18px; line-height: 26px;">Dagens flyvninger</h2><a href="BO-Opgaver.dc.html">Planlægning</a></div>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; min-width: 720px;">
+            <thead><tr style="background: var(--surface-sunken); text-align: left;"><th style="padding: 10px 12px;">Tid</th><th style="padding: 10px 12px;">Lokation</th><th style="padding: 10px 12px;">Pilot</th><th style="padding: 10px 12px;">Vejr</th><th style="padding: 10px 12px;">Zone</th><th style="padding: 10px 12px;">Status</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line);"><td style="padding: 12px; font-family: var(--font-mono);">08:00</td><td style="padding: 12px;"><a href="BO-Opgave.dc.html">Strandvejen 12</a><br><span style="color: var(--ink-muted);">Kystparken · inspektion</span></td><td style="padding: 12px;">Anders</td><td style="padding: 12px; font-family: var(--font-mono);">11 m/s · tørt</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">Fri</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Vejrforbehold</x-import></td></tr>
+              <tr style="border-bottom: 1px solid var(--line);"><td style="padding: 12px; font-family: var(--font-mono);">10:30</td><td style="padding: 12px;">Nordhavn byggefelt 7<br><span style="color: var(--ink-muted);">[Bygherre] · byggelån</span></td><td style="padding: 12px;">Anders</td><td style="padding: 12px; font-family: var(--font-mono);">8 m/s · tørt</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="warning">Tilladelse</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="signal" dot="{{yes}}">Forberedelse</x-import></td></tr>
+              <tr><td style="padding: 12px; font-family: var(--font-mono);">13:00</td><td style="padding: 12px;">Valby Langgade 40<br><span style="color: var(--ink-muted);">[Kunde] · 3D-model</span></td><td style="padding: 12px;">Emil</td><td style="padding: 12px; font-family: var(--font-mono);">6 m/s · tørt</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">Fri</x-import></td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Klar</x-import></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <div style="display: flex; flex-wrap: wrap; gap: 24px;">
+        <section style="flex: 1 1 360px; min-width: 0; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+          <h2 style="margin: 0; font-size: 18px; line-height: 26px;">Venter på analyse</h2>
+          <div style="display: flex; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line);"><span style="flex: 1;">Kystparken blok B · 9 fund</span><a href="BO-Kvalitet.dc.html">Kontrollér</a></div>
+          <div style="display: flex; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line);"><span style="flex: 1;">Strandvejen 8 · 5 fund</span><a href="BO-Kvalitet.dc.html">Kontrollér</a></div>
+          <div style="display: flex; gap: 12px; align-items: center; padding: 8px 0;"><span style="flex: 1;">Valby Langgade 40 · 3D-job fejlede</span><x-import component-from-global-scope="Hojde.Button" size="sm">Genstart</x-import></div>
+        </section>
+        <section style="flex: 1 1 360px; min-width: 0; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+          <h2 style="margin: 0; font-size: 18px; line-height: 26px;">Compliance</h2>
+          <div style="display: flex; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line);"><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">26 dage</x-import><span style="flex: 1;">Ansvarsforsikring skal fornyes</span></div>
+          <div style="display: flex; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line);"><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">OK</x-import><span style="flex: 1;">Operatørregistrering gyldig</span></div>
+          <div style="display: flex; gap: 12px; align-items: center; padding: 8px 0;"><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">OK</x-import><span style="flex: 1;">Pilotcertifikater: 2 af 2 gyldige</span></div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

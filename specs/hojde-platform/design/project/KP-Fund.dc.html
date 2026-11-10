@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Fund</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">Boligforeningen Kystparken ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil: Mette Holm">MH</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html">Rapporter</a>
+<a href="KP-Fund.dc.html" aria-current="page">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Fund</h1><x-import component-from-global-scope="Hojde.Button">Eksportér til Excel</x-import></div>
+<div class="tools">
+<label><span class="muted small">Alvor </span><select><option>Alle</option><option>Kritisk</option><option>Moderat</option><option>Lav</option></select></label>
+<label><span class="muted small">Status </span><select><option>Åbne</option><option>Ny</option><option>Planlagt</option><option>Udbedret</option><option>Afvist</option></select></label>
+<label><span class="muted small">Lokation </span><select><option>Alle lokationer</option><option>Kystparken blok C</option></select></label>
+</div>
+<div class="tbl"><table>
+<thead><tr><th>Fund</th><th>Lokation</th><th>Alvor</th><th>Fundet</th><th>Ansvarlig</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Løs tagsten ved tagfod</strong></a><br><span class="muted small">Nordside · ny siden sidste besøg</span></td><td>Kystparken blok C</td><td><x-import component-from-global-scope="Hojde.Badge" tone="danger" dot="{{yes}}">Kritisk</x-import></td><td class="mono">02.10.2026</td><td><select class="org" aria-label="Ansvarlig"><option>Vælg ansvarlig</option><option>Jens Pedersen</option></select></td><td><x-import component-from-global-scope="Hojde.Badge">Ny</x-import></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Revne i inddækning ved skorsten</strong></a><br><span class="muted small">Uændret siden 14.03</span></td><td>Kystparken blok C</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Moderat</x-import></td><td class="mono">14.03.2026</td><td>Jens Pedersen</td><td><x-import component-from-global-scope="Hojde.Badge" tone="signal">Planlagt</x-import></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Utæt tagrende</strong></a><br><span class="muted small">Østfacade</span></td><td>Kystparken blok B</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Moderat</x-import></td><td class="mono">11.09.2026</td><td>Lars Krogh</td><td><x-import component-from-global-scope="Hojde.Badge" tone="signal">Planlagt</x-import></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Mos og begroning</strong></a><br><span class="muted small">Sydvendt flade</span></td><td>Strandvejen 8</td><td><x-import component-from-global-scope="Hojde.Badge" dot="{{yes}}">Lav</x-import></td><td class="mono">11.09.2026</td><td>—</td><td><x-import component-from-global-scope="Hojde.Badge">Ny</x-import></td></tr>
+<tr><td><a href="KP-Lokation.dc.html"><strong>Knækket tagsten</strong></a><br><span class="muted small">Udbedret 20.09 med foto</span></td><td>Kystparken blok A</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Moderat</x-import></td><td class="mono">03.2026</td><td>Jens Pedersen</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote">Udbedret</x-import></td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Alle fund er godkendt af en analytiker. Åbn et fund for at se billede, placering og kommentarer.</p>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

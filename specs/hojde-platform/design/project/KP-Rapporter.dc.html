@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Rapporter</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">Boligforeningen Kystparken ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil: Mette Holm">MH</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Rapporter</h1><x-import component-from-global-scope="Hojde.Button" variant="primary" href="KP-Upload.dc.html">Upload billeder og video</x-import></div>
+<div class="tools">
+<label><span class="muted small">Ydelse </span><select><option>Alle ydelser</option><option>Bygningsinspektion</option><option>Byggelånsdokumentation</option><option>3D-model</option></select></label>
+<label><span class="muted small">Lokation </span><select><option>Alle lokationer</option><option>Kystparken blok C</option></select></label>
+<label><span class="muted small">Periode </span><select><option>Seneste 12 måneder</option><option>2025</option></select></label>
+</div>
+<div class="tbl"><table>
+<thead><tr><th>Leverance</th><th>Lokation</th><th>Dato</th><th>Version</th><th></th></tr></thead>
+<tbody>
+<tr><td><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import> Tag og facade, 9 fund</td><td><a href="KP-Lokation.dc.html">Kystparken blok C</a></td><td class="mono">02.10.2026</td><td class="mono">v1</td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm" href="KP-Lokation.dc.html">Åbn</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">PDF</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Del</x-import></span></td></tr>
+<tr><td><x-import component-from-global-scope="Hojde.Badge" tone="kote">3D-model</x-import> Model og ortofoto</td><td><a href="KP-Lokation.dc.html">Kystparken blok A</a></td><td class="mono">24.09.2026</td><td class="mono">v2</td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm" href="KP-Lokation.dc.html">Åbn</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Hent data</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Del</x-import></span></td></tr>
+<tr><td><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import> Tag, 5 fund</td><td><a href="KP-Lokation.dc.html">Strandvejen 8</a></td><td class="mono">11.09.2026</td><td class="mono">v1</td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm" href="KP-Lokation.dc.html">Åbn</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">PDF</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Del</x-import></span></td></tr>
+<tr><td><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import> Tag og facade, 11 fund</td><td><a href="KP-Lokation.dc.html">Kystparken blok C</a></td><td class="mono">14.03.2026</td><td class="mono">v1</td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm" href="KP-Lokation.dc.html">Åbn</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">PDF</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Del</x-import></span></td></tr>
+</tbody></table></div>
+<section class="card">
+<h2 class="h2">Eksempler på analyser i andre brancher</h2>
+<div class="grid">
+<a href="KP-Lokation.dc.html" style="padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); text-decoration: none; color: var(--ink);"><strong>Tag og facade</strong><br><span class="muted small">Skader efter alvor</span></a>
+<a href="AI-Byggeplads.dc.html" style="padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); text-decoration: none; color: var(--ink);"><strong>Byggeplads</strong><br><span class="muted small">Fremdrift og volumen</span></a>
+<a href="AI-Solceller.dc.html" style="padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); text-decoration: none; color: var(--ink);"><strong>Solcellepark</strong><br><span class="muted small">Termografi og fejl</span></a>
+<a href="AI-Event.dc.html" style="padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); text-decoration: none; color: var(--ink);"><strong>Event</strong><br><span class="muted small">Crowd-tæthed og flow</span></a>
+<a href="AI-Landbrug.dc.html" style="padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); text-decoration: none; color: var(--ink);"><strong>Landbrug</strong><br><span class="muted small">Ukrudtskort</span></a>
+<a href="AI-Skov.dc.html" style="padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md); text-decoration: none; color: var(--ink);"><strong>Skov</strong><br><span class="muted small">Stormfald og trætælling</span></a>
+</div>
+</section>
+<p class="muted small" style="margin: 0;">Delte links udløber efter den periode, du vælger, og kan tilbagekaldes under Organisation › Delte links.</p>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

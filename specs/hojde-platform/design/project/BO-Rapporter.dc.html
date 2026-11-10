@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Rapporter og skabeloner</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark">
+<header class="top"><a class="logo" href="BO-Overblik.dc.html">Højde</a><x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import><span class="grow"></span><span class="muted small">Emil · Administrator</span><a class="av" href="BO-Admin.dc.html" aria-label="Min profil: Emil">E</a></header>
+<div class="row">
+<nav class="nav" aria-label="Backoffice">
+<a href="BO-Overblik.dc.html">Overblik</a>
+<a href="BO-Opgaver.dc.html">Opgaver</a>
+<a href="BO-Compliance.dc.html">Flyvelog og compliance</a>
+<a href="BO-Data.dc.html">Databehandling</a>
+<a href="BO-Kvalitet.dc.html">Kvalitetskontrol</a>
+<a href="BO-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="BO-Kunder.dc.html">Kunder</a>
+<a href="BO-Oekonomi.dc.html">Økonomi</a>
+<a href="BO-Udstyr.dc.html">Udstyr</a>
+<a href="BO-AI.dc.html">AI-modeller</a>
+<a href="BO-Indhold.dc.html">Indhold</a>
+<a href="BO-Admin.dc.html">Administration</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Rapporter</h1></div>
+<div class="tabs"><a href="#" aria-current="page">Klar til udgivelse (1)</a><a href="#">Udgivet</a><a href="#">Skabeloner (3)</a></div>
+<div class="tbl"><table>
+<thead><tr><th>Rapport</th><th>Kunde</th><th>Fund</th><th>Godkendt af</th><th>Status</th><th></th></tr></thead>
+<tbody>
+<tr><td><strong>Strandvejen 8 · tag</strong><br><span class="muted small">Skabelon: Bygningsinspektion v2</span></td><td>Boligforeningen Kystparken</td><td class="mono">5</td><td>Emil</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Klar</x-import></td><td><span class="tools"><x-import component-from-global-scope="Hojde.Button" size="sm">Forhåndsvis</x-import><x-import component-from-global-scope="Hojde.Button" size="sm" variant="primary">Udgiv til kunde</x-import></span></td></tr>
+<tr><td><strong>Kystparken blok B · tag og facade</strong><br><span class="muted small">Skabelon: Bygningsinspektion v2</span></td><td>Boligforeningen Kystparken</td><td class="mono">9</td><td>—</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">4 af 9 kontrolleret</x-import></td><td><a href="BO-Kvalitet.dc.html">Fortsæt kontrol</a></td></tr>
+</tbody></table></div>
+<section class="card">
+<h2 class="h2">Skabeloner</h2>
+<ul class="list">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">AI-ydelse</x-import><span class="grow">Bygningsinspektion v2 · forside, oversigtskort, fund efter alvor, anbefalinger</span><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Redigér</x-import></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="signal">Droneydelse</x-import><span class="grow">Byggelånsdokumentation v1 · faste fotopunkter, sammenligning, erklæring</span><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Redigér</x-import></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Dataanalyse</x-import><span class="grow">3D-model v1 · model, ortofoto, målinger, filer til download</span><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">Redigér</x-import></li>
+</ul>
+</section>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

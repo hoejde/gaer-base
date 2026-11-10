@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Kvalitetskontrol af fund</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div data-theme="dark" style="min-height: 100vh; background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <header style="background: var(--surface-raised); border-bottom: 1px solid var(--line); padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+    <a href="BO-Overblik.dc.html" style="font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--ink); text-decoration: none;">Højde</a>
+    <x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import>
+    <span style="flex: 1;"></span>
+    <a href="BO-Overblik.dc.html">Tilbage til overblik</a>
+    <span style="font-size: 14px; color: var(--ink-muted);">Emil · Analytiker</span>
+    <button type="button" style="font: inherit; font-size: 14px; border: none; background: var(--kote-soft); color: var(--kote); border-radius: var(--radius-full); width: 40px; height: 40px; font-weight: 600;" aria-label="Min profil: Emil">E</button>
+  </header>
+  <main style="padding: 24px 32px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <p style="margin: 0; font-size: 14px; color: var(--ink-muted);"><a href="BO-Overblik.dc.html">Kvalitetskontrol</a> › <span style="font-family: var(--font-mono);">OP-2026-0412</span></p>
+        <h1 style="margin: 0; font-family: var(--font-display); font-size: 32px; line-height: 38px; font-weight: 700; letter-spacing: -0.015em;">Kystparken blok B · tag og facade</h1>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <span style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted);">4 af 9 gennemgået</span>
+        <x-import component-from-global-scope="Hojde.Button" disabled="{{yes}}">Generér og udgiv rapport</x-import>
+      </div>
+    </div>
+    <div style="height: 6px; background: var(--surface-sunken); border-radius: var(--radius-full);"><div style="width: 44%; height: 6px; background: var(--kote); border-radius: var(--radius-full);"></div></div>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
+      <aside aria-label="Fund i opgaven" style="flex: 1 1 220px; max-width: 260px; min-width: 200px; display: flex; flex-direction: column; gap: 8px;">
+        <button type="button" style="font: inherit; text-align: left; display: flex; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink);"><span style="font-family: var(--font-mono);">1</span><span style="flex: 1;">Løs tagsten</span><x-import component-from-global-scope="Hojde.Badge" tone="kote">Godkendt</x-import></button>
+        <button type="button" style="font: inherit; text-align: left; display: flex; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink);"><span style="font-family: var(--font-mono);">2</span><span style="flex: 1;">Revne i murværk</span><x-import component-from-global-scope="Hojde.Badge" tone="kote">Rettet</x-import></button>
+        <button type="button" style="font: inherit; text-align: left; display: flex; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink);"><span style="font-family: var(--font-mono);">3</span><span style="flex: 1;">Skygge</span><x-import component-from-global-scope="Hojde.Badge">Afvist</x-import></button>
+        <button type="button" style="font: inherit; text-align: left; display: flex; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink);"><span style="font-family: var(--font-mono);">4</span><span style="flex: 1;">Mos på tag</span><x-import component-from-global-scope="Hojde.Badge" tone="kote">Godkendt</x-import></button>
+        <button type="button" aria-current="true" style="font: inherit; text-align: left; display: flex; gap: 8px; align-items: center; padding: 10px; border: 2px solid var(--signal); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink); font-weight: 600;"><span style="font-family: var(--font-mono);">5</span><span style="flex: 1;">Manglende inddækning</span><x-import component-from-global-scope="Hojde.Badge" tone="warning">Til kontrol</x-import></button>
+        <button type="button" style="font: inherit; text-align: left; display: flex; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink-muted);"><span style="font-family: var(--font-mono);">6</span><span style="flex: 1;">Tagrende</span></button>
+        <button type="button" style="font: inherit; text-align: left; display: flex; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink-muted);"><span style="font-family: var(--font-mono);">7–9</span><span style="flex: 1;">3 fund mere</span></button>
+      </aside>
+      <section style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+        <div style="position: relative; height: 520px; background: var(--surface-sunken); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); font-family: var(--font-mono); font-size: 13px;">
+          [Billede DJI_0187.JPG · sløret]
+          <div style="position: absolute; left: 38%; top: 30%; width: 22%; height: 26%; border: 2px solid var(--warning); border-radius: var(--radius-sm);"></div>
+          <span style="position: absolute; left: 38%; top: calc(30% - 28px); background: var(--warning); color: var(--surface); font-size: 12px; padding: 2px 8px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-weight: 600;">AI: Manglende inddækning · 0,71</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted);">
+          <span>Model tagskade v1.3</span><span>·</span><span>Fløjet 09.10.2026 af Anders</span><span>·</span><span>Højde 22 m</span>
+        </div>
+      </section>
+      <aside style="flex: 1 1 320px; min-width: 0; max-width: 380px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+        <h2 style="margin: 0; font-size: 18px; line-height: 26px;">Fund 5</h2>
+        <label style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;">Type</span><select style="font: inherit; height: 40px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);"><option>Manglende inddækning</option><option>Revne i inddækning</option><option>Løs tagsten</option><option>Ikke et fund</option></select></label>
+        <label style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;">Alvor</span><select style="font: inherit; height: 40px; padding: 0 8px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);"><option>Moderat</option><option>Kritisk</option><option>Lav</option></select></label>
+        <label style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;">Anbefaling til kunden</span><textarea rows="3" style="font: inherit; font-size: 15px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);">Inddækning ved ventilationsrør mangler. Bør udbedres inden vinter.</textarea></label>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted);">Du kan godkende, fordi du ikke fløj opgaven. Rettelser gemmes som træningsdata.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <x-import component-from-global-scope="Hojde.Button" size="sm">Afvis</x-import>
+          <x-import component-from-global-scope="Hojde.Button" size="sm">Flyt markering</x-import>
+          <x-import component-from-global-scope="Hojde.Button" variant="primary" size="sm">Godkend og næste</x-import>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

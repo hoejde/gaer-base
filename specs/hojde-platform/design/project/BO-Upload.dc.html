@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Pilot: upload efter flyvning</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark" style="display: flex; flex-direction: column;">
+<header class="top" style="padding: 12px 16px;"><a href="BO-Opgave.dc.html" aria-label="Tilbage til opgaven" style="color: var(--ink); text-decoration: none; font-size: 22px;">‹</a><div class="grow"><strong>Nordhavn byggefelt 7</strong><br><span class="mono muted">OP-2026-0418</span></div><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Fløjet</x-import></header>
+<main style="padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+<section class="card" style="padding: 16px; gap: 12px;">
+<h1 class="h2">Upload data</h1>
+<div class="small">412 billeder og 1 video fra dronens kort</div>
+<div style="height: 10px; background: var(--surface-sunken); border-radius: 9999px;"><div style="width: 58%; height: 10px; background: var(--signal); border-radius: 9999px;"></div></div>
+<div style="display: flex; justify-content: space-between;" class="mono muted"><span>5,4 af 9,3 GB</span><span>4G · ca. 6 min</span></div>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px;"><input type="checkbox"> Vent med video til wifi</label>
+<x-import component-from-global-scope="Hojde.Button" style="justify-content: center;">Sæt på pause</x-import>
+</section>
+<section class="card" style="padding: 16px; gap: 8px;">
+<h2 class="h2">Flyvninger</h2>
+<ul class="list small">
+<li><span class="mono">10:34</span><span class="grow">Batteri 2 · 19 min</span><x-import component-from-global-scope="Hojde.Badge" tone="kote">Logget</x-import></li>
+<li><span class="mono">10:56</span><span class="grow">Batteri 3 · 18 min</span><x-import component-from-global-scope="Hojde.Badge" tone="kote">Logget</x-import></li>
+<li><span class="mono">11:17</span><span class="grow">Batteri 4 · 9 min</span><x-import component-from-global-scope="Hojde.Badge" tone="kote">Logget</x-import></li>
+</ul>
+</section>
+<section class="card" style="padding: 16px; gap: 10px;">
+<h2 class="h2">Efter flyvning</h2>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px;"><input type="checkbox" checked> Drone og batterier tjekket for skader</label>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px;"><input type="checkbox" checked> Afspærring fjernet</label>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px;"><input type="checkbox"> Ingen hændelser at rapportere</label>
+<label class="field"><span>Bemærkning</span><textarea rows="2">Kran i drift ved etape C; fotopunkt 7 taget fra 5 m højere.</textarea></label>
+</section>
+<x-import component-from-global-scope="Hojde.Button" variant="primary" href="BO-Data.dc.html" style="justify-content: center; height: 48px;">Afslut og send til analyse</x-import>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

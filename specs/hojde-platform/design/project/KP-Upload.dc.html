@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Upload billeder og video</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">Boligforeningen Kystparken ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil: Mette Holm">MH</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<p class="crumb"><a href="KP-Rapporter.dc.html">Rapporter</a> › Upload</p>
+<div class="head"><div><h1 class="h1">Upload billeder og video</h1><p class="muted" style="margin: 4px 0 0;">Fra jeres egen drone. Vi slører personer, kører AI-analysen og kvalitetskontrollerer resultatet.</p></div></div>
+<div class="cols">
+<section class="card" style="flex: 3 1 480px;">
+<label style="border: 2px dashed var(--line-strong); border-radius: var(--radius-lg); background: var(--surface-sunken); padding: 40px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; cursor: pointer;">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"></path><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path></svg>
+<strong style="font-size: 18px;">Træk filer hertil, eller vælg filer</strong>
+<span class="muted small">JPG, DNG, MP4, MOV og flylog (SRT). Op til 20 GB pr. upload; afbrudte uploads fortsætter automatisk.</span>
+<input type="file" multiple style="position: absolute; left: -9999px;">
+<x-import component-from-global-scope="Hojde.Button">Vælg filer</x-import>
+</label>
+<ul class="list">
+<li><span class="mono" style="min-width: 0; flex: 1;">DJI_0001–0412.JPG<br><span class="muted">412 billeder · 8,1 GB</span></span><span style="flex: 2; height: 8px; background: var(--surface-sunken); border-radius: 9999px;"><span style="display: block; width: 100%; height: 8px; background: var(--kote); border-radius: 9999px;"></span></span><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Uploadet</x-import></li>
+<li><span class="mono" style="min-width: 0; flex: 1;">DJI_0413.MP4<br><span class="muted">4K · 6 min 20 s · 2,3 GB</span></span><span style="flex: 2; height: 8px; background: var(--surface-sunken); border-radius: 9999px;"><span style="display: block; width: 64%; height: 8px; background: var(--signal); border-radius: 9999px;"></span></span><span class="mono">64 %</span></li>
+<li><span class="mono" style="min-width: 0; flex: 1;">DJI_0413.SRT<br><span class="muted">flylog · 48 kB</span></span><span style="flex: 2; height: 8px; background: var(--surface-sunken); border-radius: 9999px;"><span style="display: block; width: 100%; height: 8px; background: var(--kote); border-radius: 9999px;"></span></span><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Uploadet</x-import></li>
+</ul>
+</section>
+<section class="card" style="flex: 2 1 340px;">
+<h2 class="h2">Hvad skal analyseres?</h2>
+<label class="field"><span>Lokation</span><select><option>Kystparken blok A</option><option>Ny lokation fra billedernes GPS</option></select></label>
+<label class="field"><span>Analyse</span><select><option>Tag- og facadeskader</option><option>3D-model og ortofoto</option><option>Volumen</option><option>Fremdrift mod plan</option><option>Termisk anomali</option><option>Trætælling og stormfald</option></select></label>
+<label class="field"><span>Flyvedato</span><input type="text" value="11.10.2026 (fra billederne)"></label>
+<h3 class="h2" style="font-size: 16px;">Automatisk tjek</h3>
+<ul class="list small">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">OK</x-import><span class="grow">GPS i alle billeder</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">OK</x-import><span class="grow">Overlap <span class="mono">78 %</span> (minimum 70 %)</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">OK</x-import><span class="grow">Flyvehøjde <span class="mono">22–31 m</span></span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="warning">Advarsel</x-import><span class="grow">3 billeder er uskarpe og udelades</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Til</x-import><span class="grow">Sløring af personer og nummerplader</span></li>
+</ul>
+<x-import component-from-global-scope="Hojde.Button" variant="primary" href="KP-Rapporter.dc.html" style="justify-content: center;">Start analyse</x-import>
+<p class="muted small" style="margin: 0;">Leveres efter kvalitetskontrol, typisk inden for [X] arbejdsdage. Indgår i jeres abonnement på AI-analyse.</p>
+</section>
+</div>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

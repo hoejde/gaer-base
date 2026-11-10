@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Analyse: byggeplads</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">[Entreprenør] ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil">BL</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<p class="crumb"><a href="KP-Rapporter.dc.html">Rapporter</a> › Fremdrift og volumen</p>
+<div class="head"><div><h1 class="h1">Nordhavn byggefelt 7 · uge 42</h1><div class="tools" style="margin-top: 8px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">Dataanalyse</x-import><span class="mono muted">Fløjet 13.10.2026 · sammenlignet med 15.09.2026 · RTK ± 3 cm</span></div></div><span class="tools"><x-import component-from-global-scope="Hojde.Button">Del med bank</x-import><x-import component-from-global-scope="Hojde.Button" variant="primary">Hent rapport</x-import></span></div>
+<div class="grid">
+<x-import component-from-global-scope="Hojde.Stat" label="Samlet fremdrift" value="62" unit="%" delta="plan 66 %" trend="down"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Jorddepot nord" value="2.418" unit="m³" delta="312 m³ siden sidst" trend="up"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Grus, stabil" value="140" unit="m³" delta="under minimum 200 m³" trend="down"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Armering på plads" value="18" unit="bundter" delta="AI-tælling" trend="flat"></x-import>
+</div>
+<div class="cols">
+<section class="card" style="flex: 3 1 480px;">
+<h2 class="h2">Ortofoto med AI-lag</h2>
+<svg viewBox="0 0 640 380" role="img" aria-label="Byggepladsen med etaper efter status og depoter" style="width: 100%; height: auto; background: var(--surface-sunken); border-radius: var(--radius-lg);">
+<rect x="20" y="20" width="600" height="340" fill="none" stroke="var(--line-strong)" stroke-dasharray="6 4"></rect>
+<rect x="50" y="50" width="160" height="120" fill="var(--data-1)" opacity="0.85"></rect><text x="62" y="76" fill="var(--on-kote)" font-size="14" font-weight="600">A · færdig</text>
+<rect x="230" y="50" width="160" height="120" fill="var(--data-1)" opacity="0.85"></rect><text x="242" y="76" fill="var(--on-kote)" font-size="14" font-weight="600">B · færdig</text>
+<rect x="410" y="50" width="180" height="120" fill="var(--data-2)" opacity="0.85"></rect><text x="422" y="76" fill="var(--on-signal)" font-size="14" font-weight="600">C1 · i gang</text>
+<rect x="410" y="190" width="180" height="110" fill="none" stroke="var(--danger)" stroke-width="3"></rect><text x="422" y="216" fill="var(--danger)" font-size="14" font-weight="600">C2 · ikke startet</text>
+<ellipse cx="120" cy="270" rx="80" ry="50" fill="var(--data-4)" opacity="0.8"></ellipse><text x="78" y="275" fill="var(--ink)" font-size="13" font-weight="600">Jord 2.418 m³</text>
+<ellipse cx="300" cy="280" rx="50" ry="34" fill="var(--data-3)" opacity="0.8"></ellipse><text x="262" y="285" fill="var(--surface-raised)" font-size="13" font-weight="600">Grus 140 m³</text>
+</svg>
+<div class="tools small"><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--data-1);"></span> Færdig</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--data-2);"></span> I gang</span><span><span style="display: inline-block; width: 12px; height: 12px; border: 2px solid var(--danger);"></span> Forsinket</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--data-4);"></span><span style="display: inline-block; width: 12px; height: 12px; background: var(--data-3); margin-left: 2px;"></span> Depoter</span></div>
+</section>
+<section class="card" style="flex: 2 1 320px;">
+<h2 class="h2">Plan mod faktisk</h2>
+<div style="display: flex; flex-direction: column; gap: 12px;" class="small">
+<div><div style="display: flex; justify-content: space-between;"><span>Etape A</span><span class="mono">100 / 100 %</span></div><div style="height: 8px; background: var(--surface-sunken);"><div style="width: 100%; height: 8px; background: var(--data-1);"></div></div></div>
+<div><div style="display: flex; justify-content: space-between;"><span>Etape B</span><span class="mono">100 / 100 %</span></div><div style="height: 8px; background: var(--surface-sunken);"><div style="width: 100%; height: 8px; background: var(--data-1);"></div></div></div>
+<div><div style="display: flex; justify-content: space-between;"><span>Etape C1</span><span class="mono">55 / 60 %</span></div><div style="height: 8px; background: var(--surface-sunken); position: relative;"><div style="width: 55%; height: 8px; background: var(--data-2);"></div><span style="position: absolute; left: 60%; top: -3px; width: 2px; height: 14px; background: var(--ink);"></span></div></div>
+<div><div style="display: flex; justify-content: space-between;"><span>Etape C2</span><span class="mono">0 / 15 %</span></div><div style="height: 8px; background: var(--surface-sunken); position: relative;"><span style="position: absolute; left: 15%; top: -3px; width: 2px; height: 14px; background: var(--ink);"></span></div></div>
+</div>
+<h2 class="h2">AI-fund</h2>
+<ul class="list small">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="danger" dot="{{yes}}">Forsinket</x-import><span class="grow">C2: forskalling ikke startet, plan var uge 41</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Lager</x-import><span class="grow">Grus under minimum; bestil inden fredag</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" dot="{{yes}}">Info</x-import><span class="grow">Byggeaffald ved port 2, ca. 18 m³</span></li>
+</ul>
+</section>
+</div>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

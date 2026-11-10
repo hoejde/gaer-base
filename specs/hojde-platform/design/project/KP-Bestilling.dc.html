@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Ny bestilling</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <header style="background: var(--surface-raised); border-bottom: 1px solid var(--line); padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+    <span style="font-family: var(--font-display); font-weight: 700; font-size: 22px;">Højde</span>
+    <span style="flex: 1;"></span>
+    <a href="KP-Overblik.dc.html">Annullér og gå til overblik</a>
+  </header>
+  <main style="max-width: 1120px; margin: 0 auto; padding: 32px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px;">
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <p style="margin: 0; font-size: 14px; color: var(--ink-muted);">Bestillinger › Ny bestilling</p>
+      <h1 style="margin: 0; font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em;">Ny bestilling</h1>
+    </div>
+    <ol aria-label="Trin" style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px;">
+      <li style="border-top: 4px solid var(--kote); padding-top: 8px; font-size: 14px;"><span style="font-family: var(--font-mono); color: var(--kote);">1 ✓</span> Ydelse</li>
+      <li aria-current="step" style="border-top: 4px solid var(--signal); padding-top: 8px; font-size: 14px; font-weight: 600;"><span style="font-family: var(--font-mono); color: var(--signal);">2</span> Lokation</li>
+      <li style="border-top: 4px solid var(--line); padding-top: 8px; font-size: 14px; color: var(--ink-muted);"><span style="font-family: var(--font-mono);">3</span> Tidspunkt</li>
+      <li style="border-top: 4px solid var(--line); padding-top: 8px; font-size: 14px; color: var(--ink-muted);"><span style="font-family: var(--font-mono);">4</span> Bemærkninger</li>
+    </ol>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+      <section style="flex: 999 1 520px; min-width: 0; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+        <h2 style="margin: 0; font-size: 18px; line-height: 26px;">Hvilken lokation skal vi flyve?</h2>
+        <fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px;">
+          <legend style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px;">Dine lokationer</legend>
+          <label style="display: flex; gap: 12px; align-items: center; padding: 12px; border: 2px solid var(--signal); border-radius: var(--radius-md);"><input type="radio" name="lok" checked=""> <span style="flex: 1;"><strong>Kystparken blok C</strong><br><span style="font-size: 14px; color: var(--ink-muted);">Strandvejen 14, 2900 Hellerup · sidste besøg 02.10.2026</span></span></label>
+          <label style="display: flex; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md);"><input type="radio" name="lok"> <span style="flex: 1;"><strong>Kystparken blok B</strong><br><span style="font-size: 14px; color: var(--ink-muted);">Strandvejen 12, 2900 Hellerup · sidste besøg 11.09.2026</span></span></label>
+          <label style="display: flex; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-md);"><input type="radio" name="lok"> <span style="flex: 1;"><strong>Ny lokation</strong><br><span style="font-size: 14px; color: var(--ink-muted);">Søg adresse og markér bygningen på kortet</span></span></label>
+        </fieldset>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+          <x-import component-from-global-scope="Hojde.Input" label="Kontaktperson på stedet" default-value="Jens Pedersen, vicevært" style="flex: 1 1 260px;"></x-import>
+          <x-import component-from-global-scope="Hojde.Input" label="Telefon" default-value="+45 20 00 00 00" style="flex: 1 1 200px;"></x-import>
+        </div>
+        <label style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;">Adgangsforhold</span><textarea rows="3" style="font: inherit; font-size: 16px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);">Start og landing fra gårdarealet. Beboerne er varslet via opslag.</textarea></label>
+        <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <x-import component-from-global-scope="Hojde.Button">Tilbage</x-import>
+          <x-import component-from-global-scope="Hojde.Button" variant="primary">Fortsæt til tidspunkt</x-import>
+        </div>
+      </section>
+      <aside style="flex: 1 1 300px; min-width: 0; background: var(--surface-sunken); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h2 style="margin: 0; font-size: 18px; line-height: 26px;">Din bestilling</h2>
+        <x-import component-from-global-scope="Hojde.Badge" tone="kote">AI-ydelse</x-import>
+        <strong>Bygningsinspektion med AI-rapport</strong>
+        <dl style="margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 14px;">
+          <dt style="color: var(--ink-muted);">Lokation</dt><dd style="margin: 0;">Kystparken blok C</dd>
+          <dt style="color: var(--ink-muted);">Frekvens</dt><dd style="margin: 0;">Enkelt besøg</dd>
+          <dt style="color: var(--ink-muted);">Pris</dt><dd style="margin: 0; font-family: var(--font-mono);">fra [PRIS] kr. ekskl. moms</dd>
+        </dl>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted);">Flyvningen kan flyttes ved vind over 10 m/s eller nedbør. Du får besked senest dagen før.</p>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

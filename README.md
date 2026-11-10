@@ -39,6 +39,7 @@ herfra ind i sin fork.
 | `/user/mail`, `/admin/mail` | logget ind (`/admin/mail`: admin, Drift) | **Mail, kalender og kontakter**: personlig postkasse i Stalwart, fælles postkasser, kalendere og adressebøger med deling, udgående mail via Lettermint, mail slettes efter højst 30 dage. `/user/mail` til brugeren, `/admin/mail` til drift. |
 | `/forbind`, `/go` | logget ind | **MCP-samtykke** (`/forbind`: en klient beder om adgang; `mcp:admin` kræver frisk anden faktor) og **deep links** (`/go?path=…&focus=…`, også `/admin/go`), der åbner en side og fokuserer et `data-deeplink`-anker. |
 | `/develop` | logget ind | **Promptkatalog** til udviklingsprocessen: færdige prompts til Claude (artifacts, nye features, endpoints, migrationer, tests, review, fejlfinding) med kategori, søgning og kopiér-knap. Linket fra forsiden. |
+| `/portal`, `/backoffice` | logget ind, med et Højde-medlemskab (backoffice: medarbejdere) | **Højdes kundeportal**: overblik, lokationer med besøg og godkendte fund, bestillinger med bestillingsguiden, tilbud og aflysning frem til 24 timer før, og organisationen (brugere, invitationer på e-mail, CVR/EAN, krav om tofaktor). Eget layout, feature `hojde`. **Backoffice** for Højdes medarbejdere: dagens flyvninger, ugekalender, planlægning og tilbud, forberedelse af opgaver med tjekliste, flyvelog, levering, udstyr og compliance. |
 | `/admin/…` | admin (+ MFA) | Administration — en selvstændig app (`web/admin.html`). Kræver anden faktor efter tre logins med engangskode. Alt logges. |
 | `/m/…` | logget ind | Mobil-app (PWA) med bundmenu, AI, klip, filer og profil. |
 | `/extension/…` | i browserudvidelsen | Sidepanelet: aktuel side, klip og AI med siden som kontekst. |
@@ -48,7 +49,7 @@ herfra ind i sin fork.
 | `/mcp`, `/mcp/admin` | MCP-klienter (OAuth) | MCP-servere: appen som den indloggede bruger og admin med kladder. OAuth: `/.well-known/oauth-*`, `/mcp/authorize`, `/mcp/token`, `/mcp/register`. |
 | `/health` | udrulning | Sundhedstjek (database + version), bruges af `deploy/deploy.sh`. |
 
-<details><summary>Alle ruter (85)</summary>
+<details><summary>Alle ruter (96)</summary>
 
 | Sti | Svarer | Adgang | Side |
 | --- | --- | --- | --- |
@@ -73,6 +74,17 @@ herfra ind i sin fork.
 | `/godkend` | appen | logget ind | Godkend adgang |
 | `/go` | appen | alle | Deep link |
 | `/develop` | appen | logget ind | Udvikling |
+| `/portal` | appen | logget ind | Overblik (feature `hojde`) · eget layout |
+| `/portal/lokationer` | appen | logget ind | Lokationer (feature `hojde`) · eget layout |
+| `/portal/lokationer/:id` | appen | logget ind | Lokation (feature `hojde`) · eget layout |
+| `/portal/bestillinger` | appen | logget ind | Bestillinger (feature `hojde`) · eget layout |
+| `/portal/bestillinger/ny` | appen | logget ind | Ny bestilling (feature `hojde`) · eget layout |
+| `/portal/organisation` | appen | logget ind | Organisation (feature `hojde`) · eget layout |
+| `/backoffice` | appen | logget ind | Backoffice (feature `hojde`) · eget layout |
+| `/backoffice/opgaver` | appen | logget ind | Opgaver (feature `hojde`) · eget layout |
+| `/backoffice/opgaver/:id` | appen | logget ind | Opgave (feature `hojde`) · eget layout |
+| `/backoffice/compliance` | appen | logget ind | Flyvelog og compliance (feature `hojde`) · eget layout |
+| `/backoffice/udstyr` | appen | logget ind | Udstyr (feature `hojde`) · eget layout |
 | `/admin` | admin-appen | admin | Statistik |
 | `/admin/go` | admin-appen | admin | Deep link |
 | `/admin/users` | admin-appen | admin | Brugere og roller |
