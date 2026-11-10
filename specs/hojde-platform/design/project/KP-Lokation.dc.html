@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Lokation: Kystparken blok C</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <header style="background: var(--surface-raised); border-bottom: 1px solid var(--line); padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+    <span style="font-family: var(--font-display); font-weight: 700; font-size: 22px;">Højde</span>
+    <button type="button" style="font: inherit; font-size: 14px; border: 1px solid var(--line-strong); background: var(--surface-raised); color: var(--ink); border-radius: var(--radius-md); height: 36px; padding: 0 12px;">Boligforeningen Kystparken ▾</button>
+    <span style="flex: 1;"></span>
+    <button type="button" style="font: inherit; font-size: 14px; border: none; background: var(--kote-soft); color: var(--kote); border-radius: var(--radius-full); width: 40px; height: 40px; font-weight: 600;" aria-label="Min profil: Mette Holm">MH</button>
+  </header>
+  <div style="display: flex; flex-wrap: wrap;">
+    <nav aria-label="Kundeportal" style="flex: 1 1 220px; max-width: 260px; min-width: 200px; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; border-right: 1px solid var(--line);">
+      <a href="KP-Overblik.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Overblik</a>
+      <a href="KP-Lokationer.dc.html" aria-current="page" style="padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); font-weight: 600; text-decoration: none;">Lokationer</a>
+      <a href="KP-Bestillinger.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Bestillinger</a>
+      <a href="KP-Rapporter.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Rapporter</a>
+      <a href="KP-Fund.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Fund</a>
+      <a href="KP-Fakturaer.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Fakturaer</a>
+      <a href="KP-Brugere.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Organisation</a>
+      <a href="KP-Hjaelp.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Hjælp</a>
+    </nav>
+    <main style="flex: 999 1 560px; min-width: 0; padding: 24px 32px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px;">
+      <p style="margin: 0; font-size: 14px; color: var(--ink-muted);"><a href="KP-Lokationer.dc.html">Lokationer</a> › Kystparken blok C</p>
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <h1 style="margin: 0; font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em;">Kystparken blok C</h1>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <x-import component-from-global-scope="Hojde.Badge">Bygning</x-import>
+            <span style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted);">Strandvejen 14, 2900 Hellerup · 7 besøg siden 03.2025</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <x-import component-from-global-scope="Hojde.Button">Del</x-import>
+          <x-import component-from-global-scope="Hojde.Button" variant="primary" href="KP-Bestilling.dc.html">Bestil flyvning</x-import>
+        </div>
+      </div>
+      <div role="tablist" aria-label="Lokation" style="display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line);">
+        <button type="button" role="tab" aria-selected="false" style="font: inherit; background: none; border: none; padding: 10px 16px; color: var(--ink-muted); cursor: pointer;">Tidslinje</button>
+        <button type="button" role="tab" aria-selected="true" style="font: inherit; background: none; border: none; border-bottom: 3px solid var(--signal); padding: 10px 16px; color: var(--ink); font-weight: 600; cursor: pointer;">Kort og 3D</button>
+        <button type="button" role="tab" aria-selected="false" style="font: inherit; background: none; border: none; padding: 10px 16px; color: var(--ink-muted); cursor: pointer;">Fund (9)</button>
+        <button type="button" role="tab" aria-selected="false" style="font: inherit; background: none; border: none; padding: 10px 16px; color: var(--ink-muted); cursor: pointer;">Dokumenter</button>
+        <button type="button" role="tab" aria-selected="false" style="font: inherit; background: none; border: none; padding: 10px 16px; color: var(--ink-muted); cursor: pointer;">Bestillinger</button>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+        <section style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+            <label style="font-size: 14px; display: flex; gap: 8px; align-items: center;">Besøg <select style="font: inherit; font-size: 14px; height: 32px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);"><option>02.10.2026</option><option>14.03.2026</option></select></label>
+            <label style="font-size: 14px; display: flex; gap: 8px; align-items: center;">sammenlign med <select style="font: inherit; font-size: 14px; height: 32px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-raised); color: var(--ink);"><option>14.03.2026</option><option>Ingen</option></select></label>
+            <span style="flex: 1;"></span>
+            <x-import component-from-global-scope="Hojde.Button" size="sm">Mål afstand</x-import>
+            <x-import component-from-global-scope="Hojde.Button" size="sm">Mål areal</x-import>
+            <x-import component-from-global-scope="Hojde.Button" size="sm">3D-visning</x-import>
+          </div>
+          <div style="position: relative; height: 520px; background: var(--surface-sunken); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden;">
+            <div style="position: absolute; inset: 64px 96px; border: 2px dashed var(--line-strong); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--ink-muted); font-family: var(--font-mono); font-size: 13px;">[Ortofoto af taget, 02.10.2026]</div>
+            <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--ink);"></div>
+            <span style="position: absolute; left: calc(50% - 60px); top: 12px; background: var(--ink); color: var(--surface); font-size: 12px; padding: 2px 8px; border-radius: var(--radius-sm);">14.03 | 02.10</span>
+            <span style="position: absolute; left: 30%; top: 32%; width: 28px; height: 28px; border-radius: var(--radius-full); background: var(--danger); color: var(--surface-raised); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center;">1</span>
+            <span style="position: absolute; left: 62%; top: 48%; width: 28px; height: 28px; border-radius: var(--radius-full); background: var(--warning); color: var(--surface-raised); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center;">2</span>
+            <span style="position: absolute; left: 72%; top: 70%; width: 28px; height: 28px; border-radius: var(--radius-full); background: var(--data-3); color: var(--surface-raised); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center;">3</span>
+            <span style="position: absolute; right: 16px; bottom: 16px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px 10px; font-family: var(--font-mono); font-size: 12px;">GSD 0,9 cm · 25 m højde</span>
+          </div>
+        </section>
+        <aside style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+          <h2 style="margin: 0; font-size: 18px; line-height: 26px;">Fund på dette besøg</h2>
+          <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; gap: 8px; align-items: center;"><span style="font-family: var(--font-mono); font-weight: 600;">1</span><x-import component-from-global-scope="Hojde.Badge" tone="danger" dot="{{yes}}">Kritisk</x-import><span style="flex: 1;"></span><x-import component-from-global-scope="Hojde.Badge">Ny</x-import></div>
+            <strong>Løs tagsten ved tagfod, nordside</strong>
+            <span style="font-size: 14px; color: var(--ink-muted);">Anbefaling: udbedres inden næste storm. Ny siden 14.03.</span>
+            <span style="font-family: var(--font-mono); font-size: 12px; color: var(--ink-muted);">AI-sikkerhed 0,94 · godkendt af analytiker</span>
+          </article>
+          <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; gap: 8px; align-items: center;"><span style="font-family: var(--font-mono); font-weight: 600;">2</span><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Moderat</x-import><span style="flex: 1;"></span><x-import component-from-global-scope="Hojde.Badge" tone="signal">Planlagt</x-import></div>
+            <strong>Revne i inddækning ved skorsten</strong>
+            <span style="font-size: 14px; color: var(--ink-muted);">Ansvarlig: Jens (vicevært). Uændret siden 14.03.</span>
+          </article>
+          <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; gap: 8px; align-items: center;"><span style="font-family: var(--font-mono); font-weight: 600;">3</span><x-import component-from-global-scope="Hojde.Badge" dot="{{yes}}">Lav</x-import><span style="flex: 1;"></span><x-import component-from-global-scope="Hojde.Badge">Ny</x-import></div>
+            <strong>Mos og begroning på sydvendt flade</strong>
+            <span style="font-size: 14px; color: var(--ink-muted);">Anbefaling: rens ved næste vedligehold.</span>
+          </article>
+          <a href="KP-Fund.dc.html">Se alle 9 fund</a>
+        </aside>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

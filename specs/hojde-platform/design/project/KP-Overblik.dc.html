@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Kundeportal overblik</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <header style="background: var(--surface-raised); border-bottom: 1px solid var(--line); padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+    <span style="font-family: var(--font-display); font-weight: 700; font-size: 22px;">Højde</span>
+    <button type="button" style="font: inherit; font-size: 14px; border: 1px solid var(--line-strong); background: var(--surface-raised); color: var(--ink); border-radius: var(--radius-md); height: 36px; padding: 0 12px;">Boligforeningen Kystparken ▾</button>
+    <label style="flex: 1 1 240px; display: flex;"><span style="position: absolute; left: -9999px;">Søg</span><input type="search" placeholder="Søg lokation, rapport eller fund" style="font: inherit; font-size: 14px; width: 100%; max-width: 420px; height: 36px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink);"></label>
+    <button type="button" aria-label="Notifikationer, 3 nye" style="font: inherit; border: 1px solid var(--line); background: none; color: var(--ink); border-radius: var(--radius-md); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9a6 6 0 1 1 12 0c0 6 2 8 2 8H4s2-2 2-8"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg></button>
+    <button type="button" style="font: inherit; font-size: 14px; border: none; background: var(--kote-soft); color: var(--kote); border-radius: var(--radius-full); width: 40px; height: 40px; font-weight: 600;" aria-label="Min profil: Mette Holm">MH</button>
+  </header>
+  <div style="display: flex; flex-wrap: wrap;">
+    <nav aria-label="Kundeportal" style="flex: 1 1 220px; max-width: 260px; min-width: 200px; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; border-right: 1px solid var(--line);">
+      <a href="KP-Overblik.dc.html" aria-current="page" style="padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); font-weight: 600; text-decoration: none;">Overblik</a>
+      <a href="KP-Lokationer.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Lokationer</a>
+      <a href="KP-Bestillinger.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Bestillinger</a>
+      <a href="KP-Rapporter.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Rapporter</a>
+      <a href="KP-Fund.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Fund</a>
+      <a href="KP-Fakturaer.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Fakturaer</a>
+      <a href="KP-Brugere.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Organisation</a>
+      <a href="KP-Hjaelp.dc.html" style="padding: 10px 12px; color: var(--ink); text-decoration: none;">Hjælp</a>
+    </nav>
+    <main style="flex: 999 1 560px; min-width: 0; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px; max-width: 1180px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;">
+        <div>
+          <p style="margin: 0; font-size: 14px; color: var(--ink-muted);">Godmorgen, Mette</p>
+          <h1 style="margin: 0; font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em;">Overblik</h1>
+        </div>
+        <x-import component-from-global-scope="Hojde.Button" variant="primary" href="KP-Bestilling.dc.html">Ny bestilling</x-import>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <x-import component-from-global-scope="Hojde.Stat" label="Lokationer" value="14" delta="2 nye i år" trend="flat"></x-import>
+        <x-import component-from-global-scope="Hojde.Stat" label="Alvorlige fund" value="3" delta="1 siden sidste uge" trend="down"></x-import>
+        <x-import component-from-global-scope="Hojde.Stat" label="Udbedrede fund" value="27" delta="8 siden sidste kvartal" trend="up"></x-import>
+        <x-import component-from-global-scope="Hojde.Stat" label="Næste flyvning" value="14.10" unit="kl. 08" delta="Strandvejen 12" trend="flat"></x-import>
+      </div>
+      <section style="background: var(--warning-soft); border-radius: var(--radius-md); padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+        <x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Venter på dig</x-import>
+        <span style="flex: 1 1 320px;">Bekræft adgang til taget på Strandvejen 12 inden 13.10, så flyvningen kan gennemføres.</span>
+        <x-import component-from-global-scope="Hojde.Button" size="sm">Bekræft adgang</x-import>
+      </section>
+      <div style="display: flex; flex-wrap: wrap; gap: 24px;">
+        <section style="flex: 1 1 420px; min-width: 0; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;"><h2 style="margin: 0; font-size: 18px; line-height: 26px;">Seneste leverancer</h2><a href="KP-Rapporter.dc.html">Alle rapporter</a></div>
+          <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+            <li style="display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line);"><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import><span style="flex: 1;">Kystparken blok C · tag og facade</span><span style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted);">02.10.2026</span></li>
+            <li style="display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line);"><x-import component-from-global-scope="Hojde.Badge" tone="kote">3D-model</x-import><span style="flex: 1;">Kystparken blok A</span><span style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted);">24.09.2026</span></li>
+            <li style="display: flex; gap: 12px; align-items: center; padding: 12px 0;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import><span style="flex: 1;">Strandvejen 8 · tag</span><span style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted);">11.09.2026</span></li>
+          </ul>
+        </section>
+        <section style="flex: 1 1 420px; min-width: 0; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;"><h2 style="margin: 0; font-size: 18px; line-height: 26px;">Åbne fund efter alvor</h2><a href="KP-Fund.dc.html">Alle fund</a></div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: grid; grid-template-columns: 96px 1fr 40px; gap: 12px; align-items: center;"><span style="font-size: 14px;">Kritisk</span><span style="height: 12px; background: var(--danger); width: 18%; border-radius: var(--radius-sm);"></span><span style="font-family: var(--font-mono); font-size: 13px; text-align: right;">3</span></div>
+            <div style="display: grid; grid-template-columns: 96px 1fr 40px; gap: 12px; align-items: center;"><span style="font-size: 14px;">Moderat</span><span style="height: 12px; background: var(--warning); width: 62%; border-radius: var(--radius-sm);"></span><span style="font-family: var(--font-mono); font-size: 13px; text-align: right;">11</span></div>
+            <div style="display: grid; grid-template-columns: 96px 1fr 40px; gap: 12px; align-items: center;"><span style="font-size: 14px;">Lav</span><span style="height: 12px; background: var(--data-3); width: 100%; border-radius: var(--radius-sm);"></span><span style="font-family: var(--font-mono); font-size: 13px; text-align: right;">18</span></div>
+          </div>
+          <p style="margin: 0; font-size: 14px; color: var(--ink-muted);">Alle fund er godkendt af en analytiker før visning.</p>
+        </section>
+      </div>
+      <section style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline;"><h2 style="margin: 0; font-size: 18px; line-height: 26px;">Kommende flyvninger</h2><a href="KP-Bestillinger.dc.html">Alle bestillinger</a></div>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px;">
+            <thead><tr style="background: var(--surface-sunken); text-align: left;"><th style="padding: 10px 12px;">Dato</th><th style="padding: 10px 12px;">Lokation</th><th style="padding: 10px 12px;">Ydelse</th><th style="padding: 10px 12px;">Status</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line);"><td style="padding: 12px; font-family: var(--font-mono);">14.10.2026</td><td style="padding: 12px;">Strandvejen 12</td><td style="padding: 12px;">Bygningsinspektion</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Vejrforbehold</x-import></td></tr>
+              <tr><td style="padding: 12px; font-family: var(--font-mono);">21.10.2026</td><td style="padding: 12px;">Kystparken blok B</td><td style="padding: 12px;">Bygningsinspektion</td><td style="padding: 12px;"><x-import component-from-global-scope="Hojde.Badge" tone="signal" dot="{{yes}}">Planlagt</x-import></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

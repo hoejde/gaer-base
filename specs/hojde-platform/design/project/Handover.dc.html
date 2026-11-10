@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Handover to Claude Code</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><span class="logo">Højde</span><x-import component-from-global-scope="Hojde.Badge" tone="kote">Handover</x-import><span class="grow"></span><span class="mono muted">24.10.2026 · draft v1</span></header>
+<main style="max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px;">
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<p class="mono muted" style="margin: 0;">Design → code · Claude Code brief</p>
+<h1 class="h1" style="font-size: 48px; line-height: 52px;">Implement the Højde platform in surdej-v2</h1>
+<p style="margin: 0; font-size: 18px; line-height: 28px; max-width: 760px;">This canvas holds 32 screens across five surfaces: website, shared login, customer portal, internal backoffice and pilot mobile, plus six AI analysis report views. This page tells Claude Code what to build, in which order, and what rules the screens imply but don't spell out.</p>
+</div>
+
+<div class="grid">
+<x-import component-from-global-scope="Hojde.Stat" label="Target repo" value="hoejde/surdej-v2"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Screens" value="32" delta="5 surfaces" trend="flat"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Phases" value="6" delta="P0 → P5, one PR each" trend="flat"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="UI language" value="Dansk" delta="copy verbatim from screens" trend="flat"></x-import>
+</div>
+
+<section class="card">
+<div class="tools"><h2 class="h2 grow">1 · Prompt to paste into Claude Code</h2><x-import component-from-global-scope="Hojde.Badge" tone="signal">Start here</x-import></div>
+<p class="muted small" style="margin: 0;">Before you run it: export this canvas's files and commit them to <span class="mono">docs/design/hojde/</span> in the repo, so Claude Code can read every screen locally.</p>
+<pre style="margin: 0; padding: 20px; background: var(--surface-sunken); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 13px; line-height: 21px; white-space: pre-wrap; overflow-x: auto;">You are implementing the Højde drone-data platform in github.com/hoejde/surdej-v2.
+
+Source of truth: the screens in docs/design/hojde/ (exported from the Claude Design
+canvas "Højde-platformen — skærmbilleder"). Each project/*.dc.html is one screen.
+ds/hojde/tokens.json + tokens.css, ds/hojde/components/bundle.js and proto.css are
+the design system. Handover.dc.html is this brief: read it in full first.
+
+1. Before writing code, read CLAUDE.md, the README and the existing module layout.
+   Write docs/hojde/PLAN.md that maps every screen to a route, module, API endpoints
+   and Prisma models, following the repo's existing conventions. Stop and show me.
+2. Build in the phases from the brief (P0 → P5). One PR per phase, behind a
+   feature flag, with tests.
+3. UI copy is Danish, taken verbatim from the screens. Placeholders like [PRIS],
+   [BELØB], [CVR], [XX] become data or config, never hardcoded values.
+4. Reuse Surdej's auth, tenancy, job queue (NATS), blob storage and document
+   pipeline. Do not add new infrastructure without asking.
+5. Each phase ends with a seeded demo tenant (Boligforeningen Kystparken) and
+   screenshots of the built pages next to the matching artboards.</pre>
+</section>
+
+<section class="card">
+<h2 class="h2">2 · Ground rules</h2>
+<ul class="list small">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Discover</x-import><span class="grow">Don't assume the stack. Surdej is described as Fastify, Prisma, Postgres, NATS on Azure Container Apps; confirm against surdej-v2 and follow what is actually there.</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Tokens</x-import><span class="grow">Port <span class="mono">tokens.json</span> to the app's theme (CSS variables, light and <span class="mono">[data-theme="dark"]</span>). Customer portal is light; backoffice is dark. No raw hex in components.</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Components</x-import><span class="grow">Rebuild the five design-system components with the same props: Button (variant, size, href), Badge (tone, dot), Input (label, hint, error), Stat (label, value, unit, delta, trend), ServiceCard (line, eyebrow, title, specs, price, cta). Then lift the repeated shells from <span class="mono">proto.css</span>: top bar, side nav, card, table, tabs.</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Copy</x-import><span class="grow">Danish copy comes verbatim from the artboards. Dates are DD.MM.YYYY, numbers use Danish separators (12.480 · 3,8).</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="warning">Mock data</x-import><span class="grow">Names and figures in the screens are demo data. They belong in a seed script, never in components.</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="warning">A11y</x-import><span class="grow">Keep the semantics the screens already have: real buttons and links, labelled inputs, aria-labels on icon buttons, tables that scroll inside their box on phones.</span></li>
+</ul>
+</section>
+
+<section class="card">
+<h2 class="h2">3 · Screen → route map</h2>
+<div class="tbl" style="border: none;"><table>
+<thead><tr><th>Artboard</th><th>Route</th><th>Who</th><th>Phase</th></tr></thead>
+<tbody>
+<tr><td class="mono">Web-Forside</td><td class="mono">/</td><td>Public</td><td class="mono">P5</td></tr>
+<tr><td class="mono">Main (Login)</td><td class="mono">/login</td><td>Everyone · email, Microsoft, Google</td><td class="mono">P0</td></tr>
+<tr><td class="mono">KP-Overblik</td><td class="mono">/portal</td><td>Customer</td><td class="mono">P1</td></tr>
+<tr><td class="mono">KP-Lokationer · KP-Lokation</td><td class="mono">/portal/lokationer[/:id]</td><td>Customer</td><td class="mono">P1</td></tr>
+<tr><td class="mono">KP-Bestillinger · KP-Bestilling</td><td class="mono">/portal/bestillinger[/ny]</td><td>Customer (may order)</td><td class="mono">P1</td></tr>
+<tr><td class="mono">KP-Rapporter · KP-Upload</td><td class="mono">/portal/rapporter[/upload]</td><td>Customer</td><td class="mono">P4 · P3</td></tr>
+<tr><td class="mono">AI-Byggeplads … AI-Skov</td><td class="mono">/portal/rapporter/:id</td><td>Customer · one view per report type</td><td class="mono">P4</td></tr>
+<tr><td class="mono">KP-Fund</td><td class="mono">/portal/fund</td><td>Customer</td><td class="mono">P4</td></tr>
+<tr><td class="mono">KP-Fakturaer</td><td class="mono">/portal/fakturaer</td><td>Customer admin only</td><td class="mono">P5</td></tr>
+<tr><td class="mono">KP-Brugere</td><td class="mono">/portal/organisation</td><td>Customer admin</td><td class="mono">P0 · P5</td></tr>
+<tr><td class="mono">KP-Hjaelp</td><td class="mono">/portal/hjaelp</td><td>Customer</td><td class="mono">P5</td></tr>
+<tr><td class="mono">BO-Overblik</td><td class="mono">/backoffice</td><td>Staff</td><td class="mono">P2</td></tr>
+<tr><td class="mono">BO-Opgaver · BO-Opgave</td><td class="mono">/backoffice/opgaver[/:id]</td><td>Staff, pilot</td><td class="mono">P2</td></tr>
+<tr><td class="mono">BO-Compliance · BO-Udstyr</td><td class="mono">/backoffice/compliance · /udstyr</td><td>Staff</td><td class="mono">P2</td></tr>
+<tr><td class="mono">BO-Upload (mobile)</td><td class="mono">/pilot/opgaver/:id/upload</td><td>Pilot, 390 px</td><td class="mono">P3</td></tr>
+<tr><td class="mono">BO-Data · BO-AI</td><td class="mono">/backoffice/data · /ai-modeller</td><td>Analyst, admin</td><td class="mono">P3</td></tr>
+<tr><td class="mono">BO-Kvalitet</td><td class="mono">/backoffice/kvalitet/:taskId</td><td>Analyst</td><td class="mono">P3</td></tr>
+<tr><td class="mono">BO-Rapporter</td><td class="mono">/backoffice/rapporter</td><td>Analyst</td><td class="mono">P4</td></tr>
+<tr><td class="mono">BO-Kunder · BO-Oekonomi</td><td class="mono">/backoffice/kunder · /oekonomi</td><td>Account manager, admin</td><td class="mono">P5</td></tr>
+<tr><td class="mono">BO-Indhold · BO-Admin</td><td class="mono">/backoffice/indhold · /admin</td><td>Admin</td><td class="mono">P5</td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Route names are suggestions. Match the repo's routing conventions if they differ.</p>
+</section>
+
+<section class="card">
+<h2 class="h2">4 · Domain model read from the screens</h2>
+<div class="cols">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<p class="field" style="margin: 0;"><span>Tenancy and access</span></p>
+<ul class="list small">
+<li><strong>Organization</strong><span class="grow muted">CVR, billing address, EAN, require-2FA flag</span></li>
+<li><strong>User · Membership</strong><span class="grow muted">customer roles: kundeadministrator, kundebruger (location scope, may order); staff roles: administrator, analytiker, pilot, kundeansvarlig</span></li>
+<li><strong>Invitation</strong><span class="grow muted">expires after 7 days, resend</span></li>
+<li><strong>ShareLink</strong><span class="grow muted">for report or location; expiry, optional code, revocable</span></li>
+<li><strong>AuditLog</strong><span class="grow muted">incl. “Vis som kunde” impersonation and report publishing</span></li>
+</ul>
+<p class="field" style="margin: 0;"><span>Customer side</span></p>
+<ul class="list small">
+<li><strong>Location</strong><span class="grow muted">type bygning · byggeplads · område; address, geometry, site contact, access notes</span></li>
+<li><strong>Order (B-1042)</strong><span class="grow muted">tilbud sendt → afventer godkendelse → planlagt → vejrforbehold → leveret; cancel until 24 h before</span></li>
+<li><strong>Quote · Subscription</strong><span class="grow muted">frequency, number of visits, binding period</span></li>
+<li><strong>Invoice · InvoiceDraft</strong><span class="grow muted">F-2026-0311; ubetalt / betalt; drafts klar / afventer levering</span></li>
+<li><strong>Service</strong><span class="grow muted">catalogue: industry, equipment, permit class (A1/A2/A3/BVLOS), price unit</span></li>
+<li><strong>SupportCase · Lead</strong><span class="grow muted">S-118; leads from the website form</span></li>
+</ul>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<p class="field" style="margin: 0;"><span>Operations</span></p>
+<ul class="list small">
+<li><strong>Task (OP-2026-0418)</strong><span class="grow muted">phases Forberedelse → Flyvning → Data → Leverance; pilot, zone check, weather, checklist</span></li>
+<li><strong>Flight (FL-0931)</strong><span class="grow muted">drone, batteries, duration, wind, incidents</span></li>
+<li><strong>Equipment</strong><span class="grow muted">drone, battery cycles, next service; status klar / til kontrol / til service</span></li>
+<li><strong>ComplianceDocument</strong><span class="grow muted">operator registration, insurance, pilot certificates; expiry date</span></li>
+</ul>
+<p class="field" style="margin: 0;"><span>Data and AI</span></p>
+<ul class="list small">
+<li><strong>Upload · MediaAsset</strong><span class="grow muted">JPG, DNG, MP4, MOV, SRT; resumable, up to 20 GB</span></li>
+<li><strong>ProcessingJob (J-5518)</strong><span class="grow muted">step: sløring, fotogrammetri, AI-analyse; i kø / kører / fejlet / færdig; error text; restart</span></li>
+<li><strong>AIModel · ModelVersion</strong><span class="grow muted">planlagt / test / i drift; test precision; corrections since last version</span></li>
+<li><strong>Finding</strong><span class="grow muted">type, severity (kritisk · moderat · lav), confidence, model version, image and position, QC state, customer status (ny · planlagt · udbedret · afvist), owner, change since last visit</span></li>
+<li><strong>Report · ReportTemplate</strong><span class="grow muted">versioned, published by, PDF, data download</span></li>
+<li><strong>CmsPage</strong><span class="grow muted">languages, kladde / udgivet</span></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="card">
+<h2 class="h2">5 · Rules the screens imply</h2>
+<div class="tbl" style="border: none;"><table>
+<thead><tr><th>Rule</th><th>Where</th></tr></thead>
+<tbody>
+<tr><td>People and number plates are blurred <strong>before</strong> images are stored or shown. No personal images are kept from events, only anonymous density.</td><td class="mono">KP-Upload, AI-Event, KP-Hjaelp</td></tr>
+<tr><td>A finding reaches the customer only after an analyst has approved it. The analyst who flew the task can't approve it (four-eyes).</td><td class="mono">BO-Kvalitet, KP-Fund</td></tr>
+<tr><td>Every finding stores model version, confidence and approver. QC corrections are saved as training data.</td><td class="mono">BO-AI, BO-Kvalitet</td></tr>
+<tr><td>A task can't be marked ready until every checklist item is done, including the zone permit when the location is in a restricted zone.</td><td class="mono">BO-Opgave</td></tr>
+<tr><td>Wind over 10 m/s or precipitation means vejrforbehold. The customer is told by the day before at the latest.</td><td class="mono">BO-Opgave, KP-Bestilling</td></tr>
+<tr><td>Equipment with status til kontrol or til service can't be picked in a checklist.</td><td class="mono">BO-Udstyr</td></tr>
+<tr><td>Compliance documents warn ahead of expiry (shown at 26 days) and appear on the backoffice overview.</td><td class="mono">BO-Compliance, BO-Overblik</td></tr>
+<tr><td>Uploads run automatic checks (GPS, overlap ≥ 70 %, altitude, blur) before analysis can start.</td><td class="mono">KP-Upload, BO-Data</td></tr>
+<tr><td>Pilot upload is resumable and can pause; video can wait for wifi. A post-flight checklist closes the flight.</td><td class="mono">BO-Upload</td></tr>
+<tr><td>Only customer admins see invoices. An organization can require 2FA for all users.</td><td class="mono">KP-Fakturaer, KP-Brugere</td></tr>
+<tr><td>Customer users can be limited to selected locations and to ordering or not.</td><td class="mono">KP-Brugere</td></tr>
+<tr><td>Staff impersonation (“Vis som kunde”) is written to the audit log.</td><td class="mono">BO-Kunder, BO-Admin</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="card">
+<h2 class="h2">6 · Phases and acceptance</h2>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<details open="">
+<summary>P0 · Foundations</summary>
+<ul class="small" style="margin: 8px 0 0; padding-left: 20px; line-height: 24px;">
+<li>PLAN.md approved. Theme tokens, the five components and the two app shells (portal light, backoffice dark) in place.</li>
+<li>Login with email and password plus Microsoft and Google; organizations, memberships, roles, invitations, 2FA policy.</li>
+<li><strong>Done when:</strong> a customer user and a staff user each land on their own empty shell with the right nav and theme.</li>
+</ul>
+</details>
+<details>
+<summary>P1 · Customer core</summary>
+<ul class="small" style="margin: 8px 0 0; padding-left: 20px; line-height: 24px;">
+<li>Lokationer (list, filters), Lokation (timeline, tabs), Bestillinger, the four-step Ny bestilling wizard, quotes, Overblik.</li>
+<li><strong>Done when:</strong> Mette (kundeadministrator) can create a location, order an inspection, approve a quote and see it on the overview.</li>
+</ul>
+</details>
+<details>
+<summary>P2 · Operations</summary>
+<ul class="small" style="margin: 8px 0 0; padding-left: 20px; line-height: 24px;">
+<li>Opgaver (week calendar, list, map), Opgave preparation (zone check, weather, checklist), Udstyr, Flyvelog og compliance, backoffice Overblik.</li>
+<li>Weather and drone-zone data behind an interface with a stub provider.</li>
+<li><strong>Done when:</strong> an order becomes a task, the checklist gates “Markér klar”, and a logged flight shows in the logbook.</li>
+</ul>
+</details>
+<details>
+<summary>P3 · Data pipeline</summary>
+<ul class="small" style="margin: 8px 0 0; padding-left: 20px; line-height: 24px;">
+<li>Resumable upload (pilot mobile and customer), automatic checks, jobs on NATS: blur → photogrammetry → AI analysis. Databehandling, AI-modeller registry, Kvalitetskontrol.</li>
+<li>Models are adapters with a stub that returns fixture findings; no training in scope.</li>
+<li><strong>Done when:</strong> uploaded photos produce a job chain, a failed job shows its error and can restart, and an analyst can approve, correct or reject each finding.</li>
+</ul>
+</details>
+<details>
+<summary>P4 · Delivery</summary>
+<ul class="small" style="margin: 8px 0 0; padding-left: 20px; line-height: 24px;">
+<li>Report templates, generate and publish (PDF via Surdej's document pipeline), versioning, share links. Portal Rapporter, Fund and the six analysis report views driven by one report schema.</li>
+<li><strong>Done when:</strong> a published report appears for the customer with only approved findings, and a share link expires and can be revoked.</li>
+</ul>
+</details>
+<details>
+<summary>P5 · Business and content</summary>
+<ul class="small" style="margin: 8px 0 0; padding-left: 20px; line-height: 24px;">
+<li>Kunder and leads, Økonomi (drafts, service catalogue), portal Fakturaer, Organisation settings, Hjælp and support cases, Indhold (CMS), public website, Administration with audit log and integrations.</li>
+<li>Accounting system behind an interface; export drafts only until one is chosen.</li>
+<li><strong>Done when:</strong> a website lead becomes a customer with a quote, and a delivered task becomes an invoice draft.</li>
+</ul>
+</details>
+</div>
+</section>
+
+<div class="cols">
+<section class="card">
+<h2 class="h2">7 · Out of scope for now</h2>
+<ul class="list small">
+<li><span class="grow">Training or hosting real AI models (stubs and adapters only)</span></li>
+<li><span class="grow">Real accounting, weather or drone-zone integrations (interfaces and stubs)</span></li>
+<li><span class="grow">3D viewer and map rendering beyond a placeholder component with a defined input</span></li>
+<li><span class="grow">ISO-XML, shapefile and O&amp;M exports from the analysis views (buttons present, disabled)</span></li>
+</ul>
+</section>
+<section class="card">
+<h2 class="h2">8 · Open questions for Niels</h2>
+<ul class="list small">
+<li><span class="grow">Does Højde live as a module inside surdej-v2, or as a separate app on top of it?</span></li>
+<li><span class="grow">Which identity provider handles Microsoft and Google sign-in today?</span></li>
+<li><span class="grow">Which accounting system should drafts go to?</span></li>
+<li><span class="grow">Is the website rendered by the platform, or a separate static site fed by the CMS?</span></li>
+<li><span class="grow">Real values for [PRIS], [BELØB], [X] delivery days and model precision [XX].</span></li>
+</ul>
+</section>
+</div>
+
+<p class="muted small" style="margin: 0;">Screens referenced here are the artboards on this canvas. If a screen and this brief disagree, the screen wins; flag the conflict in the PR.</p>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4600}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

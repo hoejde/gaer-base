@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Analyse: ukrudtskort</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">[Maskinstation] ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil">MS</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<p class="crumb"><a href="KP-Rapporter.dc.html">Rapporter</a> › Ukrudtskort</p>
+<div class="head"><div><h1 class="h1">[Gård], mark 14 · ukrudtskort</h1><div class="tools" style="margin-top: 8px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">AI-ydelse</x-import><span class="mono muted">Fløjet 22.04.2026 · vinterhvede · GSD 1,2 cm · multispektral via partner</span></div></div><span class="tools"><x-import component-from-global-scope="Hojde.Button">Shape-fil</x-import><x-import component-from-global-scope="Hojde.Button" variant="primary">Send til sprøjte (ISO-XML)</x-import></span></div>
+<div class="grid">
+<x-import component-from-global-scope="Hojde.Stat" label="Markareal" value="18,4" unit="ha"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Areal med ukrudt" value="2,1" unit="ha" delta="11 % af marken" trend="flat"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Sprøjtezoner" value="9"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Mulig reduktion" value="[X]" unit="%" delta="midler i forhold til fladesprøjtning" trend="flat"></x-import>
+</div>
+<div class="cols">
+<section class="card" style="flex: 3 1 480px;">
+<h2 class="h2">Sprøjtekort</h2>
+<svg viewBox="0 0 640 360" role="img" aria-label="Mark med ukrudtszoner i tre tætheder" style="width: 100%; height: auto; background: var(--surface-sunken); border-radius: var(--radius-lg);">
+<defs><pattern id="rows" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 6H12" stroke="var(--data-1)" stroke-width="2" opacity="0.35"></path></pattern></defs>
+<polygon points="40,40 590,30 610,320 60,340" fill="url(#rows)" stroke="var(--line-strong)" stroke-width="2"></polygon>
+<polygon points="80,70 180,64 190,140 90,150" fill="var(--danger)" opacity="0.7"></polygon>
+<polygon points="220,180 300,176 306,236 226,242" fill="var(--warning)" opacity="0.75"></polygon>
+<polygon points="420,90 520,84 528,150 428,156" fill="var(--warning)" opacity="0.75"></polygon>
+<polygon points="470,240 560,236 566,300 476,304" fill="var(--data-4)" opacity="0.8"></polygon>
+<polygon points="110,250 170,246 174,296 114,300" fill="var(--data-4)" opacity="0.8"></polygon>
+<polygon points="340,60 380,58 382,96 342,98" fill="var(--data-4)" opacity="0.8"></polygon>
+<text x="92" y="112" fill="var(--surface-raised)" font-size="13" font-weight="600">Agertidsel</text>
+</svg>
+<div class="tools small"><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--danger);"></span> Tæt, fuld dosis</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--warning);"></span> Middel, halv dosis</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--data-4);"></span> Spredt, punktbehandling</span></div>
+</section>
+<section class="card" style="flex: 2 1 320px;">
+<h2 class="h2">Ukrudt efter art</h2>
+<div class="tbl" style="border: none;"><table style="min-width: 0;">
+<thead><tr><th>Art</th><th>Areal</th><th>Sikkerhed</th></tr></thead>
+<tbody>
+<tr><td>Agertidsel</td><td class="mono">0,9 ha</td><td class="mono">0,91</td></tr>
+<tr><td>Vindaks</td><td class="mono">0,7 ha</td><td class="mono">0,84</td></tr>
+<tr><td>Kamille</td><td class="mono">0,4 ha</td><td class="mono">0,78</td></tr>
+<tr><td>Ukendt, kontrolleres i marken</td><td class="mono">0,1 ha</td><td class="mono">&lt; 0,6</td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Kortet er en anbefaling. Valg af middel og dosis sker hos jeres planteavlskonsulent.</p>
+</section>
+</div>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

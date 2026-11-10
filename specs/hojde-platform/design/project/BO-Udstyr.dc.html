@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Udstyr</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark">
+<header class="top"><a class="logo" href="BO-Overblik.dc.html">Højde</a><x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import><span class="grow"></span><span class="muted small">Emil · Administrator</span><a class="av" href="BO-Admin.dc.html" aria-label="Min profil: Emil">E</a></header>
+<div class="row">
+<nav class="nav" aria-label="Backoffice">
+<a href="BO-Overblik.dc.html">Overblik</a>
+<a href="BO-Opgaver.dc.html">Opgaver</a>
+<a href="BO-Compliance.dc.html">Flyvelog og compliance</a>
+<a href="BO-Data.dc.html">Databehandling</a>
+<a href="BO-Kvalitet.dc.html">Kvalitetskontrol</a>
+<a href="BO-Rapporter.dc.html">Rapporter</a>
+<a href="BO-Kunder.dc.html">Kunder</a>
+<a href="BO-Oekonomi.dc.html">Økonomi</a>
+<a href="BO-Udstyr.dc.html" aria-current="page">Udstyr</a>
+<a href="BO-AI.dc.html">AI-modeller</a>
+<a href="BO-Indhold.dc.html">Indhold</a>
+<a href="BO-Admin.dc.html">Administration</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Udstyr</h1><x-import component-from-global-scope="Hojde.Button" variant="primary">Registrér udstyr</x-import></div>
+<div class="tbl"><table>
+<thead><tr><th>Enhed</th><th>Model</th><th>Serienummer</th><th>C-klasse</th><th>Brug</th><th>Næste service</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Drone 1</td><td>DJI Mini 5 Pro</td><td class="mono">[SERIENR]</td><td class="mono">C0</td><td class="mono">38 t 12 min</td><td class="mono">ved 50 t</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Klar</x-import></td></tr>
+<tr><td>Batteri 1–4</td><td>Intelligent Flight Battery</td><td class="mono">[SERIENR]</td><td class="mono">—</td><td class="mono">41–57 cyklusser</td><td class="mono">—</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Klar</x-import></td></tr>
+<tr><td>Batteri 5</td><td>Intelligent Flight Battery</td><td class="mono">[SERIENR]</td><td class="mono">—</td><td class="mono">212 cyklusser</td><td class="mono">—</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Til kontrol</x-import></td></tr>
+<tr><td>GNSS-stang</td><td>[Model]</td><td class="mono">[SERIENR]</td><td class="mono">—</td><td class="mono">—</td><td class="mono">kalibrering 01.2027</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Klar</x-import></td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Udstyr med status Til kontrol eller Til service kan ikke vælges i en opgaves tjekliste.</p>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

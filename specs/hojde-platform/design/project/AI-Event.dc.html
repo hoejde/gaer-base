@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Analyse: event</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">[Festival] ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil">FS</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<p class="crumb"><a href="KP-Rapporter.dc.html">Rapporter</a> › Crowd-tæthed</p>
+<div class="head"><div><h1 class="h1">[Festival] · lørdag</h1><div class="tools" style="margin-top: 8px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">AI-ydelse</x-import><span class="mono muted">14:00–23:30 · flyvning ved siden af publikum · kun anonymiserede tal</span></div></div><span class="tools"><x-import component-from-global-scope="Hojde.Button">Efterrapport til politi</x-import><x-import component-from-global-scope="Hojde.Button" variant="primary">Hent rapport</x-import></span></div>
+<div class="grid">
+<x-import component-from-global-scope="Hojde.Stat" label="Maks. tæthed" value="3,8" unit="pers./m²" delta="Scene A kl. 21:40" trend="down"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Ventetid indgang B" value="14" unit="min" delta="top kl. 18:10" trend="flat"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Anslået antal" value="[X]" unit="personer" delta="samtidigt, maks." trend="flat"></x-import>
+</div>
+<div class="cols">
+<section class="card" style="flex: 3 1 480px;">
+<div class="tools"><h2 class="h2 grow">Tæthed kl. 21:40</h2><label class="small">Tid <input type="range" min="0" max="19" value="15" aria-label="Tidspunkt"></label></div>
+<svg viewBox="0 0 640 360" role="img" aria-label="Eventområde med tæthed ved scener og indgange" style="width: 100%; height: auto; background: var(--surface-sunken); border-radius: var(--radius-lg);">
+<polygon points="30,40 610,30 620,330 40,340" fill="none" stroke="var(--line-strong)" stroke-dasharray="6 4"></polygon>
+<rect x="70" y="60" width="120" height="30" fill="var(--ink)"></rect><text x="90" y="80" fill="var(--surface)" font-size="13" font-weight="600">Scene A</text>
+<rect x="470" y="60" width="110" height="30" fill="var(--ink)"></rect><text x="490" y="80" fill="var(--surface)" font-size="13" font-weight="600">Scene B</text>
+<circle cx="130" cy="150" r="90" fill="var(--warning)" opacity="0.35"></circle>
+<circle cx="130" cy="135" r="48" fill="var(--danger)" opacity="0.75"></circle>
+<circle cx="525" cy="150" r="70" fill="var(--data-1)" opacity="0.45"></circle>
+<circle cx="330" cy="300" r="46" fill="var(--warning)" opacity="0.6"></circle>
+<circle cx="330" cy="200" r="60" fill="var(--data-1)" opacity="0.3"></circle>
+<rect x="300" y="322" width="60" height="16" fill="var(--ink)"></rect><text x="306" y="335" fill="var(--surface)" font-size="11" font-weight="600">Indgang B</text>
+<text x="92" y="140" fill="var(--surface-raised)" font-size="13" font-weight="600">3,8 /m²</text>
+</svg>
+<div class="tools small"><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--data-1);"></span> Under 2 /m²</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--warning);"></span> 2–3,5 /m²</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--danger);"></span> Over 3,5 /m²</span></div>
+</section>
+<section class="card" style="flex: 2 1 320px;">
+<h2 class="h2">Personer på pladsen pr. time</h2>
+<div style="display: flex; align-items: flex-end; gap: 6px; height: 140px; border-bottom: 1px solid var(--line);" aria-label="Søjlediagram over antal personer pr. time">
+<div style="flex: 1; height: 20%; background: var(--data-1);"></div><div style="flex: 1; height: 32%; background: var(--data-1);"></div><div style="flex: 1; height: 45%; background: var(--data-1);"></div><div style="flex: 1; height: 58%; background: var(--data-1);"></div><div style="flex: 1; height: 63%; background: var(--data-1);"></div><div style="flex: 1; height: 70%; background: var(--data-1);"></div><div style="flex: 1; height: 82%; background: var(--data-1);"></div><div style="flex: 1; height: 100%; background: var(--data-2);"></div><div style="flex: 1; height: 88%; background: var(--data-1);"></div><div style="flex: 1; height: 54%; background: var(--data-1);"></div>
+</div>
+<div style="display: flex; justify-content: space-between;" class="mono muted"><span>14</span><span>18</span><span>21</span><span>23</span></div>
+<h2 class="h2">Anbefalinger</h2>
+<ul class="list small">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="danger" dot="{{yes}}">Kritisk</x-import><span class="grow">Scene A over 3,5 /m² i 25 min; flyt bar og åbn nødvej øst</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Moderat</x-import><span class="grow">Indgang B: åbn to ekstra sluser 17:30–19:00</span></li>
+</ul>
+<p class="muted small" style="margin: 0;">Ingen billeder af personer gemmes; analysen bruger kun anonymiseret tæthed.</p>
+</section>
+</div>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

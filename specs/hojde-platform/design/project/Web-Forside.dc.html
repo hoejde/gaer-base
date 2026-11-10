@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Hjemmeside forside</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--link)}a:hover{color:var(--ink)}
+</style>
+</helmet>
+<div style="background: var(--surface); color: var(--ink); font-family: var(--font-sans);">
+  <header style="border-bottom: 1px solid var(--line); background: var(--surface-raised);">
+    <nav style="max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
+      <a href="#" style="font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--ink); text-decoration: none; margin-right: auto;">Højde</a>
+      <a href="#ydelser" style="color: var(--ink); text-decoration: none;">Ydelser</a>
+      <a href="#cases" style="color: var(--ink); text-decoration: none;">Cases</a>
+      <a href="#priser" style="color: var(--ink); text-decoration: none;">Priser</a>
+      <a href="#om" style="color: var(--ink); text-decoration: none;">Om os</a>
+      <a href="#kontakt" style="color: var(--ink); text-decoration: none;">Kontakt</a>
+      <a href="Main.dc.html" style="color: var(--link);">Log ind</a>
+      <x-import component-from-global-scope="Hojde.Button" variant="primary" href="Main.dc.html">Få et tilbud</x-import>
+    </nav>
+  </header>
+  <section style="max-width: 1200px; margin: 0 auto; padding: 96px 24px 64px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center;">
+    <div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+      <x-import component-from-global-scope="Hojde.Badge" tone="kote">Drone · data · AI</x-import>
+      <h1 style="margin: 0; font-family: var(--font-display); font-size: 56px; line-height: 60px; font-weight: 700; letter-spacing: -0.02em;">Data fra luften, omsat til beslutninger</h1>
+      <p style="margin: 0; font-size: 18px; line-height: 28px; color: var(--ink-muted); max-width: 560px;">Vi flyver bygninger, byggepladser, energianlæg, events, marker og natur. AI finder det vigtige, en analytiker godkender, og du får data, du kan handle på.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <x-import component-from-global-scope="Hojde.Button" variant="primary" href="KP-Bestilling.dc.html">Få et tilbud</x-import>
+        <x-import component-from-global-scope="Hojde.Button" href="#eksempel">Se en eksempelrapport</x-import>
+      </div>
+    </div>
+    <div style="flex: 1 1 440px; min-width: 0; aspect-ratio: 4 / 3; background: var(--surface-sunken); border-radius: var(--radius-lg); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--ink-muted); font-family: var(--font-mono); font-size: 13px; text-align: center; padding: 24px; box-sizing: border-box;">[Luftfoto af tag med AI-markerede fund]</div>
+  </section>
+  <section id="ydelser" style="max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 24px;">
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 760px;">
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em;">Ydelser til seks brancher</h2>
+      <p style="margin: 0; font-size: 18px; line-height: 28px; color: var(--ink-muted);">Alle ydelser kører på samme platform: vi flyver lovligt, AI analyserer, en analytiker godkender, og du følger resultatet over tid i portalen.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px;">
+      <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="margin: 0; font-size: 20px; line-height: 28px;">Bygninger og ejendomme</h3>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Tag- og facadeinspektion med AI-skadesrapport</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Termografi: varmetab, fugt og utætheder</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">3D-model og digital tvilling af bygningen</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Skadesdokumentation efter storm og brand</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Stand og areal til vurdering og belåning</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Ejendomsfoto og -video til salg og udlejning</li>
+        </ul>
+        <a href="Main.dc.html">Få et tilbud</a>
+      </article>
+      <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="margin: 0; font-size: 20px; line-height: 28px;">Byggeri og anlæg</h3>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Byggelåns- og fremdriftsdokumentation</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Ugentlig byggepladsmåling mod tidsplan og BIM</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Volumen og lagerstatus for jord, grus og materialer</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Terrænmodel og landmåling</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">As-built-dokumentation ved aflevering</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Råstofgrave og deponier</li>
+        </ul>
+        <a href="Main.dc.html">Få et tilbud</a>
+      </article>
+      <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="margin: 0; font-size: 20px; line-height: 28px;">Energi og infrastruktur</h3>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Solcelleparker og solceller på tage</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Visuel inspektion af vindmøller</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Broer, master og ledningsanlæg</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Fjernvarme og forsyning med termografi</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Havne, terminaler og logistikarealer</li>
+        </ul>
+        <a href="Main.dc.html">Få et tilbud</a>
+      </article>
+      <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="margin: 0; font-size: 20px; line-height: 28px;">Events og sikkerhed</h3>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Crowd-tæthed og flow, altid anonymiseret</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">3D af eventområdet til sikkerhedsplanlægning</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Efterrapport til politi, kommune og arrangør</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Dokumentation for kommuner og beredskab</li>
+        </ul>
+        <a href="Main.dc.html">Få et tilbud</a>
+      </article>
+      <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="margin: 0; font-size: 20px; line-height: 28px;">Landbrug</h3>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Ukrudtskort til spotsprøjtning</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Afgrødesundhed og vækst med multispektral</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Markdræning og terræn</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Volumen af ensilage og gødningsdepoter</li>
+        </ul>
+        <a href="Main.dc.html">Få et tilbud</a>
+      </article>
+      <article style="background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="margin: 0; font-size: 20px; line-height: 28px;">Skov, natur og klima</h3>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Stormfald og skovopgørelse med trætælling</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Biodiversitet og invasive arter</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Kyst og erosion over tid</li>
+          <li style="padding: 8px 0; border-top: 1px solid var(--line);">Overvågning af naturpleje og vådområder</li>
+        </ul>
+        <a href="Main.dc.html">Få et tilbud</a>
+      </article>
+    </div>
+    <div style="background: var(--ink); color: var(--surface); border-radius: var(--radius-md); padding: 32px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
+      <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 8px;">
+        <h3 style="margin: 0; font-family: var(--font-display); font-size: 24px; line-height: 30px; font-weight: 600;">Flyver I selv? Brug vores analyse</h3>
+        <p style="margin: 0; opacity: .85;">Upload jeres egne dronebilleder og få samme AI-analyse, kvalitetskontrol, portal og API som vores egne kunder.</p>
+      </div>
+      <x-import component-from-global-scope="Hojde.Button" variant="primary" href="Main.dc.html">Kom i gang</x-import>
+    </div>
+  </section>
+  <section style="background: var(--surface-raised); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 64px 24px; display: flex; flex-direction: column; gap: 32px;">
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em;">Sådan arbejder vi</h2>
+      <ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;">
+        <li style="display: flex; flex-direction: column; gap: 8px;"><span style="font-family: var(--font-mono); color: var(--signal); font-size: 13px;">01</span><strong style="font-size: 18px;">Du bestiller</strong><span style="color: var(--ink-muted);">Vælg ydelse og lokation på få minutter.</span></li>
+        <li style="display: flex; flex-direction: column; gap: 8px;"><span style="font-family: var(--font-mono); color: var(--signal); font-size: 13px;">02</span><strong style="font-size: 18px;">Vi flyver lovligt</strong><span style="color: var(--ink-muted);">Zonetjek, vejr og risikovurdering før hver flyvning.</span></li>
+        <li style="display: flex; flex-direction: column; gap: 8px;"><span style="font-family: var(--font-mono); color: var(--signal); font-size: 13px;">03</span><strong style="font-size: 18px;">AI og mennesker analyserer</strong><span style="color: var(--ink-muted);">Personer sløres, AI finder fund, en analytiker godkender.</span></li>
+        <li style="display: flex; flex-direction: column; gap: 8px;"><span style="font-family: var(--font-mono); color: var(--signal); font-size: 13px;">04</span><strong style="font-size: 18px;">Du handler</strong><span style="color: var(--ink-muted);">Rapport og fund i portalen, klar til at dele.</span></li>
+      </ol>
+    </div>
+  </section>
+  <section id="cases" style="max-width: 1200px; margin: 0 auto; padding: 64px 24px; display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch;">
+    <div style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+      <x-import component-from-global-scope="Hojde.Badge">Case</x-import>
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 24px; line-height: 30px; font-weight: 600;">[Kundenavn]: [Resultat i én sætning]</h2>
+      <p style="margin: 0; color: var(--ink-muted);">[Udfordring, leverance og resultat fra den første pilotkunde. Kun godkendte cases med slørede billeder.]</p>
+      <a href="#cases">Læs casen</a>
+    </div>
+    <div style="flex: 1 1 400px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
+      <x-import component-from-global-scope="Hojde.Stat" label="Bygninger inspiceret" value="[TAL]"></x-import>
+      <x-import component-from-global-scope="Hojde.Stat" label="Fund godkendt" value="[TAL]"></x-import>
+    </div>
+  </section>
+  <section id="om" style="background: var(--ink); color: var(--surface);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 48px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; font-size: 14px; line-height: 20px;">
+      <div><strong style="display: block; font-size: 16px;">Registreret operatør</strong><span style="opacity: .8;">Operatør-ID hos Trafikstyrelsen</span></div>
+      <div><strong style="display: block; font-size: 16px;">Erhvervsforsikret</strong><span style="opacity: .8;">Ansvarsforsikring for al flyvning</span></div>
+      <div><strong style="display: block; font-size: 16px;">Data i EU</strong><span style="opacity: .8;">Behandling og lagring i EU</span></div>
+      <div><strong style="display: block; font-size: 16px;">Personer sløres</strong><span style="opacity: .8;">Før billeder gemmes</span></div>
+    </div>
+  </section>
+  <footer id="kontakt" style="max-width: 1200px; margin: 0 auto; padding: 32px 24px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; font-size: 14px; color: var(--ink-muted);">
+    <span>Højde · CVR [NUMMER] · [ADRESSE]</span>
+    <span style="display: flex; gap: 16px;"><a href="#">Privatliv</a><a href="#">Cookies</a><a href="#">Vilkår</a></span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      yes: true,
+      specsInspektion: ['Tag og facader i 50 MP', 'Prioriteret skadesliste', 'Rapport inden for [X] dage'],
+      specsFremdrift: ['Faste fotopunkter', 'Sammenligning med sidste besøg', 'Deling med bank via link'],
+      specs3d: ['Måling af afstand og areal', 'Ortofoto og punktsky', 'Eksport til CAD']
+    };
+  }
+}
+</script>
+</body>
+</html>

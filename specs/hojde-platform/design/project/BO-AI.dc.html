@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>AI-modeller</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark">
+<header class="top"><a class="logo" href="BO-Overblik.dc.html">Højde</a><x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import><span class="grow"></span><span class="muted small">Emil · Administrator</span><a class="av" href="BO-Admin.dc.html" aria-label="Min profil: Emil">E</a></header>
+<div class="row">
+<nav class="nav" aria-label="Backoffice">
+<a href="BO-Overblik.dc.html">Overblik</a>
+<a href="BO-Opgaver.dc.html">Opgaver</a>
+<a href="BO-Compliance.dc.html">Flyvelog og compliance</a>
+<a href="BO-Data.dc.html">Databehandling</a>
+<a href="BO-Kvalitet.dc.html">Kvalitetskontrol</a>
+<a href="BO-Rapporter.dc.html">Rapporter</a>
+<a href="BO-Kunder.dc.html">Kunder</a>
+<a href="BO-Oekonomi.dc.html">Økonomi</a>
+<a href="BO-Udstyr.dc.html">Udstyr</a>
+<a href="BO-AI.dc.html" aria-current="page">AI-modeller</a>
+<a href="BO-Indhold.dc.html">Indhold</a>
+<a href="BO-Admin.dc.html">Administration</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">AI-modeller</h1><x-import component-from-global-scope="Hojde.Button">Træn ny version</x-import></div>
+<div class="tbl"><table>
+<thead><tr><th>Model</th><th>Bruges til</th><th>Version</th><th>Præcision på testdata</th><th>Rettelser siden sidst</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><strong>Tagskade</strong></td><td>Bygningsinspektion</td><td class="mono">v1.3</td><td class="mono">[XX] %</td><td class="mono">46</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">I drift</x-import></td></tr>
+<tr><td><strong>Facadeskade</strong></td><td>Bygningsinspektion</td><td class="mono">v0.9</td><td class="mono">[XX] %</td><td class="mono">12</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Test</x-import></td></tr>
+<tr><td><strong>Sløring</strong></td><td>Alle ydelser</td><td class="mono">v2.1</td><td class="mono">[XX] %</td><td class="mono">0</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">I drift</x-import></td></tr>
+<tr><td><strong>Volumen og terræn</strong></td><td>Byggeri, landbrug</td><td class="mono">v1.0</td><td class="mono">[XX] %</td><td class="mono">3</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Test</x-import></td></tr>
+<tr><td><strong>Fremdrift mod plan</strong></td><td>Byggelån, byggeplads</td><td class="mono">v0.6</td><td class="mono">[XX] %</td><td class="mono">8</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Test</x-import></td></tr>
+<tr><td><strong>Termisk anomali</strong></td><td>Termografi, solceller</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td><x-import component-from-global-scope="Hojde.Badge">Planlagt</x-import></td></tr>
+<tr><td><strong>Crowd-tæthed</strong></td><td>Events</td><td class="mono">v0.4</td><td class="mono">[XX] %</td><td class="mono">0</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Test</x-import></td></tr>
+<tr><td><strong>Ukrudt og afgrøder</strong></td><td>Landbrug</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td><x-import component-from-global-scope="Hojde.Badge">Planlagt</x-import></td></tr>
+<tr><td><strong>Trætælling og stormfald</strong></td><td>Skov og natur</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td><x-import component-from-global-scope="Hojde.Badge">Planlagt</x-import></td></tr>
+</tbody></table></div>
+<section class="card">
+<h2 class="h2">Sporbarhed</h2>
+<p class="muted small" style="margin: 0;">Hvert fund gemmer modelversion, sikkerhedsscore og hvem der godkendte det. Rettelser fra kvalitetskontrollen samles som træningsdata til næste version.</p>
+</section>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

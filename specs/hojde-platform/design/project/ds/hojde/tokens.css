@@ -1,0 +1,46 @@
+/* Højde — generated from tokens.json */
+:root, [data-theme="light"] {
+  --surface: #f4f2ec; --surface-raised: #ffffff; --surface-sunken: #e8e5dc;
+  --line: #d6d1c4; --line-strong: #7d7a70;
+  --ink: #0f1b24; --ink-muted: #4d5860;
+  --signal: #b03709; --signal-soft: #fbe3d4; --on-signal: #ffffff;
+  --kote: #0b6b61; --kote-soft: #d3ede7; --on-kote: #ffffff;
+  --link: var(--kote);
+  --warning: #865600; --warning-soft: #f8ebcc;
+  --danger: #b0173f; --danger-soft: #f9dde4;
+  --data-1: var(--kote); --data-2: var(--signal); --data-3: #3a5683; --data-4: #a87a14;
+  --shadow-sm: 0 1px 2px #0f1b2414;
+  --shadow-lg: 0 8px 24px -4px #0f1b2429;
+  --focus-ring: 0 0 0 2px #f4f2ec, 0 0 0 4px #0b6b61;
+}
+[data-theme="dark"] {
+  --surface: #0d151b; --surface-raised: #15202a; --surface-sunken: #091015;
+  --line: #2a3742; --line-strong: #6e7d88;
+  --ink: #edf0ec; --ink-muted: #a6b1b8;
+  --signal: #ff8a45; --signal-soft: #3d1a08; --on-signal: #0d151b;
+  --kote: #4ccdbb; --kote-soft: #0b2f2a; --on-kote: #0d151b;
+  --link: var(--kote);
+  --warning: #f2c14e; --warning-soft: #33270a;
+  --danger: #ff7a98; --danger-soft: #3a0f1b;
+  --data-1: var(--kote); --data-2: var(--signal); --data-3: #8fb0e3; --data-4: #e0b552;
+  --shadow-sm: 0 1px 2px #00000099;
+  --shadow-lg: 0 12px 28px -4px #000000cc;
+  --focus-ring: 0 0 0 2px #0d151b, 0 0 0 4px #4ccdbb;
+}
+:root {
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --radius-sm: 2px; --radius-md: 4px; --radius-lg: 8px; --radius-full: 9999px;
+  --font-display: Archivo, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+.display-xl { font-family: var(--font-display); font-size: 56px; line-height: 60px; font-weight: 700; letter-spacing: -0.02em; }
+.display { font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.015em; }
+.heading { font-family: var(--font-display); font-size: 24px; line-height: 30px; font-weight: 600; letter-spacing: -0.01em; }
+.title { font-family: var(--font-sans); font-size: 18px; line-height: 26px; font-weight: 600; }
+.body { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
+.body-sm { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.label { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; }
+.data-lg { font-family: var(--font-mono); font-size: 32px; line-height: 36px; font-weight: 500; letter-spacing: -0.01em; }
+.data { font-family: var(--font-mono); font-size: 13px; line-height: 20px; font-weight: 400; }

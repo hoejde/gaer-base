@@ -1,0 +1,398 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "BO-AI.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "title": "Backoffice · AI-modeller",
+      "w": 1440,
+      "x": 15200,
+      "y": 4600
+    },
+    "BO-Admin.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "Backoffice · Administration",
+      "w": 1440,
+      "x": 18240,
+      "y": 4600
+    },
+    "BO-Compliance.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Backoffice · Flyvelog og compliance",
+      "w": 1440,
+      "x": 4560,
+      "y": 4600
+    },
+    "BO-Data.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Backoffice · Databehandling",
+      "w": 1440,
+      "x": 6080,
+      "y": 4600
+    },
+    "BO-Indhold.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Backoffice · Indhold",
+      "w": 1440,
+      "x": 16720,
+      "y": 4600
+    },
+    "BO-Kunder.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Backoffice · Kunder",
+      "w": 1440,
+      "x": 10640,
+      "y": 4600
+    },
+    "BO-Kvalitet.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "Backoffice · Kvalitetskontrol",
+      "w": 1440,
+      "x": 7600,
+      "y": 4600
+    },
+    "BO-Oekonomi.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "title": "Backoffice · Økonomi",
+      "w": 1440,
+      "x": 12160,
+      "y": 4600
+    },
+    "BO-Opgave.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "title": "Backoffice · Opgave › Forberedelse",
+      "w": 1440,
+      "x": 3040,
+      "y": 4600
+    },
+    "BO-Opgaver.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "Backoffice · Opgaver",
+      "w": 1440,
+      "x": 1520,
+      "y": 4600
+    },
+    "BO-Overblik.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "Backoffice · Overblik",
+      "w": 1440,
+      "x": 0,
+      "y": 4600
+    },
+    "BO-Rapporter.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Backoffice · Rapporter",
+      "w": 1440,
+      "x": 9120,
+      "y": 4600
+    },
+    "BO-Udstyr.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Backoffice · Udstyr",
+      "w": 1440,
+      "x": 13680,
+      "y": 4600
+    },
+    "KP-Bestilling.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Kundeportal · Ny bestilling",
+      "w": 1440,
+      "x": 6080,
+      "y": 3000
+    },
+    "KP-Bestillinger.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Kundeportal · Bestillinger",
+      "w": 1440,
+      "x": 4560,
+      "y": 3000
+    },
+    "KP-Brugere.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Kundeportal · Organisation",
+      "w": 1440,
+      "x": 12160,
+      "y": 3000
+    },
+    "KP-Fakturaer.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "Kundeportal · Fakturaer",
+      "w": 1440,
+      "x": 10640,
+      "y": 3000
+    },
+    "KP-Fund.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Kundeportal · Fund",
+      "w": 1440,
+      "x": 9120,
+      "y": 3000
+    },
+    "KP-Hjaelp.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Kundeportal · Hjælp",
+      "w": 1440,
+      "x": 13680,
+      "y": 3000
+    },
+    "KP-Lokation.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "title": "Kundeportal · Lokation",
+      "w": 1440,
+      "x": 3040,
+      "y": 3000
+    },
+    "KP-Lokationer.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Kundeportal · Lokationer",
+      "w": 1440,
+      "x": 1520,
+      "y": 3000
+    },
+    "KP-Overblik.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "Kundeportal · Overblik",
+      "w": 1440,
+      "x": 0,
+      "y": 3000
+    },
+    "KP-Rapporter.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Kundeportal · Rapporter",
+      "w": 1440,
+      "x": 7600,
+      "y": 3000
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Login (fælles)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Web-Forside.dc.html": {
+      "expand": "fill",
+      "h": 2400,
+      "is_interactive": true,
+      "title": "Hjemmeside · Forside",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "KP-Upload.dc.html": {
+      "x": 0,
+      "y": 6700,
+      "w": 1440,
+      "h": 1000,
+      "title": "Kundeportal · Upload billeder og video",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "BO-Upload.dc.html": {
+      "x": 1520,
+      "y": 6700,
+      "w": 390,
+      "h": 844,
+      "title": "Pilot · Upload efter flyvning (mobil)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AI-Byggeplads.dc.html": {
+      "x": 1990,
+      "y": 6700,
+      "w": 1440,
+      "h": 1100,
+      "title": "Analyse · Byggeplads: fremdrift og volumen",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AI-Solceller.dc.html": {
+      "x": 3510,
+      "y": 6700,
+      "w": 1440,
+      "h": 1100,
+      "title": "Analyse · Solcellepark: termografi",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AI-Event.dc.html": {
+      "x": 5030,
+      "y": 6700,
+      "w": 1440,
+      "h": 1100,
+      "title": "Analyse · Event: crowd-tæthed",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AI-Landbrug.dc.html": {
+      "x": 6550,
+      "y": 6700,
+      "w": 1440,
+      "h": 1100,
+      "title": "Analyse · Landbrug: ukrudtskort",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AI-Skov.dc.html": {
+      "x": 8070,
+      "y": 6700,
+      "w": 1440,
+      "h": 1100,
+      "title": "Analyse · Skov: stormfald",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Handover.dc.html": {
+      "x": 0,
+      "y": 8320,
+      "w": 1440,
+      "h": 4600,
+      "title": "Handover · Claude Code → surdej-v2",
+      "expand": "fill",
+      "is_interactive": true
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-07T12:00:00Z",
+    "v": 1
+  },
+  "designSystems": [
+    {
+      "artifact": "https://claude.ai/artifact/RiCS4e3wRBCpABhdCXyZvv",
+      "copiedAt": "2026-10-07T12:00:00Z",
+      "namespace": "hojde",
+      "title": "Højde",
+      "version": "1791399585-6e6f"
+    }
+  ],
+  "launch": {
+    "file": "Main.dc.html",
+    "view": "focused"
+  },
+  "notes": {
+    "row1": {
+      "kind": "title1",
+      "maxW": 2960,
+      "text": "Login og hjemmeside",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "row2": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "Kundeportal",
+      "w": 240,
+      "x": 0,
+      "y": 2700
+    },
+    "row3": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "Intern backoffice",
+      "w": 240,
+      "x": 0,
+      "y": 4300
+    },
+    "row4": {
+      "kind": "title1",
+      "maxW": 9590,
+      "text": "Upload og eksempler på AI-analyser",
+      "w": 240,
+      "x": 0,
+      "y": 6400
+    },
+    "row5": {
+      "kind": "title1",
+      "maxW": 1440,
+      "text": "Overdragelse til udvikling",
+      "x": 0,
+      "y": 8020
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Web-Forside.dc.html",
+    "KP-Overblik.dc.html",
+    "KP-Lokationer.dc.html",
+    "KP-Lokation.dc.html",
+    "KP-Bestillinger.dc.html",
+    "KP-Bestilling.dc.html",
+    "KP-Rapporter.dc.html",
+    "KP-Fund.dc.html",
+    "KP-Fakturaer.dc.html",
+    "KP-Brugere.dc.html",
+    "KP-Hjaelp.dc.html",
+    "BO-Overblik.dc.html",
+    "BO-Opgaver.dc.html",
+    "BO-Opgave.dc.html",
+    "BO-Compliance.dc.html",
+    "BO-Data.dc.html",
+    "BO-Kvalitet.dc.html",
+    "BO-Rapporter.dc.html",
+    "BO-Kunder.dc.html",
+    "BO-Oekonomi.dc.html",
+    "BO-Udstyr.dc.html",
+    "BO-AI.dc.html",
+    "BO-Indhold.dc.html",
+    "BO-Admin.dc.html",
+    "KP-Upload.dc.html",
+    "BO-Upload.dc.html",
+    "AI-Byggeplads.dc.html",
+    "AI-Solceller.dc.html",
+    "AI-Event.dc.html",
+    "AI-Landbrug.dc.html",
+    "AI-Skov.dc.html",
+    "Handover.dc.html"
+  ],
+  "pages": [],
+  "title": "Højde-platformen — skærmbilleder"
+}

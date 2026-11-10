@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Fakturaer</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">Boligforeningen Kystparken ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil: Mette Holm">MH</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html" aria-current="page">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Fakturaer og abonnement</h1></div>
+<div class="grid">
+<x-import component-from-global-scope="Hojde.Stat" label="Aktive abonnementer" value="2" delta="Inspektion hver 6. måned"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Forbrug i oktober" value="[BELØB]" unit="kr."></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Næste faktura" value="01.11" delta="ekskl. moms"></x-import>
+</div>
+<section class="card">
+<h2 class="h2">Abonnementer</h2>
+<ul class="list">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import><span class="grow">Kystparken blok A, B og C · hver 6. måned · binding til 03.2027</span><span class="mono">[PRIS] kr./md.</span></li>
+<li><x-import component-from-global-scope="Hojde.Badge" tone="kote">Inspektion</x-import><span class="grow">Strandvejen 8 · årligt</span><span class="mono">[PRIS] kr./år</span></li>
+</ul>
+</section>
+<div class="tbl"><table>
+<thead><tr><th>Faktura</th><th>Dato</th><th>Forfald</th><th>Beløb ekskl. moms</th><th>Status</th><th></th></tr></thead>
+<tbody>
+<tr><td class="mono">F-2026-0311</td><td class="mono">01.10.2026</td><td class="mono">31.10.2026</td><td class="mono">[BELØB]</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Ubetalt</x-import></td><td><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">PDF</x-import></td></tr>
+<tr><td class="mono">F-2026-0274</td><td class="mono">01.09.2026</td><td class="mono">01.10.2026</td><td class="mono">[BELØB]</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Betalt</x-import></td><td><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">PDF</x-import></td></tr>
+<tr><td class="mono">F-2026-0231</td><td class="mono">01.08.2026</td><td class="mono">31.08.2026</td><td class="mono">[BELØB]</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Betalt</x-import></td><td><x-import component-from-global-scope="Hojde.Button" size="sm" variant="quiet">PDF</x-import></td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Kun kundeadministratorer kan se fakturaer. Fakturaadresse og EAN ændres under Organisation › Indstillinger.</p>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

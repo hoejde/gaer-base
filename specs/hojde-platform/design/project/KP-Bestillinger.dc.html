@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Bestillinger</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">Boligforeningen Kystparken ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil: Mette Holm">MH</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html" aria-current="page">Bestillinger</a>
+<a href="KP-Rapporter.dc.html">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Bestillinger</h1><x-import component-from-global-scope="Hojde.Button" variant="primary" href="KP-Bestilling.dc.html">Ny bestilling</x-import></div>
+<div class="tabs"><a href="#" aria-current="page">Kommende (3)</a><a href="#">Tidligere (21)</a><a href="#">Abonnementer (2)</a></div>
+<div class="card" style="background: var(--signal-soft); border-color: var(--signal-soft); flex-direction: row; flex-wrap: wrap; align-items: center;">
+<x-import component-from-global-scope="Hojde.Badge" tone="signal" dot="{{yes}}">Tilbud sendt</x-import>
+<span class="grow" style="min-width: 240px;">Tilbud på 3D-model af Kystparken blok A venter på din godkendelse.</span>
+<x-import component-from-global-scope="Hojde.Button" size="sm">Se tilbud</x-import>
+<x-import component-from-global-scope="Hojde.Button" size="sm" variant="primary">Godkend tilbud</x-import>
+</div>
+<div class="tbl"><table>
+<thead><tr><th>Nr.</th><th>Lokation</th><th>Ydelse</th><th>Planlagt</th><th>Pilot</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="mono">B-1042</td><td><a href="KP-Lokation.dc.html">Kystparken blok B</a></td><td>Bygningsinspektion</td><td class="mono">14.10.2026 kl. 08</td><td>Anders</td><td><x-import component-from-global-scope="Hojde.Badge" tone="warning" dot="{{yes}}">Vejrforbehold</x-import></td></tr>
+<tr><td class="mono">B-1043</td><td><a href="KP-Lokation.dc.html">Kystparken blok A</a></td><td>Bygningsinspektion</td><td class="mono">21.10.2026 kl. 09</td><td>Anders</td><td><x-import component-from-global-scope="Hojde.Badge" tone="signal" dot="{{yes}}">Planlagt</x-import></td></tr>
+<tr><td class="mono">B-1047</td><td><a href="KP-Lokation.dc.html">Kystparken blok A</a></td><td>3D-model af bygning</td><td class="mono">Afventer godkendelse</td><td>—</td><td><x-import component-from-global-scope="Hojde.Badge" tone="signal">Tilbud sendt</x-import></td></tr>
+<tr><td class="mono">B-1039</td><td><a href="KP-Lokation.dc.html">Kystparken blok C</a></td><td>Bygningsinspektion</td><td class="mono">02.10.2026</td><td>Emil</td><td><x-import component-from-global-scope="Hojde.Badge" tone="kote" dot="{{yes}}">Leveret</x-import></td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Du kan aflyse eller ønske ny dato frem til 24 timer før planlagt flyvning.</p>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Analyse: stormfald</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app">
+<header class="top"><a class="logo" href="KP-Overblik.dc.html">Højde</a><button type="button" class="org">[Gods] ▾</button><span class="grow"></span><a class="av" href="KP-Brugere.dc.html" aria-label="Min profil">GS</a></header>
+<div class="row">
+<nav class="nav" aria-label="Kundeportal">
+<a href="KP-Overblik.dc.html">Overblik</a>
+<a href="KP-Lokationer.dc.html">Lokationer</a>
+<a href="KP-Bestillinger.dc.html">Bestillinger</a>
+<a href="KP-Rapporter.dc.html" aria-current="page">Rapporter</a>
+<a href="KP-Fund.dc.html">Fund</a>
+<a href="KP-Fakturaer.dc.html">Fakturaer</a>
+<a href="KP-Brugere.dc.html">Organisation</a>
+<a href="KP-Hjaelp.dc.html">Hjælp</a>
+</nav>
+<main class="main">
+<p class="crumb"><a href="KP-Rapporter.dc.html">Rapporter</a> › Stormfald</p>
+<div class="head"><div><h1 class="h1">Skovdistrikt nord · stormfald</h1><div class="tools" style="margin-top: 8px;"><x-import component-from-global-scope="Hojde.Badge" tone="kote">AI-ydelse</x-import><span class="mono muted">Fløjet 28.–29.10.2026 · 240 ha · ortofoto og trætælling</span></div></div><span class="tools"><x-import component-from-global-scope="Hojde.Button">Kort til entreprenør</x-import><x-import component-from-global-scope="Hojde.Button" variant="primary">Hent rapport</x-import></span></div>
+<div class="grid">
+<x-import component-from-global-scope="Hojde.Stat" label="Areal kortlagt" value="240" unit="ha"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Væltede træer" value="3.912" delta="AI-tælling" trend="flat"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Stormfaldsareal" value="31" unit="ha" delta="13 % af distriktet" trend="down"></x-import>
+<x-import component-from-global-scope="Hojde.Stat" label="Spærrede veje" value="4" delta="skal ryddes først" trend="down"></x-import>
+</div>
+<div class="cols">
+<section class="card" style="flex: 3 1 480px;">
+<h2 class="h2">Stormfald pr. afdeling</h2>
+<svg viewBox="0 0 640 360" role="img" aria-label="Skovafdelinger med stormfaldsområder og spærrede veje" style="width: 100%; height: auto; background: var(--surface-sunken); border-radius: var(--radius-lg);">
+<polygon points="30,30 320,24 330,180 36,190" fill="var(--data-1)" opacity="0.3" stroke="var(--line-strong)"></polygon>
+<polygon points="330,24 610,30 606,170 330,180" fill="var(--data-1)" opacity="0.3" stroke="var(--line-strong)"></polygon>
+<polygon points="36,190 330,180 336,336 40,340" fill="var(--data-1)" opacity="0.3" stroke="var(--line-strong)"></polygon>
+<polygon points="330,180 606,170 610,330 336,336" fill="var(--data-1)" opacity="0.3" stroke="var(--line-strong)"></polygon>
+<polygon points="380,50 520,46 540,140 400,150" fill="var(--danger)" opacity="0.7"></polygon>
+<polygon points="80,220 200,214 210,290 90,300" fill="var(--warning)" opacity="0.75"></polygon>
+<polygon points="420,230 480,226 486,270 426,274" fill="var(--warning)" opacity="0.75"></polygon>
+<path d="M20 200 C 160 190, 300 200, 620 160" fill="none" stroke="var(--ink)" stroke-width="4"></path>
+<circle cx="250" cy="196" r="7" fill="var(--danger)" stroke="var(--surface-raised)" stroke-width="2"></circle>
+<circle cx="470" cy="178" r="7" fill="var(--danger)" stroke="var(--surface-raised)" stroke-width="2"></circle>
+<text x="44" y="52" fill="var(--ink)" font-size="13" font-weight="600">Afd. 12</text><text x="340" y="44" fill="var(--ink)" font-size="13" font-weight="600">Afd. 13</text><text x="48" y="330" fill="var(--ink)" font-size="13" font-weight="600">Afd. 14</text><text x="346" y="326" fill="var(--ink)" font-size="13" font-weight="600">Afd. 15</text>
+</svg>
+<div class="tools small"><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--danger);"></span> Fladefald</span><span><span style="display: inline-block; width: 12px; height: 12px; background: var(--warning);"></span> Spredt fald</span><span><span style="display: inline-block; width: 12px; height: 12px; border-radius: 9999px; background: var(--danger);"></span> Spærret vej</span></div>
+</section>
+<section class="card" style="flex: 2 1 320px;">
+<h2 class="h2">Prioriteret oprydning</h2>
+<div class="tbl" style="border: none;"><table style="min-width: 0;">
+<thead><tr><th>Afd.</th><th>Art</th><th>Væltede</th><th>Areal</th></tr></thead>
+<tbody>
+<tr><td class="mono">13</td><td>Rødgran</td><td class="mono">2.640</td><td class="mono">19 ha</td></tr>
+<tr><td class="mono">14</td><td>Sitkagran</td><td class="mono">810</td><td class="mono">7 ha</td></tr>
+<tr><td class="mono">15</td><td>Bøg</td><td class="mono">330</td><td class="mono">3 ha</td></tr>
+<tr><td class="mono">12</td><td>Eg</td><td class="mono">132</td><td class="mono">2 ha</td></tr>
+</tbody></table></div>
+<p class="muted small" style="margin: 0;">Træart er AI-vurderet fra ortofoto og bør bekræftes ved besigtigelse. Gentag flyvningen om 6 måneder for at følge barkbilleangreb.</p>
+</section>
+</div>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

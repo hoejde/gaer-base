@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Opgaver og planlægning</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/hojde/tokens.css">
+<link rel="stylesheet" href="ds/hojde/components/bundle.css">
+<link rel="stylesheet" href="proto.css">
+<script src="ds/hojde/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;600&amp;display=swap">
+<style>body{margin:0}a{color:var(--link)}a:hover{color:var(--ink)}</style>
+</helmet>
+<div class="app" data-theme="dark">
+<header class="top"><a class="logo" href="BO-Overblik.dc.html">Højde</a><x-import component-from-global-scope="Hojde.Badge" tone="signal">Backoffice</x-import><span class="grow"></span><span class="muted small">Emil · Administrator</span><a class="av" href="BO-Admin.dc.html" aria-label="Min profil: Emil">E</a></header>
+<div class="row">
+<nav class="nav" aria-label="Backoffice">
+<a href="BO-Overblik.dc.html">Overblik</a>
+<a href="BO-Opgaver.dc.html" aria-current="page">Opgaver</a>
+<a href="BO-Compliance.dc.html">Flyvelog og compliance</a>
+<a href="BO-Data.dc.html">Databehandling</a>
+<a href="BO-Kvalitet.dc.html">Kvalitetskontrol</a>
+<a href="BO-Rapporter.dc.html">Rapporter</a>
+<a href="BO-Kunder.dc.html">Kunder</a>
+<a href="BO-Oekonomi.dc.html">Økonomi</a>
+<a href="BO-Udstyr.dc.html">Udstyr</a>
+<a href="BO-AI.dc.html">AI-modeller</a>
+<a href="BO-Indhold.dc.html">Indhold</a>
+<a href="BO-Admin.dc.html">Administration</a>
+</nav>
+<main class="main">
+<div class="head"><h1 class="h1">Opgaver</h1><x-import component-from-global-scope="Hojde.Button" variant="primary" href="BO-Opgave.dc.html">Ny opgave</x-import></div>
+<div class="tabs"><a href="#" aria-current="page">Kalender</a><a href="#">Liste</a><a href="#">Kort</a></div>
+<div class="tools">
+<x-import component-from-global-scope="Hojde.Button" size="sm">‹ Forrige uge</x-import>
+<strong>Uge 42 · 12.–16.10.2026</strong>
+<x-import component-from-global-scope="Hojde.Button" size="sm">Næste uge ›</x-import>
+<span class="grow"></span>
+<label><span class="muted small">Pilot </span><select><option>Alle piloter</option><option>Anders</option><option>Emil</option></select></label>
+</div>
+<div class="tbl" style="padding: 16px;">
+<div style="display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: 12px; min-width: 780px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><strong class="small">Man 12.10</strong>
+<a href="BO-Opgave.dc.html" style="display: block; padding: 10px; border-radius: var(--radius-md); background: var(--kote-soft); color: var(--ink); text-decoration: none;"><span class="mono">09:00</span><br>Kystparken blok A<br><span class="muted small">Inspektion · Anders</span></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><strong class="small">Tir 13.10</strong>
+<a href="BO-Opgave.dc.html" style="display: block; padding: 10px; border-radius: var(--radius-md); background: var(--warning-soft); color: var(--ink); text-decoration: none;"><span class="mono">08:00</span><br>Strandvejen 12<br><span class="muted small">Vejrforbehold · Anders</span></a>
+<a href="BO-Opgave.dc.html" style="display: block; padding: 10px; border-radius: var(--radius-md); background: var(--signal-soft); color: var(--ink); text-decoration: none; border: 2px solid var(--signal);"><span class="mono">10:30</span><br>Nordhavn byggefelt 7<br><span class="muted small">Forberedelse · Anders</span></a>
+<a href="BO-Opgave.dc.html" style="display: block; padding: 10px; border-radius: var(--radius-md); background: var(--kote-soft); color: var(--ink); text-decoration: none;"><span class="mono">13:00</span><br>Valby Langgade 40<br><span class="muted small">3D-model · Emil</span></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><strong class="small">Ons 14.10</strong>
+<a href="BO-Opgave.dc.html" style="display: block; padding: 10px; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); text-decoration: none;"><span class="mono">08:00</span><br>Kystparken blok B<br><span class="muted small">Inspektion · Anders</span></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><strong class="small">Tor 15.10</strong>
+<span class="muted small" style="padding: 10px;">Ingen opgaver</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><strong class="small">Fre 16.10</strong>
+<a href="BO-Opgave.dc.html" style="display: block; padding: 10px; border-radius: var(--radius-md); background: var(--surface-sunken); color: var(--ink); text-decoration: none;"><span class="mono">10:00</span><br>[Grusgrav] depot nord<br><span class="muted small">Volumen · Emil</span></a>
+</div>
+</div>
+</div>
+<section class="card">
+<h2 class="h2">Ikke planlagt (2)</h2>
+<ul class="list">
+<li><x-import component-from-global-scope="Hojde.Badge" tone="signal">Tilbud godkendt</x-import><span class="grow">Kystparken blok A · 3D-model</span><x-import component-from-global-scope="Hojde.Button" size="sm">Planlæg</x-import></li>
+<li><x-import component-from-global-scope="Hojde.Badge">Abonnement</x-import><span class="grow">Nordhavn byggefelt 7 · besøg 5 af 12 · senest 10.11</span><x-import component-from-global-scope="Hojde.Button" size="sm">Planlæg</x-import></li>
+</ul>
+</section>
+</main></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
