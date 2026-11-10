@@ -68,6 +68,11 @@ EVENTS: dict[str, str] = {
     "mail.retention.completed": "Sletningen af gammel mail har kørt (kørsel-id, antal slettet, fejl)",
     "hojde.order.created": "Højde: en kunde har bestilt en opgave (bestillings-id, organisations-id)",
     "hojde.quote.approved": "Højde: en kunde har godkendt et tilbud (bestillings-id, organisations-id)",
+    "hojde.quote.sent": "Højde: et tilbud er sendt til kunden (bestillings-id, organisations-id)",
+    "hojde.task.ready": "Højde: en opgave er markeret klar til flyvning (opgave-id, bestillings-id)",
+    "hojde.task.delivered": "Højde: en opgave er leveret til kunden (opgave-id, bestillings-id)",
+    "hojde.weather.hold": "Højde: en flyvning er sat på vejrforbehold (opgave-id, bestillings-id)",
+    "hojde.weather.cleared": "Højde: et vejrforbehold er ophævet (opgave-id, bestillings-id)",
     "hojde.order.cancelled": "Højde: en kunde har aflyst en bestilling (bestillings-id, organisations-id)",
     "killswitch.changed": "Et nødstop er lukket eller åbnet, i hånden eller af en regel (nøgle, lukket, automatisk)",
 }

@@ -70,3 +70,53 @@ export function isoDay(offsetDays = 0): string {
   const p = parts(d);
   return `${p.year}-${p.month}-${p.day}`;
 }
+
+/** 09.10.2026 09:12 */
+export function formatDateTime(d: DateInput): string {
+  return `${formatDate(d)} ${formatTime(d)}`;
+}
+
+const WEEKDAYS = ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"];
+const WEEKDAYS_LONG = ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"];
+
+function weekday(d: DateInput): number {
+  const p = parts(d);
+  return new Date(Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day))).getUTCDay();
+}
+
+/** Man 12.10 */
+export function formatWeekdayShort(d: DateInput): string {
+  return `${WEEKDAYS[weekday(d)]} ${formatDayMonth(d)}`;
+}
+
+/** Tirsdag 13.10.2026 */
+export function formatLongDate(d: DateInput): string {
+  return `${WEEKDAYS_LONG[weekday(d)]} ${formatDate(d)}`;
+}
+
+/** The Danish day (YYYY-MM-DD) and time (HH:MM) of an instant. */
+export function localParts(d: DateInput): { day: string; time: string } {
+  const p = parts(d);
+  return { day: `${p.year}-${p.month}-${p.day}`, time: `${p.hour}:${p.minute}` };
+}
+
+/** The instant (ISO) of a Danish wall-clock time — independent of the browser's own time zone. */
+export function danishInstant(day: string, time: string): string {
+  const [y, m, dd] = day.split("-").map(Number);
+  const [hh, mm] = time.split(":").map(Number);
+  const wall = Date.UTC(y, m - 1, dd, hh, mm);
+  const offset = (t: number) => {
+    const p = parts(t);
+    return Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day), Number(p.hour), Number(p.minute)) - Math.floor(t / 60000) * 60000;
+  };
+  let t = wall - offset(wall);
+  t = wall - offset(t); // across a change to or from summer time
+  return new Date(t).toISOString();
+}
+
+/** YYYY-MM-DD plus n days. */
+export function addDays(day: string, n: number): string {
+  const d = new Date(`${day}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}

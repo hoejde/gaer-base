@@ -136,18 +136,19 @@
   },
   {
    "id": "hojde",
-   "docs_path": "`/portal`",
+   "docs_path": "`/portal`, `/backoffice`",
    "who": {
-    "en": "logged in, with a Højde membership",
-    "da": "logget ind, med et Højde-medlemskab"
+    "en": "logged in, with a Højde membership (backoffice: staff)",
+    "da": "logget ind, med et Højde-medlemskab (backoffice: medarbejdere)"
    },
    "what": {
-    "en": "**Højde customer portal** (`specs/hojde-platform/`): a customer organisation's overview, locations with visits and analyst-approved findings, orders with the four-step order wizard, quotes, cancelling until 24 hours before, and the organisation (users, invitations by e-mail, CVR/EAN, the 2FA policy). Own chrome (light Højde theme), feature `hojde`. Memberships are linked by e-mail at first login; staff and organisations with 2FA need a second factor. The backoffice (`/backoffice`) follows.",
-    "da": "**Højdes kundeportal**: overblik, lokationer med besøg og godkendte fund, bestillinger med bestillingsguiden, tilbud og aflysning frem til 24 timer før, og organisationen (brugere, invitationer på e-mail, CVR/EAN, krav om tofaktor). Eget layout, feature `hojde`."
+    "en": "**Højde customer portal** (`specs/hojde-platform/`): a customer organisation's overview, locations with visits and analyst-approved findings, orders with the four-step order wizard, quotes, cancelling until 24 hours before, and the organisation (users, invitations by e-mail, CVR/EAN, the 2FA policy). Own chrome (light Højde theme), feature `hojde`. Memberships are linked by e-mail at first login; staff and organisations with 2FA need a second factor. **Backoffice** for Højde's staff (dark theme): today's flights and the analysis queue, the week calendar with planning and quotes, task preparation (zone permit, weather, the checklist that gates \"Markér klar\", pilot and drone), the flight log, delivery, equipment and compliance documents. Staff always need a second factor; roles per action (kundeansvarlig, pilot, analytiker, administrator).",
+    "da": "**Højdes kundeportal**: overblik, lokationer med besøg og godkendte fund, bestillinger med bestillingsguiden, tilbud og aflysning frem til 24 timer før, og organisationen (brugere, invitationer på e-mail, CVR/EAN, krav om tofaktor). Eget layout, feature `hojde`. **Backoffice** for Højdes medarbejdere: dagens flyvninger, ugekalender, planlægning og tilbud, forberedelse af opgaver med tjekliste, flyvelog, levering, udstyr og compliance."
    },
    "code": [
     "hojde/",
     "routes/hojde_portal.py",
+    "routes/hojde_backoffice.py",
     "app/hojde/"
    ]
   },
@@ -490,6 +491,51 @@
    "app": "app",
    "access": "user",
    "title": "Organisation",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/backoffice",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Backoffice",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/backoffice/opgaver",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Opgaver",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/backoffice/opgaver/:id",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Opgave",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/backoffice/compliance",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Flyvelog og compliance",
+   "chrome": "own",
+   "feature": "hojde"
+  },
+  {
+   "path": "/backoffice/udstyr",
+   "group": "hojde",
+   "app": "app",
+   "access": "user",
+   "title": "Udstyr",
    "chrome": "own",
    "feature": "hojde"
   },

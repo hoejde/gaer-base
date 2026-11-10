@@ -138,3 +138,96 @@ export const hojde = {
   memberAction: (id: number, action: "resend" | "deactivate" | "reactivate") =>
     api.post<OrganizationData>(`${P}/organization/members/${id}/${action}`),
 };
+
+// ── Backoffice ─────────────────────────────────────────────────────────────────────────────────────────────
+
+export type TaskStatus = "forberedelse" | "klar" | "vejrforbehold" | "floejet" | "leveret";
+export type TaskPhase = "forberedelse" | "flyvning" | "data" | "leverance";
+export type EquipmentStatus = "klar" | "til_kontrol" | "til_service";
+export type EquipmentKind = "drone" | "batteri" | "andet";
+
+export const TASK_STATUS: Record<TaskStatus, Meta> = {
+  forberedelse: { label: "Forberedelse", tone: "signal", dot: true },
+  klar: { label: "Klar", tone: "kote", dot: true },
+  vejrforbehold: { label: "Vejrforbehold", tone: "warning", dot: true },
+  floejet: { label: "Fløjet", tone: "kote", dot: true },
+  leveret: { label: "Leveret", tone: "kote", dot: true },
+};
+export const ZONE_STATUS: Record<"fri" | "tilladelse", Meta> = {
+  fri: { label: "Fri", tone: "kote" },
+  tilladelse: { label: "Tilladelse", tone: "warning" },
+};
+export const EQUIPMENT_STATUS: Record<EquipmentStatus, Meta> = {
+  klar: { label: "Klar", tone: "kote", dot: true },
+  til_kontrol: { label: "Til kontrol", tone: "warning", dot: true },
+  til_service: { label: "Til service", tone: "danger", dot: true },
+};
+export const EQUIPMENT_STATUSES: EquipmentStatus[] = ["klar", "til_kontrol", "til_service"];
+export const EQUIPMENT_KIND_LABEL: Record<EquipmentKind, string> = { drone: "Drone", batteri: "Batteri", andet: "Andet" };
+export const ZONE_PERMIT_KEY = "zone_permit";
+
+export type Staff = { id: number; name: string; roles: string[]; certificates: string };
+export type TaskListItem = {
+  id: number; number: string; scheduled_at: string; location: { id: number; name: string }; customer: string;
+  service: string; pilot: string | null; status: TaskStatus; zone: "fri" | "tilladelse";
+  weather: { wind_ms: number; dry: boolean; ok: boolean } | null;
+};
+export type UnplannedOrder = {
+  order_id: number; number: string; status: OrderStatus; frequency: "enkelt" | "abonnement"; location: string;
+  service: string; customer: string; visit_number: number | null; visits: number | null; preferred_to: string | null;
+};
+export type Equipment = {
+  id: number; name: string; kind: EquipmentKind; model: string; serial: string; c_class: string | null; usage: string;
+  next_service: string; status: EquipmentStatus;
+};
+export type Flight = {
+  id: number; number: string; started_at: string; location: string; pilot: string; drone: string; sorties: number;
+  minutes_per_sortie: number; wind_ms: number; incident: string | null;
+};
+export type TaskDetail = {
+  id: number; number: string; order_id: number; order_number: string; status: TaskStatus; phase: TaskPhase;
+  scheduled_at: string; service: { title: string; line: ServiceLine }; location: Location; customer: string;
+  visit_number: number | null; visits: number | null; subscription: string | null; report_recipient: string; contact: string;
+  pilot: Staff | null; drone: Equipment | null;
+  zone: { status: "fri" | "tilladelse"; permit_registered: boolean; coordinates: string; max_altitude_m: number; notam: string };
+  weather: { hours: { at: string; wind_ms: number; gust_ms: number; precipitation_mm: number; visibility_km: number }[]; ok: boolean; reasons: string[] };
+  checklist: { key: string; label: string; short: string; done: boolean; done_by: string | null }[];
+  readiness: { ready: boolean; missing: string[]; message: string };
+  flights: Flight[];
+};
+export type ComplianceState = { state: "gyldig" } | { state: "udloeber"; days: number } | { state: "udloebet" };
+export type BackofficeOverview = {
+  today: string;
+  stats: { flights_today: number; flights_on_weather_hold: number; findings_to_review: number; findings_to_review_visits: number;
+           quotes_to_send: number; orders_to_plan: number };
+  flights: TaskListItem[];
+  awaiting_analysis: { location: string; findings: number }[];
+  compliance: { title: string; state: "gyldig" | "udloeber" | "udloebet"; days: number | null }[];
+};
+
+const BO = "/api/hojde/backoffice";
+
+export const backoffice = {
+  overview: () => api.get<BackofficeOverview>(`${BO}/overview`),
+  staff: () => api.get<Staff[]>(`${BO}/staff`),
+  week: (week = "") => api.get<{ week_start: string; week: number; tasks: TaskListItem[]; unplanned: UnplannedOrder[]; quotes_to_send: UnplannedOrder[] }>(
+    `${BO}/tasks?week=${encodeURIComponent(week)}`),
+  sendQuote: (orderId: number, amount_ore: number) => api.post<{ ok: boolean }>(`${BO}/orders/${orderId}/quote`, { amount_ore }),
+  planOrder: (orderId: number, body: { scheduled_at: string; pilot_id: number | null }) => api.post<TaskDetail>(`${BO}/orders/${orderId}/plan`, body),
+  checkWeather: () => api.post<{ changes: unknown[] }>(`${BO}/weather/check`),
+  task: (id: number) => api.get<TaskDetail>(`${BO}/tasks/${id}`),
+  updateTask: (id: number, body: { pilot_id?: number | null; drone_id?: number | null }) => api.patch<TaskDetail>(`${BO}/tasks/${id}`, body),
+  toggleChecklist: (id: number, key: string, done: boolean) => api.post<TaskDetail>(`${BO}/tasks/${id}/checklist/${key}`, { done }),
+  registerPermit: (id: number) => api.post<TaskDetail>(`${BO}/tasks/${id}/permit`),
+  markReady: (id: number) => api.post<TaskDetail>(`${BO}/tasks/${id}/ready`),
+  reschedule: (id: number, body: { scheduled_at: string; reason: "vejr" | "andet"; note: string }) => api.post<TaskDetail>(`${BO}/tasks/${id}/reschedule`, body),
+  logFlight: (id: number, body: { started_at: string; sorties: number; minutes_per_sortie: number; wind_ms: number; battery_ids: number[]; incident: string | null }) =>
+    api.post<Flight>(`${BO}/tasks/${id}/flights`, body),
+  deliver: (id: number) => api.post<TaskDetail>(`${BO}/tasks/${id}/deliver`),
+  equipment: () => api.get<Equipment[]>(`${BO}/equipment`),
+  createEquipment: (body: { name: string; kind: EquipmentKind; model: string; serial: string; c_class: string | null; next_service: string }) =>
+    api.post<Equipment>(`${BO}/equipment`, body),
+  setEquipmentStatus: (id: number, status: EquipmentStatus) => api.patch<Equipment>(`${BO}/equipment/${id}`, { status }),
+  compliance: () => api.get<{ flights: Flight[]; documents: { id: number; kind: string; title: string; reference: string; expires_at: string | null; state: ComplianceState }[]; incidents: number }>(
+    `${BO}/compliance`),
+};

@@ -31,7 +31,12 @@ import { MobileClips, MobileFiles, MobileHome, MobileLayout } from "./mobile/Mob
 import ReviewLauncher from "./review/ReviewLauncher";
 import { AgentChat, AgentList } from "./knowledge/Agents";
 import { AppShell } from "./shell";
-import { PortalShell } from "./hojde/Shell";
+import { BackofficeShell, PortalShell } from "./hojde/Shell";
+import BackofficeOverview from "./hojde/backoffice/Overview";
+import BackofficeTasks from "./hojde/backoffice/Tasks";
+import BackofficeTask from "./hojde/backoffice/Task";
+import BackofficeCompliance from "./hojde/backoffice/Compliance";
+import BackofficeEquipment from "./hojde/backoffice/Equipment";
 import PortalOverview from "./hojde/portal/Overview";
 import PortalLocations from "./hojde/portal/Locations";
 import PortalLocation from "./hojde/portal/Location";
@@ -158,6 +163,14 @@ export default function App() {
           <Route path="bestillinger" element={<PortalOrders />} />
           <Route path="bestillinger/ny" element={<PortalNewOrder />} />
           <Route path="organisation" element={<PortalOrganization />} />
+        </Route>
+        {/* Højde's backoffice for its staff: own chrome, dark Højde theme, always a second factor. */}
+        <Route path="/backoffice" element={<RequireUser><FeatureGate feature="hojde"><BackofficeShell><Outlet /></BackofficeShell></FeatureGate></RequireUser>}>
+          <Route index element={<BackofficeOverview />} />
+          <Route path="opgaver" element={<BackofficeTasks />} />
+          <Route path="opgaver/:id" element={<BackofficeTask />} />
+          <Route path="compliance" element={<BackofficeCompliance />} />
+          <Route path="udstyr" element={<BackofficeEquipment />} />
         </Route>
 
         <Route path="/extension/login" element={<Login home="/extension" embedded />} />

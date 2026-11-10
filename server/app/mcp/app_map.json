@@ -262,6 +262,26 @@
       "title": "Webhooks",
       "anchors": []
     },
+    "/backoffice": {
+      "title": "Backoffice",
+      "anchors": []
+    },
+    "/backoffice/compliance": {
+      "title": "Flyvelog og compliance",
+      "anchors": []
+    },
+    "/backoffice/opgaver": {
+      "title": "Opgaver",
+      "anchors": []
+    },
+    "/backoffice/opgaver/:id": {
+      "title": "Opgave",
+      "anchors": []
+    },
+    "/backoffice/udstyr": {
+      "title": "Udstyr",
+      "anchors": []
+    },
     "/develop": {
       "title": "Udvikling",
       "anchors": [

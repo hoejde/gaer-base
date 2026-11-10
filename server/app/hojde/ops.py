@@ -1,11 +1,11 @@
 """Højde operations shared by the API and the seed: numbering, turning an order into a task with its pre-flight
 checklist, and the weather rule. Every change is audited in the caller's transaction."""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from fastapi import HTTPException
 
-from app import db
+from app import db, jobs, webhooks
 from app.hojde import rules
 from app.hojde.providers import weather
 from app.logs import RequestMeta, audit
@@ -160,6 +160,16 @@ async def apply_weather_rule(conn, now: datetime, *, horizon_hours: int = 48, ac
             await conn.execute("update hojde_orders set status = %s where id = %s", (order_to, t["order_id"]))
             await audit(conn, "update", actor_id=actor_id, meta=meta, table="hojde_orders", row_id=t["order_id"],
                         before={"status": t["order_status"]}, after={"status": order_to}, via="weather_rule")
+        await webhooks.emit(conn, "hojde.weather.hold" if task_to == "vejrforbehold" else "hojde.weather.cleared",
+                            {"task_id": t["id"], "order_id": t["order_id"]})
         changes.append({"task_id": t["id"], "task_number": t["number"], "order_id": t["order_id"],
                         "from": t["status"], "to": task_to, "reasons": verdict.reasons})
     return changes
+
+
+@jobs.handler("hojde.weather")
+async def weather_job(payload: dict, job: dict) -> dict:
+    """The weather rule every hour (job_schedules "hojde.weather"), so a hold is set without anyone pressing a button."""
+    async with db.connection() as conn:
+        changes = await apply_weather_rule(conn, datetime.now(timezone.utc))
+    return {"changes": [f"{c['task_number']} → {c['to']}" for c in changes]}

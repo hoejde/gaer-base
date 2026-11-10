@@ -143,7 +143,7 @@ textarea.hj-control { height: auto; padding: 8px 10px; font-size: 14px; }
 .hj-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .hj-table th { padding: 10px 12px; background: var(--surface-sunken); text-align: left; font-weight: 600; }
 .hj-table td { padding: 12px; border-top: 1px solid var(--line); vertical-align: middle; }
-.hj-table td.num { font-family: var(--font-mono); }
+.hj-table td.num { font-family: var(--font-mono); white-space: nowrap; }
 .hj-table td.end { text-align: right; }
 .hj-tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); }
 .hj-tab { padding: 10px 16px; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--ink-muted); font: inherit; cursor: pointer; }
@@ -189,3 +189,13 @@ textarea.hj-control { height: auto; padding: 8px 10px; font-size: 14px; }
 .hj-summary dt { color: var(--ink-muted); }
 .hj-summary dd { margin: 0; }
 .hj-finding { display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface-raised); }
+
+/* ── Backoffice: week calendar ──────────────────────────────────────────────────────────────────────────── */
+.hj-cal { display: grid; min-width: 760px; }
+.hj-cal > div { display: flex; flex-direction: column; gap: 8px; min-height: 220px; padding: 12px; border-left: 1px solid var(--line); }
+.hj-cal > div:first-child { border-left: 0; }
+.hj-tile { display: block; padding: 8px; border-left: 4px solid var(--signal); border-radius: 4px; background: var(--surface-sunken); color: var(--ink) !important; text-decoration: none; font-size: 14px; line-height: 20px; }
+.hj-tile:hover { filter: brightness(0.95); }
+.hj-tile--klar, .hj-tile--floejet, .hj-tile--leveret { border-left-color: var(--kote); }
+.hj-tile--vejrforbehold { border-left-color: var(--warning); }
+.hj[data-theme="dark"] .hj-tile:hover { filter: brightness(1.15); }

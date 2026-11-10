@@ -1,6 +1,6 @@
 # Højde platform
 
-**Status:** In progress — phases 1–2 built in Gær (data, access, rules; the customer portal on `/portal`); the backoffice follows
+**Status:** In progress — phases 1–3 built in Gær (data, access, rules; the customer portal on `/portal`; the backoffice on `/backoffice`); rollout (phase 4) next
 **Source:** Claude Design canvas "Højde-platformen — skærmbilleder" (32 screens + handover brief), exported 24.10.2026.
 First built as the module `member-hojde` in hoejde/surdej-v2 (commit `dc00be2`, P0–P2) and moved to Gær from there.
 
@@ -35,5 +35,7 @@ quality control and reporting in a backoffice (`/backoffice`).
   precision [XX]; who on the customer side may approve a quote (v1: anyone allowed to order).
 - Customers in several organisations see the first one; the server accepts `X-Hojde-Org`, but the portal has no
   organisation switcher yet.
+- Customers are not mailed about a weather hold or a moved date yet: they see it in the portal, and the webhooks
+  `hojde.weather.hold` and `hojde.task.ready` are there for a notification later (P5).
 - Raised in v1: is "Afventer godkendelse" Højde preparing a quote or a date (v1: yes)? Should a weather hold move the
   date automatically (v1: flag only)?
