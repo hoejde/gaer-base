@@ -3,8 +3,9 @@
 Kilde: `hoejde/surdej-v2` (fork-punkt `5c203c2`, upstream PR #26). Mål: `hoejde/gaer-base`.
 Arbejdsgang: `/gaer-mix` — én fase ad gangen, `pytest server` og `npm run build --prefix web` grønne efter hver.
 
-**Ny rutestruktur i Gær (besluttet):** appens forside `/` flyttes til **`/portal`**, og det offentlige website
-`/w/…` flyttes til **`/`**. Det er fase A og kommer før alt Højde-arbejdet.
+**Ny rutestruktur i Gær (besluttet, laves i base):** appen skrives altid som **`app.domain.com`**, og websitet
+ligger på **`domain.com`**. Appens forside `/` flyttes til **`/portal`**, og websitet `/w/…` flyttes til **`/`**.
+Det er fase A, en generel platformændring i gaer-base, og den kommer før alt Højde-arbejdet.
 
 ## 1. Hvad er "custom" i surdej-v2
 
@@ -51,51 +52,77 @@ Alt efter fork-punktet: 13 commits, 197 filer, ~20.500 linjer. Sorteret:
 - **B3 · Website (besluttet):** websitet ligger på `/`. Højde-websitet bygges som en kodet forside-variant ved
   siden af "Facit · 246" (`web_front = "hojde"`), server-renderet i Python med indholdet fra `content.ts` →
   `hojde/website_content.py`. Undersider på `/<slug>`, sprog via `?lang=` + cookie som i dag.
-- **B4 · Domæner:** `hoejde.dk` og `hoejde.eu` peger på samme container. `/` vælger sprog efter vært
-  (dk → da, eu → en), og canonical/hreflang følger værten. *Åbent:* skal `app.hoejde.dk` vise websitet på `/`,
-  eller sende indloggede videre til `/portal`?
+- **B4 · Domæner (besluttet):** princippet er altid `app.domain.com` for appen og `domain.com` for websitet,
+  begge fra samme container (fase A). For Højde: `app.hoejde.dk` er appen (`ORIGIN`), `hoejde.dk` og `hoejde.eu`
+  er website-værter (`SITE_HOSTS`). `/` vælger sprog efter vært (dk → da, eu → en), og canonical/hreflang følger
+  værten. `app.hoejde.dk/` sender til `/portal`.
 - **B5 · Afhængigheder:** Tilføj `leaflet`/`react-leaflet` (kort) og `recharts` (statistik) til `web/` — eller tegn graferne selv i SVG for at holde Gær let. Forslag: leaflet ja, recharts erstattes af små SVG-grafer.
 
 ## 4. Faser (én PR hver)
 
-### Fase A — Gær-ruter: `/` → `/portal`, `/w/…` → `/`
-Generel platformændring. Bør laves upstream i gaer-base (evt. bag en indstilling), ellers konflikter forken
-ved hver opdatering i `main.py`, `web.py`, `shell.tsx` og testene.
+### Fase A — Gær i base: `app.domain.com` + website på `domain.com`
+Generel platformændring i gaer-base (ingen Højde-kode). Højde-forken får den ved næste opdatering.
+
+**Princip:** appen skrives altid `app.domain.com`; websitet ligger på `domain.com`. Samme container svarer på
+begge værter og vælger flade efter `Host`.
+
+| Vært | `/` | `/<slug>` | App-stier (`/portal`, `/login`, `/klip`, `/admin`, …) | Server-stier (`/api`, `/mcp`, `/.well-known`, `/health`) |
+|---|---|---|---|---|
+| `app.domain.com` (`ORIGIN`) | 302 → `/portal` | 308 → `domain.com/<slug>` | appen | svarer |
+| `domain.com` (+ `SITE_HOSTS`) | websitet | website-side eller 404 | 308 → `app.domain.com/<sti>` | svarer (websitets `/api/public`, `/api/collect`) |
+| Én vært (lokalt, eller `SITE_ORIGIN` = `ORIGIN`) | websitet | website-side | appen | svarer |
+
+Gamle stier: `/w` og `/w/<slug>` → 308 til `/` og `/<slug>` på website-værten, så eksisterende links virker.
+
+Konfiguration
+- [ ] `config.py`: `ORIGIN` er fortsat appens adresse (`https://app.domain.com`) og bruges til alle links, Gær
+      danner (mails, MCP, OAuth, deep links, udvidelsen). Ny `SITE_ORIGIN` (standard: `ORIGIN` uden `app.`
+      foran; lig `ORIGIN` når der ikke er noget `app.`) og `SITE_HOSTS` (ekstra website-værter, kommasepareret)
+- [ ] `RP_ID` (passkeys) forbliver appens vært; session-cookien er værtsbunden til `app.domain.com`
+- [ ] `deploy/app.env.example`, `.env.example`, `deploy/compose.yml`: cloudflared ruter både `domain.com` og
+      `app.domain.com` til containeren; `gaer-init`/`gaer-dev` beskriver det
 
 Server
 - [ ] `routes.json`: `/` → `server`, adgang `public` (website); ny `/portal` → `app`, adgang `user`;
       `/w/{slug}` → `/{slug}`; kør `npm run app-map --prefix web` (genererer `server/app/routes.json`,
       `mcp/app_map.json` og rutetabellerne i `instructions.md` og `README.md`)
-- [ ] `main.py` `spa()`: `/` serveres ikke længere af SPA'en; `/portal` gør, og anonyme på `/portal` sendes til
-      `/login?next=/portal` i stedet for til `/w/`
-- [ ] Fallback-rækkefølge: kendt rute i manifestet → statisk fil → website-side (`/<slug>`) → 404. Ukendte stier
-      giver websitets 404-side, ikke SPA'en
-- [ ] `routes/web.py`: router på `/` og `/{slug:path}` (registreres sidst); `/w` og `/w/{slug}` bliver
-      308-redirects til `/` og `/{slug}`, så gamle links virker. Statiske filer flyttes fra `/w/static/…` til
-      `/static/w/…` (eller beholdes)
+- [ ] Ny `app/hosts.py`: `surface(request) → "app" | "site" | "both"` ud fra `Host` mod `ORIGIN`, `SITE_ORIGIN`
+      og `SITE_HOSTS`. Redirects bygges altid fra de konfigurerede adresser, aldrig fra `Host`. Ukendte værter
+      behandles som appen
+- [ ] `main.py`: vært-routing i `spa()` efter tabellen ovenfor; `/portal` serveres af SPA'en, og anonyme på
+      `/portal` sendes til `/login?next=/portal`
+- [ ] Rækkefølge på website-værten: kendt rute i manifestet → statisk fil → website-side (`/<slug>`) → websitets
+      404. SPA'en svarer ikke længere på ukendte stier der
+- [ ] `routes/web.py`: router på `/` og `/{slug:path}` (registreres sidst); `/w` og `/w/{slug}` → 308.
+      Statiske filer på `/static/w/…` (gamle `/w/static/…` → 308)
 - [ ] Reserverede slugs: `/admin/web` afviser slugs, der rammer en rute i manifestet (`login`, `portal`, `klip`,
-      `filer`, `konto`, `user`, `api`, `mcp`, `m`, `extension`, `admin`, `health`, …), både ved oprettelse og
-      i en migration, der omdøber eksisterende kollisioner
-- [ ] `web_front.py`, `web.py`, `og.py`: links, canonical, hreflang og og:url uden `/w`
-- [ ] CSP pr. sti (`csp_for`): websitets politik gælder `/` og slugs; appens politik gælder `/portal` og app-ruterne
-- [ ] `ai.py`: klientværktøjets stiliste (`/w/` → `/`, forsiden → `/portal`)
-- [ ] Login: standard-`next` efter login er `/portal`; logout sender til `/`
+      `filer`, `konto`, `user`, `privatliv`, `api`, `mcp`, `m`, `extension`, `admin`, `health`, `static`,
+      `assets`, …); en migration omdøber eksisterende kollisioner
+- [ ] Website-links: "Log ind" og login-kortet peger på `ORIGIN/login`; `web_front.py`, `web.py`, `og.py`:
+      canonical, hreflang og og:url på `SITE_ORIGIN` uden `/w`; app-sider (`app_html`) bruger `ORIGIN`
+- [ ] `/privatliv` er en app-side og ligger på `app.domain.com`; websitets footer linker dertil. Samtykke-
+      cookien er pr. vært, så banneret kan vises på begge — acceptabelt, noteres i docs
+- [ ] CSP pr. sti (`csp_for`): websitets politik på website-værten; appens politik på app-værten
+- [ ] `ai.py`: klientværktøjets stiliste (`/w/` → `SITE_ORIGIN/`, forsiden → `/portal`)
+- [ ] Login: standard-`next` er `/portal`; logout sender til `SITE_ORIGIN/`
 - [ ] `/go` deep links: standardsti `/portal`
 
 Web
 - [ ] `App.tsx`: `<Route path="/portal">` for `Home`; catch-all `*` → `/portal`; brand-link og logout
-- [ ] `shell.tsx`: brand-links `/` → `/portal`, "Offentlig side"-links `/w/` → `/`
+- [ ] `shell.tsx`: brand-links `/` → `/portal`; "Offentlig side" → websitets adresse (fra `/api/public/config`,
+      nyt felt `site_url`)
 - [ ] `admin-app` (`main.tsx`, `mfa.tsx`, `AdminShell.tsx`): "Til appen" → `/portal`; `pages/Web.tsx`: side-URL'er
-      og tekster uden `/w`
-- [ ] Mobil (`/m`), udvidelse (`/extension`) og Office berøres ikke, men tjek links til `/`
+      på `site_url` uden `/w`
+- [ ] Mobil (`/m`), udvidelse (`/extension`) og Office ligger på app-værten og berøres ikke; tjek links til `/`
 
 Data og tests
-- [ ] Adoption: eksisterende forløbstrin og besøg på `/` peger nu på websitet. Migration, der omskriver trin `/` →
-      `/portal` (besøg er historik og bliver stående)
+- [ ] Adoption: migration, der omskriver forløbstrin `/` → `/portal` (besøg er historik og bliver stående)
 - [ ] Opdatér `test_integrations.py`, `test_og.py`, `test_routes.py`, `test_auth.py`, `test_ai.py`,
-      `test_adoption.py`; nye tests for redirects fra `/w/…`, reserverede slugs og 404
-- [ ] Docs: `instructions.md` (rutetabellen og reglen "offentligt indhold ligger under `/w/`…" → under `/` og
-      `/<slug>`), skill `gaer-integrations`, `README.md`
+      `test_adoption.py`
+- [ ] Nye tests (`test_hosts.py`): hver celle i tabellen ovenfor, redirects fra `/w/…`, at redirects ignorerer en
+      forfalsket `Host`, reserverede slugs, 404 på website-værten, én-værts-tilstanden
+- [ ] Docs: `instructions.md` (rutetabellen, reglen "offentligt indhold ligger under `/w/`…" → "på website-værten",
+      og princippet `app.domain.com`), skills `gaer-integrations` og `gaer-backend`, `README.md`
 
 ### Fase 0 — Specs og skelet
 - [ ] Kopiér `specs/hojde-platform/` → `specs/hojde/` (+ skærmbilleder); omskriv PLAN til Gær-termer (denne tabel i §2)
@@ -143,7 +170,8 @@ Data og tests
 - [ ] Udvalgte læseværktøjer i `/mcp` (mine ordrer, lokationer) og i `/mcp/admin` (opgaver, hændelser) via `mcp/toolmap.py`
 
 ### Fase 8 — Drift og cut-over
-- [ ] `deploy/.env` + `app.env` for Højde: `ORIGIN=https://app.hoejde.dk`, Object Storage-bucket, mail-afsender, `BOOTSTRAP_ADMIN_EMAIL`
+- [ ] `deploy/.env` + `app.env` for Højde: `ORIGIN=https://app.hoejde.dk`, `SITE_ORIGIN=https://hoejde.dk`,
+      `SITE_HOSTS=hoejde.eu`, `RP_ID=app.hoejde.dk`, Object Storage-bucket, mail-afsender, `BOOTSTRAP_ADMIN_EMAIL`
 - [ ] cloudflared-hostnames for `app.hoejde.dk`, `hoejde.dk`, `hoejde.eu`; GitHub-secrets til `deploy.yml`
 - [ ] Branding: `app_name`, logo og farver via `/admin/settings`
 - [ ] Smoke: kunde og medarbejder lander hver i deres shell; ordre → tilbud → godkend → planlæg → opgave → klar → flyvning → levér
@@ -160,7 +188,8 @@ fælles filer røres: `main.py` (registrér routere), `App.tsx` og `routes.json`
 - **Port-omfang:** ~3.500 linjer TS-worker → Python. Reglerne (`rules.ts`) er det vigtigste at få 1:1 — port testene først.
 - **Tailwind → CSS:** største frontend-arbejde; tokens findes allerede i `specs/hojde-platform/design/project/ds/hojde/tokens.css`.
 - **Fase A rammer hele platformen:** website-slugs på roden kan kollidere med app-ruter, og alle eksterne links til
-  `/w/…` og `/` (mails, MCP-deep links, bogmærker) skal fortsat virke via redirects. Laves den kun i forken,
-  bliver hver opdatering fra gaer-base dyrere.
+  `/w/…` og `/` (mails, MCP-deep links, bogmærker) skal fortsat virke via redirects. Eksisterende instanser, der
+  i dag kører appen på `domain.com`, skal flytte `ORIGIN` til `app.domain.com` og registrere passkeys igen, hvis
+  `RP_ID` ændres. Indtil de gør det, kører de i én-værts-tilstand, så intet går i stykker ved opdateringen.
 - **Rolle-model:** Højde-roller (administrator, analytiker, pilot, kundeansvarlig, kundeadmin, kundebruger) lever i
   `hojde_members`, ikke i Gærs admin-roller — staff skal ikke have adgang til `/admin`.
