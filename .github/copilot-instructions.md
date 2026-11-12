@@ -11,8 +11,8 @@ The short version:
 - One container: FastAPI server (`server/`) + Vite/React frontend (`web/`), the container's own Postgres
   database, OVHcloud Object Storage.
 - **The backend already exists.** Do not add another API server, database, ORM or auth library.
-- Routes (full table in `.gaer/agents/instructions.md`): `/` app (anonymous → `/w/`) · `/w` public website with login
-  card · `/login` · `/admin` standalone admin app (`web/admin.html`) · `/m` mobile PWA · `/extension` browser side
+- Routes (full table in `.gaer/agents/instructions.md`): `/portal` app (on `app.<domain>`, whose `/` redirects there) ·
+  `/` and `/<slug>` public website with login card (on `<domain>`; `SITE_ORIGIN`, `server/app/hosts.py`) · `/login` · `/admin` standalone admin app (`web/admin.html`) · `/m` mobile PWA · `/extension` browser side
   panel · `/office-addin` Office router → `/extension/tools/*` · `/api` · `/health`.
 - Login is e-mail + one-time code; passkeys, security keys and authenticator apps as second factor. /admin needs
   MFA after three grace logins, users can opt in ("Kræv passkey"). Guard endpoints with `current_user` /

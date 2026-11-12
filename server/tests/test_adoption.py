@@ -45,12 +45,12 @@ def test_paths_are_cleaned_grouped_and_filtered():
     assert normalize("/klip/1842") == "/klip/:id"
     assert normalize("/klip/0b6a4c1e-8f2d-4c55-9a43-2f1d5e8c9a10") == "/klip/:id"
     assert normalize("/m/chat") == "/m/chat"
-    assert [surface(p) for p in ("/", "/m/klip", "/extension/klip", "/extension/tools/word")] == \
+    assert [surface(p) for p in ("/portal", "/m/klip", "/extension/klip", "/extension/tools/word")] == \
         ["app", "mobil", "udvidelse", "office"]
-    for p in ("/", "/klip", "/klip/42", "/m/klip", "/extension/klip", "/konto"):
+    for p in ("/portal", "/klip", "/klip/42", "/m/klip", "/extension/klip", "/konto"):
         assert tracked(p), p
-    for p in ("/login", "/m/login", "/extension/login", "/admin", "/admin/users", "/api/me", "/w/om", "/go",
-              "/forbind", "/office-addin", "/findes-ikke"):
+    for p in ("/", "/login", "/m/login", "/extension/login", "/admin", "/admin/users", "/api/me", "/om", "/w/om",
+              "/go", "/forbind", "/office-addin", "/findes-ikke"):
         assert not tracked(p), p
 
 

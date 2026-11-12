@@ -51,10 +51,10 @@ function TopBar() {
     <ImpersonationBanner />
     <header className="topbar">
       <div className="topbar-inner">
-        <Link to="/" className="brand">
+        <a href={config?.site_url ?? "/"} className="brand">
           {config?.logo_url ? <img src={config.logo_url} alt="" /> : <span className="brand-dot" />}
           {config?.app_name ?? "Tørgær"}
-        </Link>
+        </a>
         <nav className="nav">
           {full && <FeatureGate feature="klip"><NavLink to="/klip">Klip</NavLink></FeatureGate>}
           {full && <FeatureGate feature="filer"><NavLink to="/filer">Filer</NavLink></FeatureGate>}
@@ -66,7 +66,7 @@ function TopBar() {
               className="btn btn-ghost btn-sm"
               onClick={async () => {
                 await logout();
-                window.location.href = "/";
+                window.location.href = config?.site_url ?? "/";
               }}
             >
               Log ud
@@ -124,7 +124,7 @@ export default function App() {
   const shelled = !ownChrome && !!user && scope === "full" && pathname !== "/login";
   const routes = (
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/portal" element={<RequireUser><Home /></RequireUser>} />
         <Route path="/login" element={<Login />} />
         <Route path="/privatliv" element={<Privacy />} />
         <Route path="/konto" element={<RequireUser><Account /></RequireUser>} />
@@ -168,7 +168,7 @@ export default function App() {
           <Route path="profil" element={<Account />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/portal" replace />} />
       </Routes>
   );
   return (

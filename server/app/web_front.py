@@ -1,4 +1,4 @@
-"""/w/ — the front page: "Facit · 246", a scroll story about the toothpicks in Rain Man.
+"""/ — the website's front page: "Facit · 246", a scroll story about the toothpicks in Rain Man.
 
 Server-rendered in five languages (da, en, de, sv, no); the interactions live in web_static/facit.js
 (the CSP allows no inline scripts). The page always ends with the login card. Design reference:
@@ -8,7 +8,7 @@ specs/forside-246/.
 import math
 from html import escape
 
-from app import og
+from app import hosts, og
 
 LANGS = ("da", "en", "de", "sv", "no")
 HTML_LANG = {"no": "nb"}
@@ -180,15 +180,15 @@ def render(*, lang: str, app_name: str, base: str, nav: list[dict], first_user: 
     e = {k: escape(v) for k, v in t.items() if isinstance(v, str)}
     name = escape(app_name)
     langs = "".join(
-        f'<a class="lng" href="/w/?lang={code}" hreflang="{HTML_LANG.get(code, code)}"'
+        f'<a class="lng" href="/?lang={code}" hreflang="{HTML_LANG.get(code, code)}"'
         f'{" aria-current=\"true\"" if code == lang else ""}>{LANG_CODES[code]}</a>'
         for code in LANGS)
-    alternates = "".join(f'<link rel="alternate" hreflang="{HTML_LANG.get(c, c)}" href="{base}/w/?lang={c}">'
+    alternates = "".join(f'<link rel="alternate" hreflang="{HTML_LANG.get(c, c)}" href="{base}/?lang={c}">'
                          for c in LANGS)
     whispers = "".join(f'<p class="whisper" hidden>{escape(line)}</p>' for line in t["lines"])
     clusters = "".join(f'<div class="cluster" style="left:{cl}%;top:{ct}%"><span aria-hidden="true"></span><b>82</b></div>'
                        for cl, ct in CENTERS)
-    links = "".join(f'<a href="/w/{escape(p["slug"])}">{escape(p["title"])}</a>' for p in nav if p["slug"])
+    links = "".join(f'<a href="/{escape(p["slug"])}">{escape(p["title"])}</a>' for p in nav if p["slug"])
     notice = f'<p class="first">{e["first_user"]}</p>' if first_user else ""
     chevron = ('<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
                'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{d}"></path></svg>')
@@ -199,16 +199,16 @@ def render(*, lang: str, app_name: str, base: str, nav: list[dict], first_user: 
 <title>246 · {name}</title>
 <meta name="description" content="{e['first']} {e['aloud']}">
 {og.meta_tags(title="246", description=f"{t['first']} {t['aloud']}", site_name=app_name, image=og_image,
-              url=f"{base}/w/?lang={lang}")}
+              url=f"{base}/?lang={lang}")}
 <meta name="theme-color" content="#020817">
-<link rel="canonical" href="{base}/w/?lang={lang}">{alternates}
+<link rel="canonical" href="{base}/?lang={lang}">{alternates}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="/w/static/w.css">
-<link rel="stylesheet" href="/w/static/facit.css">
-<script src="/w/static/w.js" defer></script>
-<script src="/w/static/facit.js" defer></script>
+<link rel="stylesheet" href="/static/w/w.css">
+<link rel="stylesheet" href="/static/w/facit.css">
+<script src="/static/w/w.js" defer></script>
+<script src="/static/w/facit.js" defer></script>
 </head>
 <body class="facit">
 <main>
@@ -282,12 +282,12 @@ def render(*, lang: str, app_name: str, base: str, nav: list[dict], first_user: 
   <h2>{e['card_title']}</h2>
   <p>{e['card_text']}</p>
   {notice}
-  <a class="button" href="/login">{e['login']}</a>
+  <a class="button" href="{hosts.app_link('/login')}">{e['login']}</a>
 </section>
 <footer class="foot">
 <p>{e['hm']}</p>
 <a class="more" href="https://happymates.ai"><span>{e['more']}</span><span class="rb" aria-hidden="true"></span></a>
-<nav class="site" aria-label="{name}">{links}<a href="/privatliv">{e['privacy']}</a></nav>
+<nav class="site" aria-label="{name}">{links}<a href="{hosts.app_link('/privatliv')}">{e['privacy']}</a></nav>
 <p class="copy">© {name}</p>
 </footer>
 </section>

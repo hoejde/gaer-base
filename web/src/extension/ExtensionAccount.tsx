@@ -16,8 +16,8 @@ export default function ExtensionAccount() {
         <strong>{user?.display_name || user?.email || user?.phone}</strong>
         <div className="row">
           <button className="btn btn-outline btn-sm" onClick={async () => {
-            if (await isExtension()) await extension.openUrl(window.location.origin);
-            else window.open("/", "_blank");
+            if (await isExtension()) await extension.openUrl(window.location.origin + "/portal");
+            else window.open("/portal", "_blank");
           }}>Åbn hele appen</button>
           <button className="btn btn-ghost btn-sm" onClick={async () => { await logout(); window.location.href = "/extension"; }}>Log ud</button>
         </div>

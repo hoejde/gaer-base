@@ -23,6 +23,6 @@ En flydende knap („Videre“ / „Forfra“) springer til næste sektion. Anim
 - `design/support.js` — DC-runtime, så filen kan åbnes direkte i en browser.
 
 ## Status
-I produktion som forsiden `/w/`: `server/app/web_front.py` (HTML og tekster på fem sprog),
+I produktion som websitets forside `/`: `server/app/web_front.py` (HTML og tekster på fem sprog),
 `server/app/web_static/facit.css` og `facit.js` (interaktionerne; CSP tillader ikke inline-scripts).
 Forsiden slutter med login-kortet og en sidefod med menuen fra `/admin/web` og Privatliv.

@@ -69,7 +69,7 @@ function RequireAdmin({ children }: { children: ReactNode }) {
       <div style={{ maxWidth: 480, margin: "15vh auto", padding: 24, fontFamily: "var(--hm-font-sans)", display: "flex", flexDirection: "column", gap: 12 }}>
         <h1 style={{ fontSize: 26 }}>Kræver admin-rollen</h1>
         <p style={{ color: "#64748b" }}>Du er logget ind, men din bruger har ikke adgang til /admin.</p>
-        <a href="/">← Til appen på /</a>
+        <a href="/portal">← Til appen</a>
       </div>
     );
   }

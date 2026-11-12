@@ -75,54 +75,56 @@ begge værter og vælger flade efter `Host`.
 Gamle stier: `/w` og `/w/<slug>` → 308 til `/` og `/<slug>` på website-værten, så eksisterende links virker.
 
 Konfiguration
-- [ ] `config.py`: `ORIGIN` er fortsat appens adresse (`https://app.domain.com`) og bruges til alle links, Gær
-      danner (mails, MCP, OAuth, deep links, udvidelsen). Ny `SITE_ORIGIN` (standard: `ORIGIN` uden `app.`
-      foran; lig `ORIGIN` når der ikke er noget `app.`) og `SITE_HOSTS` (ekstra website-værter, kommasepareret)
-- [ ] `RP_ID` (passkeys) forbliver appens vært; session-cookien er værtsbunden til `app.domain.com`
-- [ ] `deploy/app.env.example`, `.env.example`, `deploy/compose.yml`: cloudflared ruter både `domain.com` og
-      `app.domain.com` til containeren; `gaer-init`/`gaer-dev` beskriver det
+- [x] `config.py`: `ORIGIN` er fortsat appens adresse (`https://app.domain.com`) og bruges til alle links, Gær
+      danner (mails, MCP, OAuth, deep links, udvidelsen). Ny `SITE_ORIGIN` og `SITE_HOSTS` (ekstra website-værter,
+      kommasepareret). **Afvigelse:** `SITE_ORIGIN` udledes ikke af `ORIGIN` — uden den kører alt på én vært. Ellers
+      ville eksisterende instanser på `app.kunde.dk` pludselig sende website-trafik til `kunde.dk`, som måske er et
+      andet website. Nye instanser får `SITE_ORIGIN` i `deploy/app.env.example`.
+- [x] `RP_ID` (passkeys) forbliver appens vært; session-cookien er værtsbunden til `app.domain.com`
+- [x] `deploy/app.env.example`, `.env.example`, README: begge værter er public hostnames i Cloudflare Tunnel
+      (`compose.yml` sender allerede al tunnel-trafik til containeren — ingen ændring); `gaer-dev` opdateret
 
 Server
-- [ ] `routes.json`: `/` → `server`, adgang `public` (website); ny `/portal` → `app`, adgang `user`;
+- [x] `routes.json`: `/` → `server`, adgang `public` (website); ny `/portal` → `app`, adgang `user`;
       `/w/{slug}` → `/{slug}`; kør `npm run app-map --prefix web` (genererer `server/app/routes.json`,
       `mcp/app_map.json` og rutetabellerne i `instructions.md` og `README.md`)
-- [ ] Ny `app/hosts.py`: `surface(request) → "app" | "site" | "both"` ud fra `Host` mod `ORIGIN`, `SITE_ORIGIN`
+- [x] Ny `app/hosts.py`: `surface(request) → "app" | "site" | "both"` ud fra `Host` mod `ORIGIN`, `SITE_ORIGIN`
       og `SITE_HOSTS`. Redirects bygges altid fra de konfigurerede adresser, aldrig fra `Host`. Ukendte værter
       behandles som appen
-- [ ] `main.py`: vært-routing i `spa()` efter tabellen ovenfor; `/portal` serveres af SPA'en, og anonyme på
+- [x] `main.py`: vært-routing i `spa()` efter tabellen ovenfor; `/portal` serveres af SPA'en, og anonyme på
       `/portal` sendes til `/login?next=/portal`
-- [ ] Rækkefølge på website-værten: kendt rute i manifestet → statisk fil → website-side (`/<slug>`) → websitets
+- [x] Rækkefølge på website-værten: kendt rute i manifestet → statisk fil → website-side (`/<slug>`) → websitets
       404. SPA'en svarer ikke længere på ukendte stier der
-- [ ] `routes/web.py`: router på `/` og `/{slug:path}` (registreres sidst); `/w` og `/w/{slug}` → 308.
-      Statiske filer på `/static/w/…` (gamle `/w/static/…` → 308)
-- [ ] Reserverede slugs: `/admin/web` afviser slugs, der rammer en rute i manifestet (`login`, `portal`, `klip`,
+- [x] `routes/web.py`: router på `/` og `/{slug:path}` (registreres sidst); `/w` og `/w/{slug}` → 308.
+      Statiske filer på `/static/w/…` (gamle `/w/static/…` svarer stadig, for cachede sider)
+- [x] Reserverede slugs: `/admin/web` afviser slugs, der rammer en rute i manifestet (`login`, `portal`, `klip`,
       `filer`, `konto`, `user`, `privatliv`, `api`, `mcp`, `m`, `extension`, `admin`, `health`, `static`,
       `assets`, …); en migration omdøber eksisterende kollisioner
-- [ ] Website-links: "Log ind" og login-kortet peger på `ORIGIN/login`; `web_front.py`, `web.py`, `og.py`:
+- [x] Website-links: "Log ind" og login-kortet peger på `ORIGIN/login`; `web_front.py`, `web.py`, `og.py`:
       canonical, hreflang og og:url på `SITE_ORIGIN` uden `/w`; app-sider (`app_html`) bruger `ORIGIN`
-- [ ] `/privatliv` er en app-side og ligger på `app.domain.com`; websitets footer linker dertil. Samtykke-
+- [x] `/privatliv` er en app-side og ligger på `app.domain.com`; websitets footer linker dertil. Samtykke-
       cookien er pr. vært, så banneret kan vises på begge — acceptabelt, noteres i docs
-- [ ] CSP pr. sti (`csp_for`): websitets politik på website-værten; appens politik på app-værten
-- [ ] `ai.py`: klientværktøjets stiliste (`/w/` → `SITE_ORIGIN/`, forsiden → `/portal`)
-- [ ] Login: standard-`next` er `/portal`; logout sender til `SITE_ORIGIN/`
-- [ ] `/go` deep links: standardsti `/portal`
+- [x] CSP: ingen ændring nødvendig — websitet brugte allerede standardpolitikken (`script-src 'self'`)
+- [x] `ai.py`: klientværktøjets stiliste (`/w/` → `SITE_ORIGIN/`, forsiden → `/portal`)
+- [x] Login: standard-`next` er `/portal`; logout sender til `SITE_ORIGIN/`
+- [x] `/go` deep links: standardsti `/portal`
 
 Web
-- [ ] `App.tsx`: `<Route path="/portal">` for `Home`; catch-all `*` → `/portal`; brand-link og logout
-- [ ] `shell.tsx`: brand-links `/` → `/portal`; "Offentlig side" → websitets adresse (fra `/api/public/config`,
+- [x] `App.tsx`: `<Route path="/portal">` for `Home`; catch-all `*` → `/portal`; brand-link og logout
+- [x] `shell.tsx`: brand-links `/` → `/portal`; "Offentlig side" → websitets adresse (fra `/api/public/config`,
       nyt felt `site_url`)
-- [ ] `admin-app` (`main.tsx`, `mfa.tsx`, `AdminShell.tsx`): "Til appen" → `/portal`; `pages/Web.tsx`: side-URL'er
+- [x] `admin-app` (`main.tsx`, `mfa.tsx`, `AdminShell.tsx`): "Til appen" → `/portal`; `pages/Web.tsx`: side-URL'er
       på `site_url` uden `/w`
-- [ ] Mobil (`/m`), udvidelse (`/extension`) og Office ligger på app-værten og berøres ikke; tjek links til `/`
+- [x] Mobil (`/m`), udvidelse (`/extension`) og Office ligger på app-værten og berøres ikke; tjek links til `/`
 
 Data og tests
-- [ ] Adoption: migration, der omskriver forløbstrin `/` → `/portal` (besøg er historik og bliver stående)
-- [ ] Opdatér `test_integrations.py`, `test_og.py`, `test_routes.py`, `test_auth.py`, `test_ai.py`,
+- [x] Adoption: migration `0022`, der omskriver forløbstrin og besøg `/` → `/portal`, så forløb beholder deres tal
+- [x] Opdatér `test_integrations.py`, `test_og.py`, `test_routes.py`, `test_auth.py`, `test_ai.py`,
       `test_adoption.py`
-- [ ] Nye tests (`test_hosts.py`): hver celle i tabellen ovenfor, redirects fra `/w/…`, at redirects ignorerer en
+- [x] Nye tests (`test_hosts.py`): hver celle i tabellen ovenfor, redirects fra `/w/…`, at redirects ignorerer en
       forfalsket `Host`, reserverede slugs, 404 på website-værten, én-værts-tilstanden
-- [ ] Docs: `instructions.md` (rutetabellen, reglen "offentligt indhold ligger under `/w/`…" → "på website-værten",
-      og princippet `app.domain.com`), skills `gaer-integrations` og `gaer-backend`, `README.md`
+- [x] Docs: `instructions.md` (rutetabellen, reglen om offentligt indhold og princippet `app.domain.com`),
+      skill `gaer-integrations`, `copilot-instructions.md`, `README.md`
 
 ### Fase 0 — Specs og skelet
 - [ ] Kopiér `specs/hojde-platform/` → `specs/hojde/` (+ skærmbilleder); omskriv PLAN til Gær-termer (denne tabel i §2)

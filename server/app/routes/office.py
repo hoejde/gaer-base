@@ -12,7 +12,7 @@ from xml.sax.saxutils import escape, quoteattr
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import Response
 
-from app import config, db, settings_store
+from app import config, db, hosts, settings_store
 
 router = APIRouter(prefix="/api/office", tags=["office"])
 
@@ -71,7 +71,7 @@ def _header(app: str, name: str, base: str, kind: str, extra_ns: str = "") -> st
   <Description DefaultValue={quoteattr(f"{name}: indsæt og gem tekstklip fra {name}.")}/>
   <IconUrl DefaultValue={quoteattr(f"{base}/office/icon-32.png")}/>
   <HighResolutionIconUrl DefaultValue={quoteattr(f"{base}/office/icon-80.png")}/>
-  <SupportUrl DefaultValue={quoteattr(f"{base}/w/")}/>
+  <SupportUrl DefaultValue={quoteattr(hosts.site_url("/"))}/>
   <AppDomains><AppDomain>{escape(base)}</AppDomain></AppDomains>"""
 
 

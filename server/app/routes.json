@@ -3,14 +3,14 @@
  "groups": [
   {
    "id": "home",
-   "docs_path": "/",
+   "docs_path": "/portal",
    "who": {
     "en": "logged in",
     "da": "logget ind"
    },
    "what": {
-    "en": "The web app's home. **Anonymous visitors are redirected to `/w/`** (by the server, and by the SPA on client-side navigation).",
-    "da": "Appens forside. Anonyme sendes til `/w/`."
+    "en": "The web app's home, on the app's host (`app.<domain>`, `ORIGIN`), whose `/` redirects here. Anonymous visitors are sent to `/login`.",
+    "da": "Appens forside på appens vært (`app.<domain>`), hvor `/` sender hertil. Anonyme sendes til `/login`."
    },
    "code": [
     "main.py `spa()`",
@@ -19,18 +19,19 @@
   },
   {
    "id": "website",
-   "docs_path": "/w/…",
+   "docs_path": "/, /<slug>",
    "who": {
     "en": "everyone",
     "da": "alle"
    },
    "what": {
-    "en": "**Public website**, server-rendered HTML from Markdown pages (`web_pages`), da/en via `?lang=` + `w_lang` cookie. The front page is the Markdown page with an empty slug, or — setting `web_front = \"facit246\"` in `/admin/web` — the fixed \"Facit · 246\" story (da/en/de/sv/no, browser language by default; `web_front.py`, design in `specs/forside-246/`). The front page always ends with a **login card**; on a new instance (no users, no `BOOTSTRAP_ADMIN_EMAIL`) it says the first person to log in becomes admin. A placeholder is shown until a front page is written.",
-    "da": "Offentligt website: Markdown-sider fra `/admin/web` (dansk/engelsk). Forsiden er Markdown-siden eller „Facit · 246“ (valgt i `/admin/web`) og slutter altid med et login-kort; på en ny instans står der, at den første, der logger ind, bliver administrator."
+    "en": "**Public website** on the website's host (`<domain>`, `SITE_ORIGIN`; without it the one host), server-rendered HTML from Markdown pages (`web_pages`), da/en via `?lang=` + `w_lang` cookie. The front page is the Markdown page with an empty slug, or — setting `web_front = \"facit246\"` in `/admin/web` — the fixed \"Facit · 246\" story (da/en/de/sv/no, browser language by default; `web_front.py`, design in `specs/forside-246/`). The front page always ends with a **login card**; on a new instance (no users, no `BOOTSTRAP_ADMIN_EMAIL`) it says the first person to log in becomes admin. A placeholder is shown until a front page is written. App paths on the website's host redirect to the app's host and back; old `/w/…` links redirect here (`hosts.py`).",
+    "da": "Offentligt website på `<domain>` (`SITE_ORIGIN`): Markdown-sider fra `/admin/web` (dansk/engelsk). Forsiden er Markdown-siden eller „Facit · 246“ (valgt i `/admin/web`) og slutter altid med et login-kort; på en ny instans står der, at den første, der logger ind, bliver administrator."
    },
    "code": [
     "routes/web.py",
     "web_front.py",
+    "hosts.py",
     "web_static/"
    ]
   },
@@ -267,14 +268,14 @@
  ],
  "routes": [
   {
-   "path": "/",
+   "path": "/portal",
    "group": "home",
    "app": "app",
    "access": "user",
    "title": "Overblik"
   },
   {
-   "path": "/w/{slug}",
+   "path": "/{slug}",
    "group": "website",
    "app": "server",
    "access": "public",

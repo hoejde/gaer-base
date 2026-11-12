@@ -49,7 +49,7 @@ use `MAIL_PROVIDER=console` (and `SMS_PROVIDER=console`).
 | `server/app/killswitch.py` | kill switches (`SWITCHES`, code not config): a closed one answers 503 for its paths within ~2 s in every container (guard middleware); /admin, login, /health never close |
 | `server/app/resources.py`, `routes/resources.py` | /admin/resources: resources in use (container, Postgres, events, Object Storage, NATS, AI, e-mail/SMS, jobs) with limits and prices (setting `resources`), plus kill switches, rules and events by kind |
 | `server/app/nats_monitor.py`, `routes/nats.py` | /admin/nats: reads NATS' HTTP monitoring port (`NATS_MONITOR_URL`), whitelisted endpoints and parameters, secrets masked; read only |
-| `server/app/og.py` | og:image and sharing tags for the anonymous pages (/w, /login, /privatliv): generated images in `web_static/og/` (`node web/scripts/brand-assets.cjs`), replaced per surface or per Markdown page in /admin/web |
+| `server/app/og.py` | og:image and sharing tags for the anonymous pages (the website, /login, /privatliv): generated images in `web_static/og/` (`node web/scripts/brand-assets.cjs`), replaced per surface or per Markdown page in /admin/web |
 | `server/app/captcha.py` | proof-of-work captcha (no third party) in front of `POST /api/auth/otp/start` |
 | `server/app/gdpr.py`, `reapply_erasures.py` | GDPR export (zip) and erasure; re-applying erasures after a backup restore |
 | `server/tests/` | pytest against real Postgres (`TEST_DATABASE_ADMIN_URL`) |
@@ -69,8 +69,8 @@ They share the same login (session cookie), the same database and the same API.
 <!-- Generated from web/src/routes.json by npm run app-map --prefix web — edit the manifest, not this table. -->
 | Route | Who | What | Code |
 | --- | --- | --- | --- |
-| `/` | logged in | The web app's home. **Anonymous visitors are redirected to `/w/`** (by the server, and by the SPA on client-side navigation). | main.py `spa()`, `web/src/pages/Home.tsx` |
-| `/w/…` | everyone | **Public website**, server-rendered HTML from Markdown pages (`web_pages`), da/en via `?lang=` + `w_lang` cookie. The front page is the Markdown page with an empty slug, or — setting `web_front = "facit246"` in `/admin/web` — the fixed "Facit · 246" story (da/en/de/sv/no, browser language by default; `web_front.py`, design in `specs/forside-246/`). The front page always ends with a **login card**; on a new instance (no users, no `BOOTSTRAP_ADMIN_EMAIL`) it says the first person to log in becomes admin. A placeholder is shown until a front page is written. | `routes/web.py`, `web_front.py`, `web_static/` |
+| `/portal` | logged in | The web app's home, on the app's host (`app.<domain>`, `ORIGIN`), whose `/` redirects here. Anonymous visitors are sent to `/login`. | main.py `spa()`, `web/src/pages/Home.tsx` |
+| `/, /<slug>` | everyone | **Public website** on the website's host (`<domain>`, `SITE_ORIGIN`; without it the one host), server-rendered HTML from Markdown pages (`web_pages`), da/en via `?lang=` + `w_lang` cookie. The front page is the Markdown page with an empty slug, or — setting `web_front = "facit246"` in `/admin/web` — the fixed "Facit · 246" story (da/en/de/sv/no, browser language by default; `web_front.py`, design in `specs/forside-246/`). The front page always ends with a **login card**; on a new instance (no users, no `BOOTSTRAP_ADMIN_EMAIL`) it says the first person to log in becomes admin. A placeholder is shown until a front page is written. App paths on the website's host redirect to the app's host and back; old `/w/…` links redirect here (`hosts.py`). | `routes/web.py`, `web_front.py`, `hosts.py`, `web_static/` |
 | `/login` | anonymous | E-mail → one-time code → second factor if "Kræv passkey" is on, else a passkey offer (see `gaer-auth`). Shows the first-user/admin notice when `first_user` is true. Also `/extension/login` and `/m/login` (same page, embedded layout). | `pages/Login.tsx` |
 | `/klip`, `/filer`, `/konto`, `/konto/forbrug`, `/privatliv` | logged in (privatliv: everyone) | Clips, files in Object Storage, account (profile, avatar, passkeys, security keys, authenticator apps, "Kræv passkey", sessions), own AI consumption and budget (`/konto/forbrug`), privacy + consent + GDPR requests. | `pages/`, `clips.tsx` |
 | `/user`, `/user/<id>` | logged in (`/user/<id>`: people the owner gave access) | **Mit område**: your dashboard (counts, recent activity in your area, areas shared with you), settings (the account page) and sharing: give another user access by e-mail as **reader** (sees overview, clips, files, downloads) or **author** (also creates/edits clips and uploads files; never deletes), optionally expiring. They open it at `/user/<id>`; settings, security and sharing stay the owner's. Everything a delegate does is audited with `on_behalf_of`. | `pages/UserArea.tsx`, `routes/user_area.py`, `delegation.py` |
@@ -90,8 +90,8 @@ They share the same login (session cookie), the same database and the same API.
 
 | Path | Served by | Access | Page |
 | --- | --- | --- | --- |
-| `/` | app (`index.html`) | logged in | Overblik |
-| `/w/{slug}` | server | everyone | Website |
+| `/portal` | app (`index.html`) | logged in | Overblik |
+| `/{slug}` | server | everyone | Website |
 | `/login` | app (`index.html`) | everyone | Log ind · embeddable |
 | `/extension/login` | app (`index.html`) | everyone | Log ind i udvidelsen · own chrome · embeddable |
 | `/m/login` | app (`index.html`) | everyone | Log ind på mobil · own chrome |
@@ -193,7 +193,10 @@ Rules for routes:
 - `/admin` is a separate app: it shares only `api.ts`, `auth.tsx`, `bridge/`, `deeplink.tsx`, `routes.json` and `upload.ts` with the
   rest of `web/src/`. Neither side imports the other; `npm run build` fails if one does (`appBoundary()` in
   `web/vite.config.ts`).
-- Anything the public may see without login lives under `/w/`, `/login`, `/privatliv` or `/api/public/…`.
+- **The app is always `app.<domain>`, the website `<domain>`.** `ORIGIN` is the app (every link the server makes points
+  there), `SITE_ORIGIN` the website, `SITE_HOSTS` more website hosts; one container answers all (`server/app/hosts.py`).
+  The app's home is `/portal`; `/` and `/<slug>` are the website. Without `SITE_ORIGIN` everything shares one host.
+- Anything the public may see without login is the website (`/`, `/<slug>`), `/login`, `/privatliv` or `/api/public/…`.
 - AI is optional: UI for it must hide itself when `/api/ai/status` says `enabled: false`.
 
 ## Rules that always apply

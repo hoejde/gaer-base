@@ -60,7 +60,7 @@ export const PLAYBOOKS: Playbook[] = [
     key: "lone-kom-i-gang",
     archetype: "ny-bruger",
     title: "Lone kommer i gang",
-    start: "/",
+    start: "/portal",
     tasks: [
       { id: "forsiden", title: "Forstår hun på forsiden, hvad appen er til?" },
       { id: "profil", title: "Sæt navn og profilbillede under Konto" },

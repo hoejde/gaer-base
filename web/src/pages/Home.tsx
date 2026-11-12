@@ -1,5 +1,5 @@
 // / — the signed-in dashboard: greeting, key numbers, the assistant, recent activity (a table with the row's
-// tools on the left), areas shared with you and the state of your security. Anonymous visitors go to /w/.
+// tools on the left), areas shared with you and the state of your security. Lives on /portal; anonymous visitors are sent to /login (App.tsx).
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
@@ -109,17 +109,13 @@ function RecentActivity({ activity }: { activity: Activity[] }) {
 }
 
 export default function Home() {
-  const { user, scope, loading } = useAuth();
+  const { user, scope, loading, config } = useAuth();
   const { aiEnabled } = useShell();
   const ai = useAiStatus();
   const ov = useLoad(() => api.get<Overview>("/api/user/overview"));
 
   if (loading) return null;
-  if (!user || scope !== "full") {
-    // Anonymous visitors belong on the public website (the server redirects / there as well).
-    window.location.replace("/w/");
-    return null;
-  }
+  if (!user || scope !== "full") return null; // RequireUser sends them to /login
 
   const first = (user.display_name || "").split(" ")[0];
   const today = new Date().toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long" });
@@ -219,8 +215,8 @@ export default function Home() {
                 <Link to="/develop" className="side-link" style={{ padding: "0 6px", margin: "0 -6px", width: "auto" }}>
                   <Icon name="code" size={18} /><span style={{ flex: 1 }}>Udvikling — promptkatalog</span><span className="mono tiny muted">/develop</span>
                 </Link>
-                <a href="/w/" className="side-link" style={{ padding: "0 6px", margin: "0 -6px", width: "auto" }}>
-                  <Icon name="globe" size={18} /><span style={{ flex: 1 }}>Den offentlige side</span><span className="mono tiny muted">/w</span>
+                <a href={config?.site_url ?? "/"} className="side-link" style={{ padding: "0 6px", margin: "0 -6px", width: "auto" }}>
+                  <Icon name="globe" size={18} /><span style={{ flex: 1 }}>Den offentlige side</span>
                 </a>
                 {user.role === "admin" && (
                   <a href="/admin" className="side-link" style={{ padding: "0 6px", margin: "0 -6px", width: "auto" }}>

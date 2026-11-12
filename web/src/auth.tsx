@@ -45,6 +45,8 @@ export type PublicConfig = {
   first_user: boolean;
   sms_login: boolean;
   demo_mode: boolean;
+  /** The public website's front page: "/" on one host, https://<domain>/ when the app runs on app.<domain>. */
+  site_url: string;
   /** POST /api/auth/otp/start needs a solved robot check (src/captcha.ts). */
   captcha: boolean;
 };

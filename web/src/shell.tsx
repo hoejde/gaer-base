@@ -94,7 +94,7 @@ function initials(text: string): string {
 
 type NavItem = { to: string; label: string; icon: string; feature?: string; end?: boolean; mobile?: boolean };
 const WORK: NavItem[] = [
-  { to: "/", label: "Overblik", icon: "home", end: true, mobile: true },
+  { to: "/portal", label: "Overblik", icon: "home", end: true, mobile: true },
   { to: "/klip", label: "Klip", icon: "clip", feature: "klip", mobile: true },
   { to: "/filer", label: "Filer", icon: "folder", feature: "filer", mobile: true },
   { to: "/user", label: "Mit område", icon: "users", end: true },
@@ -131,7 +131,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 /** Links that leave the app on / (full page loads): /admin and the public site. */
 function OutLinks() {
-  const { user } = useAuth();
+  const { user, config } = useAuth();
   return (
     <>
       {user?.role === "admin" && (
@@ -139,8 +139,8 @@ function OutLinks() {
           <Icon name="lock" /><span className="cap">Administration</span>
         </a>
       )}
-      <a href="/w/" className="side-link" title="Til den offentlige side (/w)">
-        <Icon name="globe" /><span className="cap grow">Offentlig side</span><span className="cap mono tiny muted">/w</span>
+      <a href={config?.site_url ?? "/"} className="side-link" title="Til den offentlige side">
+        <Icon name="globe" /><span className="cap grow">Offentlig side</span>
       </a>
     </>
   );
@@ -233,7 +233,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     await logout();
-    window.location.href = "/w/";
+    window.location.href = config?.site_url ?? "/";
   };
 
   if (!user) return <>{children}</>;
@@ -246,7 +246,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className={`shell ${nav.collapsed ? "collapsed" : ""}`}>
         <nav className="side" aria-label="Hovedmenu" style={{ width }}>
           <div className="side-brand">
-            <Link to="/" className="brand" title={config?.app_name ?? "Tørgær"}>
+            <Link to="/portal" className="brand" title={config?.app_name ?? "Tørgær"}>
               {config?.logo_url ? <img src={config.logo_url} alt="" /> : <span className="brand-dot" />}
               <span className="cap">{config?.app_name ?? "Tørgær"}</span>
             </Link>
@@ -278,12 +278,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <div className="shell-main">
           <header className="shell-head">
-            <Link to="/" className="brand mobile-only" aria-label="Overblik">
+            <Link to="/portal" className="brand mobile-only" aria-label="Overblik">
               {config?.logo_url ? <img src={config.logo_url} alt="" /> : <span className="brand-dot" />}
             </Link>
             <span className="shell-title">{title}</span>
             <div className="shell-actions">
-              <a href="/w/" className="icon-btn mobile-only" aria-label="Til den offentlige side" title="Offentlig side (/w)"><Icon name="globe" /></a>
+              <a href={config?.site_url ?? "/"} className="icon-btn mobile-only" aria-label="Til den offentlige side" title="Offentlig side"><Icon name="globe" /></a>
               {aiEnabled && (
                 <button className={`btn btn-outline btn-sm ai-toggle ${ai ? "on" : ""}`} aria-pressed={!!ai}
                         onClick={() => (ai ? setAi(null) : shell.openAi())}>

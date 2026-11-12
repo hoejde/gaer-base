@@ -16,7 +16,7 @@ herfra ind i sin fork.
 | **/admin** | Brugere og roller · auth-log · audit-log (CSV) · analytics · heatmaps · GDPR-forespørgsler · sletning af logdata · samtykke og cookies · filer · website · udvidelse og Office · indstillinger. Alt i /admin skrives i audit-loggen. |
 | **Analytics og heatmaps** | Opsamles af Python-serveren og gemmes i en partitioneret tabel i containerens egen database. Ingen tredjepart. Kun anonyme sidevisninger uden samtykke. |
 | **Filer** | Object Storage. Upload gennem serveren, download via links, der udløber efter få minutter. |
-| **/w** | Offentligt website, server-renderet fra Markdown-sider på dansk og engelsk. Anonyme besøgende på `/` sendes hertil. |
+| **Website** | Offentligt website på `/` og `/<side>`, server-renderet fra Markdown-sider på dansk og engelsk. I produktion på `kunde.dk`, mens appen ligger på `app.kunde.dk` (`/portal`) — samme container svarer på begge. |
 | **/m** | Mobil-app (PWA) med bundmenu, kamera-upload og klip. |
 | **/extension** | Browserudvidelse (Chrome/Edge sidepanel), der kan læse den aktuelle side og gemme den som klip — med samtykke pr. domæne. |
 | **/office-addin** | Office-tilføjelser til Word, Excel, PowerPoint og Outlook. Én router finder værten og viser det rigtige værktøj: indsæt klip, gem markering eller mail som klip, svar med klip. |
@@ -31,8 +31,8 @@ herfra ind i sin fork.
 <!-- Genereret fra web/src/routes.json af npm run app-map --prefix web — ret manifestet, ikke tabellen. -->
 | Rute | Hvem | Hvad |
 | --- | --- | --- |
-| `/` | logget ind | Appens forside. Anonyme sendes til `/w/`. |
-| `/w/…` | alle | Offentligt website: Markdown-sider fra `/admin/web` (dansk/engelsk). Forsiden er Markdown-siden eller „Facit · 246“ (valgt i `/admin/web`) og slutter altid med et login-kort; på en ny instans står der, at den første, der logger ind, bliver administrator. |
+| `/portal` | logget ind | Appens forside på appens vært (`app.<domain>`), hvor `/` sender hertil. Anonyme sendes til `/login`. |
+| `/, /<slug>` | alle | Offentligt website på `<domain>` (`SITE_ORIGIN`): Markdown-sider fra `/admin/web` (dansk/engelsk). Forsiden er Markdown-siden eller „Facit · 246“ (valgt i `/admin/web`) og slutter altid med et login-kort; på en ny instans står der, at den første, der logger ind, bliver administrator. |
 | `/login` | anonyme | E-mail → engangskode → anden faktor, hvis „Kræv passkey“ er slået til, ellers tilbud om passkey. Viser, når man bliver den første admin. Også `/extension/login` og `/m/login`. |
 | `/klip`, `/filer`, `/konto`, `/konto/forbrug`, `/privatliv` | logget ind (privatliv: alle) | Klip, filer, konto (profil, passkeys, sikkerhedsnøgler, godkendelsesapps, „Kræv passkey“, sessioner), eget AI-forbrug og budget, privatliv og GDPR. |
 | `/user`, `/user/<id>` | logget ind (`/user/<id>`: dem ejeren har givet adgang) | **Mit område**: overblik (tal, seneste aktivitet, områder delt med dig), indstillinger og deling. Giv en anden bruger adgang som **læser** eller **forfatter** (kan oprette og redigere, aldrig slette), evt. med udløb. De åbner det på `/user/<id>`. |
@@ -52,8 +52,8 @@ herfra ind i sin fork.
 
 | Sti | Svarer | Adgang | Side |
 | --- | --- | --- | --- |
-| `/` | appen | logget ind | Overblik |
-| `/w/{slug}` | serveren | alle | Website |
+| `/portal` | appen | logget ind | Overblik |
+| `/{slug}` | serveren | alle | Website |
 | `/login` | appen | alle | Log ind · kan indlejres |
 | `/extension/login` | appen | alle | Log ind i udvidelsen · eget layout · kan indlejres |
 | `/m/login` | appen | alle | Log ind på mobil · eget layout |
@@ -145,7 +145,7 @@ herfra ind i sin fork.
 
 | Ret | Hvordan |
 | --- | --- |
-| **Samtykke** | Cookie-banner i appen og på `/w`. Uden samtykke kun anonyme sidevisninger; med samtykke et tilfældigt id til besøg, forløb og heatmaps. Kan ændres på `/privatliv`. Tekster og overblik i `/admin/consent`. |
+| **Samtykke** | Cookie-banner i appen og på websitet. Uden samtykke kun anonyme sidevisninger; med samtykke et tilfældigt id til besøg, forløb og heatmaps. Kan ændres på `/privatliv`. Tekster og overblik i `/admin/consent`. |
 | **Indsigt** | Brugeren henter selv en zip på `/privatliv` (data.json + egne filer). Admin kan gøre det samme fra en anmodning i `/admin/gdpr`. Eksporten logges. |
 | **Rettelse** | Navn på `/konto`. Telefonnummer på `/konto` med kode til det nye nummer, eller af admin i `/admin/users` (“Ret nummer”). |
 | **Sletning** | Brugeren sletter selv sin konto på `/privatliv`, eller admin sletter fra en anmodning. Brugeren, filer, klip, passkeys, sessioner, AI-forbrug, samtykker, statistik og log-data om brugeren slettes. Tilbage bliver kun en notits uden persondata (`gdpr.erasure`, `log.purged`). Den sidste admin kan ikke slettes. |
@@ -170,7 +170,21 @@ npm run dev --prefix web                               # http://localhost:5173
 ```
 
 Med `SMS_PROVIDER=console` står engangskoden i serverens log og på login-siden. Den første bruger bliver admin.
-Websitet `/w/` serveres af Python-serveren: http://localhost:8000/w/.
+Websitet serveres af Python-serveren: http://localhost:8000/ (appen: http://localhost:5173/portal).
+
+### Appen og websitet: `app.kunde.dk` og `kunde.dk`
+
+Princippet er altid: appen på **`app.<domæne>`** (`ORIGIN`), websitet på **`<domæne>`** (`SITE_ORIGIN`). Samme
+container svarer på begge og vælger flade efter værten (`server/app/hosts.py`):
+
+| Vært | `/` | `/<side>` | Appens stier (`/portal`, `/login`, `/admin` …) |
+| --- | --- | --- | --- |
+| `app.kunde.dk` | → `/portal` | → `kunde.dk/<side>` | appen |
+| `kunde.dk` (+ `SITE_HOSTS`) | websitet | websitet (404 hvis siden ikke findes) | → `app.kunde.dk/<sti>` |
+| Én vært (uden `SITE_ORIGIN`, fx lokalt) | websitet | websitet | appen |
+
+`/api`, `/mcp`, `/health` og statiske filer svarer på alle værter. Gamle `/w/…`-links sender videre til websitet.
+I Cloudflare Tunnel skal begge værter (og evt. `SITE_HOSTS`) pege på containeren.
 
 ### Test
 
@@ -191,7 +205,7 @@ rettighederne på log-tabellerne bliver testet. Passkeys testes med en software-
         ┌────────────▼────────────┐     ┌──────────────────────────────┐
         │  Container  app         │────►│ Container  postgres          │
         │  Python (FastAPI)       │     │  gaer_<kunde>  ← egen db     │
-        │  /api /w /mcp /health   │     └──────────────────────────────┘
+        │  / /api /mcp /health    │     └──────────────────────────────┘
         │  serverer web/dist      │     ┌──────────────────────────────┐
         └─────────────────────────┘────►│ Object Storage (S3)          │
                                         └──────────────────────────────┘

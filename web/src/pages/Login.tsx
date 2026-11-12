@@ -31,7 +31,7 @@ function GracePills({ left }: { left: number }) {
   );
 }
 
-export default function Login({ home = "/", embedded = false }: { home?: string; embedded?: boolean }) {
+export default function Login({ home = "/portal", embedded = false }: { home?: string; embedded?: boolean }) {
   const { user, scope, refresh, config } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

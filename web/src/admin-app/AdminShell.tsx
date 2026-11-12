@@ -92,7 +92,7 @@ export default function AdminShell() {
               animation: health?.ok ? "tgpulse 2s infinite" : "none" }} />
             {health && !health.ok ? "Server svarer ikke" : `Server online · v${health?.version ?? "…"}`}
           </div>
-          <a href="/" style={{ display: "flex", alignItems: "center", gap: 6, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
+          <a href="/portal" style={{ display: "flex", alignItems: "center", gap: 6, color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
             <ArrowLeft size={12} strokeWidth={2} />Til appen på /
           </a>
         </div>
@@ -107,7 +107,7 @@ export default function AdminShell() {
               Appen på <strong style={{ fontFamily: MONO }}>/</strong> kører nu som <strong>{impersonating.display_name}</strong> (
               {impersonating.role === "admin" ? "admin" : "bruger"}). /admin bruger stadig din egen rolle, og alt logges med dig som aktør.
             </span>
-            <a href="/" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", height: 30, padding: "0 12px", borderRadius: 8,
+            <a href="/portal" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", height: 30, padding: "0 12px", borderRadius: 8,
               border: "1px solid rgba(245,158,11,0.5)", background: "#ffffff", color: "#78350f", fontWeight: 500, textDecoration: "none" }}>
               Åbn / som {impersonating.display_name}
             </a>
@@ -134,7 +134,7 @@ export default function AdminShell() {
           </span>
           <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10 }}>
             <ExtensionButton />
-            <a href="/" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 32, padding: "0 12px", borderRadius: 8,
+            <a href="/portal" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 32, padding: "0 12px", borderRadius: 8,
               border: "1px solid #e2e8f0", background: "#ffffff", color: "#020817", font: `500 13px ${SANS}`, textDecoration: "none" }}>
               Åbn appen<ExternalLink size={13} strokeWidth={2} />
             </a>

@@ -53,24 +53,32 @@ async def test_office_manifests_are_valid_xml(client):
 
 
 async def test_website_languages_and_sanitizing(client, owner_conn):
-    r = await client.get("/w/")
+    r = await client.get("/")
     assert r.status_code == 200 and "<h1>Velkommen</h1>" in r.text and 'lang="da"' in r.text
-    r = await client.get("/w/?lang=en")
+    r = await client.get("/?lang=en")
     assert "<h1>Welcome</h1>" in r.text and r.cookies.get("w_lang") == "en"
-    assert "<h1>Welcome</h1>" in (await client.get("/w/")).text  # remembered
-    assert (await client.get("/w/findes-ikke")).status_code == 404
+    assert "<h1>Welcome</h1>" in (await client.get("/")).text  # remembered
+    assert (await client.get("/findes-ikke")).status_code == 404
 
     owner_conn.execute("""insert into web_pages (slug, lang, title, body, published)
                           values ('xss', 'en', 'X', '<script>alert(1)</script>[x](javascript:alert(1))', true)""")
-    body = (await client.get("/w/xss?lang=en")).text
+    body = (await client.get("/xss?lang=en")).text
     assert "<script>alert" not in body and "javascript:" not in body
 
 
 async def test_anonymous_root_goes_to_website(client):
-    r = await client.get("/")
-    assert r.status_code == 302 and r.headers["location"] == "/w/"
+    r = await client.get("/")  # one host (no SITE_ORIGIN): / is the website for everyone
+    assert r.status_code == 200 and 'class="login-card"' in r.text
     await otp_login(client, "12345678")
-    assert (await client.get("/")).status_code != 302
+    assert 'class="login-card"' in (await client.get("/")).text
+
+
+async def test_old_website_addresses_redirect(client):
+    for old, new in (("/w", "/"), ("/w/", "/"), ("/w/om", "/om"), ("/w/om?lang=en", "/om?lang=en")):
+        r = await client.get(old)
+        assert r.status_code == 308 and r.headers["location"] == new, old
+    for name in ("w.css", "facit.js"):  # pages cached before the move still load their CSS/JS
+        assert (await client.get(f"/w/static/{name}")).status_code == 200
 
 
 async def test_admin_edits_website(make_client):
@@ -80,11 +88,16 @@ async def test_admin_edits_website(make_client):
                                                  "body": "# Priser\n\n1.500 kr.", "published": True, "nav_order": 2})
     page_id = r.json()["id"]
     assert (await admin.post("/api/admin/web", json={"slug": "priser", "lang": "da", "title": "Igen"})).status_code == 409
-    assert "<h1>Priser</h1>" in (await admin.get("/w/priser")).text
-    assert ">Priser</a>" in (await admin.get("/w/")).text  # in the menu
+    for taken in ("login", "portal", "admin", "api", "w", "static"):  # the app's paths are not website addresses
+        r = await admin.post("/api/admin/web", json={"slug": taken, "lang": "da", "title": "X"})
+        assert r.status_code == 422, taken
+    r = await admin.put(f"/api/admin/web/{page_id}", json={"slug": "klip", "lang": "da", "title": "Priser"})
+    assert r.status_code == 422
+    assert "<h1>Priser</h1>" in (await admin.get("/priser")).text
+    assert ">Priser</a>" in (await admin.get("/")).text  # in the menu
     await admin.put(f"/api/admin/web/{page_id}", json={"slug": "priser", "lang": "da", "title": "Priser",
                                                        "body": "x", "published": False})
-    assert (await admin.get("/w/priser")).status_code == 404
+    assert (await admin.get("/priser")).status_code == 404
     assert (await admin.post("/api/admin/web/preview", json={"body": "**fed**"})).json()["html"] == "<p><strong>fed</strong></p>"
 
 
@@ -112,20 +125,20 @@ async def test_embedded_login_gets_partitioned_cookie(client, monkeypatch):
 
 
 async def test_front_page_has_login_card_and_first_user_notice(client, owner_conn):
-    body = (await client.get("/w/")).text
+    body = (await client.get("/")).text
     assert 'class="login-card"' in body and 'href="/login"' in body and "bliver administrator" in body
-    assert "first person to log in becomes" in (await client.get("/w/?lang=en")).text
+    assert "first person to log in becomes" in (await client.get("/?lang=en")).text
     await otp_login(client, "12345678")
-    body = (await client.get("/w/?lang=da")).text
+    body = (await client.get("/?lang=da")).text
     assert 'class="login-card"' in body and "bliver administrator" not in body
-    assert 'class="login-card"' not in (await client.get("/w/om")).text  # only on the front page
+    assert 'class="login-card"' not in (await client.get("/om")).text  # only on the front page
 
 
 async def test_front_page_placeholder_when_none_written(client, owner_conn):
     saved = owner_conn.execute("select id from web_pages where slug = '' and lang = 'da'").fetchone()[0]
     owner_conn.execute("update web_pages set published = false where id = %s", (saved,))
     try:
-        r = await client.get("/w/?lang=da")
+        r = await client.get("/?lang=da")
         assert r.status_code == 200 and "Her kommer jeres website" in r.text and 'class="login-card"' in r.text
     finally:
         owner_conn.execute("update web_pages set published = true where id = %s", (saved,))
@@ -135,26 +148,26 @@ async def test_web_front_default_comes_from_the_environment(client, monkeypatch,
     import dataclasses
     from app import config
     monkeypatch.setattr(config, "settings", dataclasses.replace(config.settings, web_front="facit246"))
-    assert "Facit først." in (await client.get("/w/?lang=da")).text
+    assert "Facit først." in (await client.get("/?lang=da")).text
     owner_conn.execute("""insert into settings (key, value) values ('web_front', '"markdown"')""")  # /admin/web wins
-    assert "Facit først." not in (await client.get("/w/?lang=da")).text
+    assert "Facit først." not in (await client.get("/?lang=da")).text
 
 
 async def test_front_page_can_be_the_246_story(client, make_client, owner_conn):
-    assert "Facit først." not in (await client.get("/w/?lang=da")).text  # Markdown by default
+    assert "Facit først." not in (await client.get("/?lang=da")).text  # Markdown by default
     owner_conn.execute("""insert into settings (key, value) values ('web_front', '"facit246"')
                           on conflict (key) do update set value = excluded.value""")
     for lang, html_lang, line in (("da", "da", "Facit først."), ("en", "en", "The answer first."),
                                   ("de", "de", "Erst das Ergebnis."), ("sv", "sv", "Facit först."),
                                   ("no", "nb", "Fasit først.")):
-        body = (await client.get(f"/w/?lang={lang}")).text
+        body = (await client.get(f"/?lang={lang}")).text
         assert f'lang="{html_lang}"' in body and line in body and 'class="login-card"' in body
-    assert 'lang="da"' in (await client.get("/w/om")).text  # de/sv/no are front-page only
+    assert 'lang="da"' in (await client.get("/om")).text  # de/sv/no are front-page only
     browser = make_client()
-    body = (await browser.get("/w/", headers={"accept-language": "nb-NO,nb;q=0.9,en;q=0.8"})).text
+    body = (await browser.get("/", headers={"accept-language": "nb-NO,nb;q=0.9,en;q=0.8"})).text
     assert 'lang="nb"' in body  # the browser's language when nothing is chosen
-    body = (await client.get("/w/?lang=da")).text
+    body = (await client.get("/?lang=da")).text
     assert "Dette er forsiden" not in body and body.count("<i style=") == 246
     for name in ("facit.css", "facit.js"):
-        assert (await client.get(f"/w/static/{name}")).status_code == 200
-    assert "script-src 'self';" in (await client.get("/w/")).headers["content-security-policy"]
+        assert (await client.get(f"/static/w/{name}")).status_code == 200
+    assert "script-src 'self';" in (await client.get("/")).headers["content-security-policy"]

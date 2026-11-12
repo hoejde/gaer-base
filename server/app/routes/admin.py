@@ -9,10 +9,11 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile
 from fastapi.responses import Response, StreamingResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from app import admin_roles, config, db, gdpr, mail, mfa, og, retention, settings_store
 from app.logs import audit, auth_event, changed
+from app.routes import web
 from app.routes.auth import parse_email, parse_phone
 from app.routes.files import delete_file, save_upload
 from app.routes.me import ProfileIn, avatar_response, clean_profile, update_profile_fields
@@ -817,7 +818,7 @@ async def settings_logo(file: UploadFile, admin: Principal = Depends(require_adm
     return {"ok": True, "logo_url": "/api/public/logo"}
 
 
-# ── Website (/w) ────────────────────────────────────────────────────────────
+# ── Website (/ and /<slug> on the website's host) ────────────────────────────────────────────────────────────
 
 class WebPageIn(BaseModel):
     slug: str = Field(default="", max_length=80, pattern="^[a-z0-9-]*$")
@@ -827,6 +828,13 @@ class WebPageIn(BaseModel):
     body: str = Field(default="", max_length=200_000)
     nav_order: int | None = None
     published: bool = False
+
+    @field_validator("slug")
+    @classmethod
+    def not_an_app_path(cls, v: str) -> str:
+        if v in web.RESERVED_SLUGS:
+            raise ValueError(f"/{v} bruges af appen — vælg en anden adresse")
+        return v
 
 
 class PreviewIn(BaseModel):
@@ -857,7 +865,7 @@ async def web_front_get():
 
 @router.put("/web/front")
 async def web_front_put(body: WebFrontIn, admin: Principal = Depends(require_admin)):
-    """/w/: the Markdown page with slug '' or the fixed "Facit · 246" story (app/web_front.py)."""
+    """/ (the website's front page): the Markdown page with slug '' or the fixed "Facit · 246" story (app/web_front.py)."""
     async with db.connection() as conn:
         before = await settings_store.get(conn, "web_front")
         if before != body.front:

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, errorText } from "../../api";
+import { useAuth } from "../../auth";
 import { Alert, fmtDate, Loading, PageHeader, useLoad } from "../ui";
 
 type Page = { id: number; slug: string; lang: "da" | "en"; title: string; description: string; body: string; nav_order: number | null; published: boolean; updated_at: string; og_image_key: string | null };
@@ -101,19 +102,20 @@ export default function Web() {
     }
   };
 
-  const url = (p: { slug: string; lang: string }) => `/w/${p.slug}?lang=${p.lang}`;
+  const site = (useAuth().config?.site_url ?? "/").replace(/\/$/, "");
+  const url = (p: { slug: string; lang: string }) => `${site}/${p.slug}?lang=${p.lang}`;
 
   return (
     <>
       <div className="spread">
         <PageHeader eyebrow="/admin/web" title="Website">
-          Det offentlige website under /w. Sider skrives i Markdown og vises af Python-serveren, på dansk og engelsk.
-          Besøgende, der ikke er logget ind, sendes fra / til /w/.
+          Det offentlige website på {site || "/"}. Sider skrives i Markdown og vises af Python-serveren, på dansk og engelsk.
+          Appen ligger på /portal (på app.-adressen, når websitet har sin egen).
         </PageHeader>
         <button className="btn btn-primary" onClick={() => { setDraft({ ...EMPTY }); setNotice(null); }}>Ny side</button>
       </div>
       <div className="card">
-        <span className="eyebrow">Forside /w/</span>
+        <span className="eyebrow">Forside /</span>
         <label className="field">
           Vis som forside
           <select value={front.data?.front ?? "markdown"} disabled={!front.data} onChange={async (e) => {
@@ -130,7 +132,7 @@ export default function Web() {
             <option value="facit246">„Facit · 246“ — fast fortælling på dansk, engelsk, tysk, svensk og norsk</option>
           </select>
         </label>
-        <p className="muted small">Begge slutter med login-kortet. Undersiderne (/w/…) er Markdown-siderne nedenfor. <a href="/w/" target="_blank" rel="noreferrer">Se forsiden</a></p>
+        <p className="muted small">Begge slutter med login-kortet. Undersiderne (/…) er Markdown-siderne nedenfor. <a href={`${site}/`} target="_blank" rel="noreferrer">Se forsiden</a></p>
       </div>
       <SharingImages onError={setError} onNotice={setNotice} />
       <Alert kind="success">{notice}</Alert>
@@ -142,7 +144,7 @@ export default function Web() {
             <tbody>
               {pages.data.map((p) => (
                 <tr key={p.id} className="clickable" onClick={() => { setDraft({ ...p }); setNotice(null); }}>
-                  <td className="mono small">/w/{p.slug}</td>
+                  <td className="mono small">/{p.slug}</td>
                   <td>{p.lang}</td>
                   <td><strong>{p.title}</strong></td>
                   <td className="num">{p.nav_order ?? "—"}</td>
@@ -159,7 +161,7 @@ export default function Web() {
           <div className="card">
             <span className="eyebrow">{draft.id ? "Redigér side" : "Ny side"}</span>
             <div className="filters">
-              <label className="field">Adresse (/w/…)<input value={draft.slug} placeholder={front.data?.front === "facit246" ? "fx priser — forsiden /w/ er 246-fortællingen" : "tom = forside"} onChange={(e) => setDraft({ ...draft, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-") })} /></label>
+              <label className="field">Adresse (/…)<input value={draft.slug} placeholder={front.data?.front === "facit246" ? "fx priser — forsiden / er 246-fortællingen" : "tom = forside"} onChange={(e) => setDraft({ ...draft, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-") })} /></label>
               <label className="field">Sprog
                 <select value={draft.lang} onChange={(e) => setDraft({ ...draft, lang: e.target.value as "da" | "en" })}><option value="da">Dansk</option><option value="en">Engelsk</option></select>
               </label>
@@ -209,7 +211,7 @@ export default function Web() {
               <button className="btn btn-primary" onClick={save}>Gem</button>
               {draft.id && draft.published && <a className="btn btn-outline" href={url(draft)} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Åbn</a>}
               {draft.id && <button className="btn btn-danger" onClick={async () => {
-                if (!confirm(`Slet siden /w/${draft.slug} (${draft.lang})?`)) return;
+                if (!confirm(`Slet siden /${draft.slug} (${draft.lang})?`)) return;
                 await api.del(`/api/admin/web/${draft.id}`);
                 setDraft(null);
                 await pages.reload();

@@ -1,11 +1,13 @@
-"""/w — the public website, server-rendered from Markdown pages edited in /admin/web.
+"""The public website on / and /<slug>, server-rendered from Markdown pages edited in /admin/web.
+
+It answers on the website's host (SITE_ORIGIN, + SITE_HOSTS), or on the one host when there is no SITE_ORIGIN —
+main.py's catch-all calls site_page() after the app's routes (app/hosts.py). The old /w/… addresses redirect here.
 
 Language: ?lang=da|en (remembered in the w_lang cookie), then the cookie, then Danish.
 Front page: the Markdown page with slug '' (default), or — with the setting web_front = "facit246" (/admin/web) —
 the fixed "Facit · 246" story (app/web_front.py) in da/en/de/sv/no, where the browser's language is used when
 nothing is chosen. Both end with the login card.
-Anonymous visitors to / are sent here (see main.py). Page views go through the same
-self-hosted analytics as the app (static/w.js), with the same consent.
+Page views go through the same self-hosted analytics as the app (static/w.js), with the same consent.
 """
 
 import io
@@ -19,12 +21,19 @@ import nh3
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, Response
 
-from app import config, db, og, settings_store, web_front
+from app import config, db, hosts, og, route_manifest, settings_store, web_front
 from app.routes.auth import admin_open_to_anyone
 
 router = APIRouter(tags=["web"])
 
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "..", "web_static")
+STATIC_FILES = ("w.css", "w.js", "facit.css", "facit.js")
+STATIC_PATH = "/static/w"
+
+# A page's slug is its first (only) path segment, so it may not be one the app or the server answers.
+RESERVED_SLUGS = frozenset(
+    {route_manifest.prefix(r["path"]).strip("/").split("/")[0] for r in route_manifest.ROUTES}
+    | {"w", "static", "assets", "index.html", "admin.html", "favicon.svg"}) - {""}
 LANGS = ("da", "en")
 TEXT = {
     "da": {"login": "Log ind", "privacy": "Privatliv", "other": "English", "missing": "Siden findes ikke",
@@ -47,7 +56,7 @@ def _login_card(lang: str, first_user: bool) -> str:
   <h2>{t['card_title']}</h2>
   <p>{t['card_text']}</p>
   {notice}
-  <a class="button" href="/login">{t['login']}</a>
+  <a class="button" href="{hosts.app_link('/login')}">{t['login']}</a>
 </section>"""
 ALLOWED_TAGS = {"h1", "h2", "h3", "h4", "p", "a", "ul", "ol", "li", "strong", "em", "code", "pre", "blockquote",
                 "img", "hr", "br", "table", "thead", "tbody", "tr", "th", "td"}
@@ -87,11 +96,11 @@ def _page_html(*, lang: str, page: dict | None, nav: list[dict], values: dict, s
     name = escape(values["app_name"])
     title = escape(page["title"]) if page else t["missing"]
     description = escape(page["description"]) if page else ""
-    base = config.settings.origin.rstrip("/")
-    path = f"/w/{slug}" if slug else "/w/"
+    path = f"/{slug}"
+    url = hosts.site_url(path)
     logo = '<img src="/api/public/logo" alt="">' if values["logo_key"] else '<img src="/favicon.svg" alt="">'
     links = "".join(
-        f'<a href="/w/{escape(p["slug"])}"{" class=active" if p["slug"] == slug else ""}>{escape(p["title"])}</a>'
+        f'<a href="/{escape(p["slug"])}"{" class=active" if p["slug"] == slug else ""}>{escape(p["title"])}</a>'
         for p in nav if p["slug"])
     if page:
         body = render_markdown(page["body"])
@@ -109,53 +118,65 @@ def _page_html(*, lang: str, page: dict | None, nav: list[dict], values: dict, s
 <title>{title} · {name}</title>
 <meta name="description" content="{description}">
 {og.meta_tags(title=html_unescape(title), description=html_unescape(description), site_name=values["app_name"],
-              image=og.image_url("w" if slug == "" else "default", values["og_images"], page), url=f"{base}{path}")}
-<link rel="canonical" href="{base}{path}?lang={lang}">
-<link rel="alternate" hreflang="da" href="{base}{path}?lang=da"><link rel="alternate" hreflang="en" href="{base}{path}?lang=en">
+              image=og.image_url("w" if slug == "" else "default", values["og_images"], page), url=url)}
+<link rel="canonical" href="{url}?lang={lang}">
+<link rel="alternate" hreflang="da" href="{url}?lang=da"><link rel="alternate" hreflang="en" href="{url}?lang=en">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/w/static/w.css">
-<script src="/w/static/w.js" defer></script>
+<link rel="stylesheet" href="{STATIC_PATH}/w.css">
+<script src="{STATIC_PATH}/w.js" defer></script>
 </head>
 <body>
 <header class="top"><div class="inner">
-  <a class="brand" href="/w/">{logo}{name}</a>
-  <nav>{links}<a href="{path}?lang={other}" class="lang">{t['other']}</a><a class="login" href="/login">{t['login']}</a></nav>
+  <a class="brand" href="/">{logo}{name}</a>
+  <nav>{links}<a href="{path}?lang={other}" class="lang">{t['other']}</a><a class="login" href="{hosts.app_link('/login')}">{t['login']}</a></nav>
 </div></header>
 <main class="content">{body}</main>
-<footer><div class="inner"><span>© {name}</span><a href="/privatliv">{t['privacy']}</a></div></footer>
+<footer><div class="inner"><span>© {name}</span><a href="{hosts.app_link('/privatliv')}">{t['privacy']}</a></div></footer>
 </body>
 </html>"""
 
 
+def _old_address(slug: str, request: Request) -> RedirectResponse:
+    query = f"?{request.url.query}" if request.url.query else ""
+    return RedirectResponse(hosts.site_link(f"/{slug.strip('/')}") + query, status_code=308)
+
+
 @router.get("/w", include_in_schema=False)
-async def w_root():
-    return RedirectResponse("/w/", status_code=308)
+async def w_root(request: Request):
+    """The website used to live under /w/: keep old links working."""
+    return _old_address("", request)
 
 
-@router.get("/w/static/{name}", include_in_schema=False)
+@router.get(STATIC_PATH + "/{name}", include_in_schema=False)
+@router.get("/w/static/{name}", include_in_schema=False)  # pages cached before the move
 async def w_static(name: str):
-    if name not in ("w.css", "w.js", "facit.css", "facit.js"):
+    if name not in STATIC_FILES:
         raise HTTPException(404)
     return FileResponse(os.path.join(STATIC_DIR, name), headers={"Cache-Control": "public, max-age=300"})
 
 
-@router.get("/w/{slug:path}", response_class=HTMLResponse, include_in_schema=False)
+@router.get("/w/{slug:path}", include_in_schema=False)
 async def w_page(slug: str, request: Request):
+    return _old_address(slug, request)
+
+
+async def site_page(slug: str, request: Request) -> HTMLResponse:
+    """A page of the website: / is the front page, /<slug> a Markdown page, anything else the 404 page."""
     slug = slug.strip("/")
     async with db.connection() as conn:
         values = await settings_store.get_all(conn)
         story = slug == "" and values["web_front"] == "facit246"
         lang, explicit = _lang(request, web_front.LANGS, browser=True) if story else _lang(request)
         page_lang = lang if lang in LANGS else "da"  # Markdown pages and the menu exist in da/en
-        page = None if story else await db.fetch_one(
+        page = None if story or slug in RESERVED_SLUGS else await db.fetch_one(
             conn, "select * from web_pages where slug = %s and lang = %s and published", (slug, lang))
         nav = await db.fetch_all(conn, """select slug, title from web_pages where lang = %s and published
                                           and nav_order is not null order by nav_order, title""", (page_lang,))
         first_user = await admin_open_to_anyone(conn)
     if story:
-        html = web_front.render(lang=lang, app_name=values["app_name"], base=config.settings.origin.rstrip("/"),
+        html = web_front.render(lang=lang, app_name=values["app_name"], base=hosts.site_origin(),
                                 nav=nav, first_user=first_user, og_image=og.image_url("w", values["og_images"]))
     else:
         html = _page_html(lang=lang, page=page, nav=nav, values=values, slug=slug, first_user=first_user)

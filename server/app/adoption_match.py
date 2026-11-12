@@ -79,13 +79,11 @@ def normalize(path: str) -> str:
 
 
 def tracked(path: str) -> bool:
-    """A page of the app on / (including /m and /extension) that is not sign-in plumbing."""
+    """A page of the app (including /m and /extension) that is not sign-in plumbing. The website is not tracked here."""
     if NOT_TRACKED.search(path):
         return False
     route = route_manifest.route_for(path)
-    if route is None or route["app"] != "app":
-        return False
-    return route["path"] != "/" or path == "/"  # "/" is the home page, not a catch-all
+    return route is not None and route["app"] == "app"
 
 
 def surface(path: str) -> str:

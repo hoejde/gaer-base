@@ -14,7 +14,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel, Field
 
-from app import config, db, og, settings_store, webhooks
+from app import config, db, hosts, og, settings_store, webhooks
 from app.logs import RequestMeta, audit
 from app.routes.auth import admin_open_to_anyone
 from app.security import classify_device, client_ip, user_agent
@@ -38,6 +38,7 @@ async def public_config():
     out["captcha"] = config.settings.captcha != "off"
     out["demo_mode"] = config.settings.demo_mode
     out["logo_url"] = "/api/public/logo" if values["logo_key"] else None
+    out["site_url"] = hosts.site_link("/")  # the website: "/" on one host, https://<domain>/ beside app.<domain>
     out.pop("logo_key")
     return out
 

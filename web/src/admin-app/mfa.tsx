@@ -73,7 +73,7 @@ export function AdminMfaGate() {
       <Card title="Bekræft at det er dig">
         <p style={{ margin: 0, color: "#64748b" }}>Administrationen kræver din passkey, sikkerhedsnøgle eller en kode fra din godkendelsesapp.</p>
         <SecondFactorForm methods={methods} onDone={refresh} />
-        <a href="/" style={{ fontSize: 13 }}>← Til appen på /</a>
+        <a href="/portal" style={{ fontSize: 13 }}>← Til appen</a>
       </Card>
     );
   }

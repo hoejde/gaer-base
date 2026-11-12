@@ -21,7 +21,7 @@ from fastapi import APIRouter, Depends
 from psycopg.types.json import Jsonb
 from pydantic import BaseModel, ConfigDict, Field
 
-from app import config, db, settings_store
+from app import config, db, hosts, settings_store
 from app.logs import audit
 from app.sessions import Principal, require_admin
 
@@ -92,7 +92,7 @@ def defaults(values: dict) -> dict:
         "host": host,
         "cfg": {"name": name, "bundleId": ".".join([*reversed(labels), "app"]), "primary": "#2563eb", "primarySoft": "#dbeafe",
                 "iconBg": "#ffffff", "splashBg": "#f8fafc"},
-        "links": {"support": f"{origin}/w/support", "marketing": f"{origin}/w/", "privacy": f"{origin}/privatliv",
+        "links": {"support": hosts.site_url("/support"), "marketing": hosts.site_url("/"), "privacy": f"{origin}/privatliv",
                   "deletion": f"{origin}/konto#slet", "email": values.get("gdpr_email") or "", "reviewLogin": "",
                   "ascAppId": "", "playAppId": "", "easProjectId": "", "copyright": f"{date.today().year} {name}"},
         "ids": {"scheme": f"gaer-{slug}", "sku": f"gaer-{slug}", "rp_id": config.settings.rp_id},

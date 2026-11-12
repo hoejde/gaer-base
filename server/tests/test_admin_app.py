@@ -1,4 +1,4 @@
-"""The standalone admin app: /admin/* gets web/dist/admin.html, everything else index.html."""
+"""The standalone admin app: /admin/* gets web/dist/admin.html, the app's routes index.html, the rest is the website."""
 
 from dataclasses import replace
 
@@ -20,12 +20,16 @@ async def test_admin_paths_serve_admin_html(tmp_path, monkeypatch):
     for path in ("/admin", "/admin/", "/admin/users", "/admin/app-stores/tekster"):
         r = await client.get(path)
         assert r.status_code == 200 and r.text == "ADMIN", path
-    for path in ("/klip", "/administration", "/m/klip"):
+    for path in ("/klip", "/portal", "/m/klip"):
         assert (await client.get(path)).text == "APP", path
-    assert (await client.get("/")).status_code == 302  # anonymous: public website
+    for path in ("/", "/administration"):  # one host: the website answers / and anything that is not the app's
+        r = await client.get(path)
+        assert "APP" not in r.text and "<html" in r.text, path
+    assert (await client.get("/administration")).status_code == 404
 
     await full_user(client, "11111111")
-    assert (await client.get("/")).text == "APP"
+    assert "<html" in (await client.get("/")).text  # signed in or not, / is the website
+    assert (await client.get("/portal")).text == "APP"
 
 
 async def test_analytics_has_user_and_login_numbers(make_client):

@@ -103,7 +103,7 @@ export default function Privacy() {
 
 /** Self-service: download all own data, or delete the account (the right to be forgotten). */
 function MyData({ contact }: { contact: string }) {
-  const { refresh } = useAuth();
+  const { refresh, config } = useAuth();
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -115,7 +115,7 @@ function MyData({ contact }: { contact: string }) {
     try {
       await api.post("/api/me/delete", { confirm });
       await refresh().catch(() => undefined);
-      window.location.href = "/w/";
+      window.location.href = config?.site_url ?? "/";
     } catch (e) {
       setError(errorText(e));
       setBusy(false);

@@ -16,7 +16,7 @@ from typing import Literal
 import httpx
 from pydantic import BaseModel, Field
 
-from app import config, db, route_manifest, settings_store
+from app import config, db, hosts, route_manifest, settings_store
 
 Surface = Literal["app", "extension", "word", "outlook", "document", "mobile"]
 
@@ -159,7 +159,7 @@ def pages_for(who: SignedIn, surface: Surface) -> list[tuple[str, str]]:
         out.append((path, r["title"]))
     if who.role == "admin" and not mobile:
         out.append(("/admin", "Administration"))
-    out.append(("/w/", "Den offentlige side"))
+    out.append((hosts.site_link("/"), "Den offentlige side"))
     return out
 
 

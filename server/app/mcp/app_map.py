@@ -11,7 +11,7 @@ SECTIONS: list[dict] = [
      "api": "GET /api/admin/analytics", "source": "web/src/admin-app/pages/Stats.tsx · server/app/routes/admin.py"},
     {"path": "/admin/users", "title": "Brugere og roller", "purpose": "Søg brugere, gør til admin, spær, nulstil passkeys, log ud alle steder, ret telefonnummer",
      "api": "GET /api/admin/users · PATCH /api/admin/users/{id}/role · POST …/block", "source": "web/src/admin-app/pages/Users.tsx, UserDrawer.tsx · server/app/routes/admin.py"},
-    {"path": "/admin/impersonation", "title": "Efterligning", "purpose": "Testkonti og at se appen på / som en af dem",
+    {"path": "/admin/impersonation", "title": "Efterligning", "purpose": "Testkonti og at se appen som en af dem",
      "api": "/api/impersonation/*", "source": "web/src/admin-app/pages/Impersonation.tsx · server/app/routes/impersonation.py"},
     {"path": "/admin/features", "title": "Features og ringe", "purpose": "Ring pr. feature, observation, import fra koden, brugernes niveau, brug",
      "api": "/api/admin/features/*", "source": "web/src/admin-app/pages/Features.tsx · server/app/routes/features.py"},
@@ -36,7 +36,7 @@ SECTIONS: list[dict] = [
      "api": "GET /api/admin/logs/auth", "source": "web/src/admin-app/pages/AuthLog.tsx · server/app/logs.py"},
     {"path": "/admin/logs/audit", "title": "Audit-log", "purpose": "Hvem ændrede hvad og hvornår, med før og efter; også MCP-kladder",
      "api": "GET /api/admin/logs/audit", "source": "web/src/admin-app/pages/AuditLog.tsx · server/app/logs.py"},
-    {"path": "/admin/web", "title": "Website", "purpose": "Det offentlige website under /w i Markdown", "api": "/api/admin/web",
+    {"path": "/admin/web", "title": "Website", "purpose": "Det offentlige website på / (websitets vært) i Markdown", "api": "/api/admin/web",
      "source": "web/src/admin-app/pages/Web.tsx · server/app/routes/web.py"},
     {"path": "/admin/files", "title": "Filer", "purpose": "Filer i Object Storage pr. bruger og forbrug", "api": "GET /api/admin/files",
      "source": "web/src/admin-app/pages/AdminFiles.tsx"},
@@ -52,8 +52,8 @@ SECTIONS: list[dict] = [
      "api": "/api/admin/consent", "source": "web/src/admin-app/pages/Consent.tsx"},
     {"path": "/admin/settings", "title": "Indstillinger", "purpose": "Navn, logo, SMS-afsender, GDPR-mail og version",
      "api": "GET/PUT /api/admin/settings", "source": "web/src/admin-app/pages/Settings.tsx · server/app/settings_store.py"},
-    # The app on /
-    {"path": "/", "title": "Overblik", "purpose": "Dashboard for brugere, der er logget ind: tal, assistenten, seneste aktivitet, delt med dig og sikkerhed",
+    # The app (app.<domain>)
+    {"path": "/portal", "title": "Overblik", "purpose": "Dashboard for brugere, der er logget ind: tal, assistenten, seneste aktivitet, delt med dig og sikkerhed",
      "api": "GET /api/user/overview", "source": "web/src/pages/Home.tsx · web/src/shell.tsx"},
     {"path": "/klip", "title": "Klip", "purpose": "Brugerens klip: tekst og links fra web, udvidelse, Office og mobil",
      "api": "/api/clips", "source": "web/src/clips.tsx · server/app/routes/clips.py"},

@@ -30,7 +30,14 @@ class Settings:
     # WebAuthn / passkeys
     rp_id: str = field(default_factory=lambda: _env("RP_ID", "localhost"))
     rp_name: str = field(default_factory=lambda: _env("RP_NAME", "Tørgær"))
+    # The app's address: always app.<domain> in production (https://app.kunde.dk). Every link the server makes
+    # (mails, MCP, OAuth, deep links, the extension) points here.
     origin: str = field(default_factory=lambda: _env("ORIGIN", "http://localhost:5173"))
+    # The public website's address (https://kunde.dk). Unset: the website and the app share ORIGIN (one host).
+    # Set: the same container answers both, and each host sends the other's paths across (app/hosts.py).
+    site_origin_env: str | None = field(default_factory=lambda: _env("SITE_ORIGIN"))
+    # More hosts that show the website, comma-separated (kunde.eu,www.kunde.dk). Canonical links use SITE_ORIGIN.
+    site_hosts_env: str = field(default_factory=lambda: _env("SITE_HOSTS", ""))
 
     # Optional: the only e-mail address (or, with SMS login, phone number) that may become the first admin.
     # Without them, whoever logs in first on a new instance becomes super admin. Set one in production.
@@ -112,7 +119,7 @@ class Settings:
     trust_proxy: bool = field(default_factory=lambda: _env("TRUST_PROXY", "0") == "1")
 
     # Static frontend (built Vite output)
-    # /w/ until an admin chooses in /admin/web: "markdown" (the page with slug '') or "facit246" (the 246 story).
+    # The website's front page (/) until an admin chooses in /admin/web: "markdown" (the page with slug '') or "facit246" (the 246 story).
     web_front: str = field(default_factory=lambda: _env("WEB_FRONT", "markdown"))
     static_dir: str = field(default_factory=lambda: _env("STATIC_DIR", os.path.join(os.path.dirname(__file__), "..", "..", "web", "dist")))
 
@@ -195,6 +202,14 @@ class Settings:
     @property
     def is_production(self) -> bool:
         return self.environment == "production"
+
+    @property
+    def site_origin(self) -> str:
+        return (self.site_origin_env or self.origin).rstrip("/")
+
+    @property
+    def site_hosts(self) -> tuple[str, ...]:
+        return tuple(h.strip().lower() for h in self.site_hosts_env.split(",") if h.strip())
 
     @property
     def secure_cookies(self) -> bool:

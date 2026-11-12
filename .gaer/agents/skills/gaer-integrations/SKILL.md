@@ -1,6 +1,6 @@
 ---
 name: gaer-integrations
-description: The browser extension (/extension), the Office add-in router for Word/Excel/PowerPoint/Outlook (/office-addin), the public website (/w) and the mobile app (/m). Use when changing any of these surfaces or their bridges.
+description: The browser extension (/extension), the Office add-in router for Word/Excel/PowerPoint/Outlook (/office-addin), the public website (/ and /<slug> on the website's host) and the mobile app (/m). Use when changing any of these surfaces or their bridges.
 ---
 
 # Integrations (gaer-integrations)
@@ -42,10 +42,17 @@ page, a mail or a selection, inserted into Word/Outlook.
 - In an iframe the client sends `X-Gaer-Embedded: 1`; the server sets a `SameSite=None; Partitioned` cookie.
   Passkeys in iframes need `allow="publickey-credentials-get *; publickey-credentials-create *"`.
 
-## /w — public website
+## Public website — `/` and `/<slug>`
+- Hosts: the app lives on `app.<domain>` (`ORIGIN`), the website on `<domain>` (`SITE_ORIGIN`, more hosts in
+  `SITE_HOSTS`); one container answers both (`server/app/hosts.py`). On the app's host `/` → `/portal` and website
+  pages → the website's host; on the website's host the app's paths → the app's host. Without `SITE_ORIGIN` both
+  share one host. Redirects and canonical links are built from the settings, never from the `Host` header.
 - `server/app/routes/web.py` renders `web_pages` (Markdown, sanitized with nh3) as HTML; da/en via `?lang`
-  and the `w_lang` cookie; menu from `nav_order`. Edited in `/admin/web`. Anonymous `/` redirects to `/w/`.
-- The front page `/w/` is the Markdown page with an empty slug (default) or, with the setting `web_front =
+  and the `w_lang` cookie; menu from `nav_order`. Edited in `/admin/web`. A slug may not be a path the app or
+  server answers (`RESERVED_SLUGS`, from `routes.json`). Old `/w/…` links redirect (308). CSS/JS: `/static/w/…`.
+- Links from the website to the app (`/login`, `/privatliv`) use `hosts.app_link()`; from the app to the website
+  the frontend uses `config.site_url` (`/api/public/config`).
+- The front page `/` is the Markdown page with an empty slug (default) or, with the setting `web_front =
   "facit246"` (chosen in `/admin/web`, `PUT /api/admin/web/front`; until then `WEB_FRONT` in the environment), the fixed "Facit · 246" story from
   `server/app/web_front.py` (da/en/de/sv/no, `Accept-Language` when nothing is chosen) with
   `web_static/facit.css` + `facit.js` (no inline scripts — CSP). Both end with the login card. Design: `specs/forside-246/`.

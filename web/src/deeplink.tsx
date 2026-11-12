@@ -73,5 +73,5 @@ export function GoPage() {
     window.location.replace(`/admin/go${search}`);
     return null;
   }
-  return <Navigate to={target ?? "/"} replace />;
+  return <Navigate to={target ?? "/portal"} replace />;
 }

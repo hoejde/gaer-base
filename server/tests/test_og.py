@@ -24,7 +24,7 @@ async def test_generated_images_are_served_and_linked(client):
     assert (await client.get("/api/public/og/nope")).status_code == 404
     assert (await client.get("/api/public/og/page-1")).status_code == 404
 
-    html = (await client.get("/w/")).text
+    html = (await client.get("/")).text
     assert "/api/public/og/w?v=" in og_image(html)
     assert '<meta name="twitter:card" content="summary_large_image">' in html
     assert '<meta property="og:site_name" content="Tørgær">' in html
@@ -64,16 +64,16 @@ async def test_a_page_gets_its_own_image(make_client):
                                                  "description": "Hvad det koster", "published": True})
     assert r.status_code == 200, r.text
     page = r.json()
-    assert "/api/public/og/default?v=" in og_image((await admin.get("/w/og-priser")).text)
+    assert "/api/public/og/default?v=" in og_image((await admin.get("/og-priser")).text)
 
     assert (await admin.post(f"/api/admin/web/{page['id']}/og", files={"file": ("p.png", PNG, "image/png")})).status_code == 200
-    html = (await admin.get("/w/og-priser")).text
+    html = (await admin.get("/og-priser")).text
     assert f"/api/public/og/page-{page['id']}?v=" in og_image(html)
     assert '<meta property="og:description" content="Hvad det koster">' in html
     assert (await admin.get(f"/api/public/og/page-{page['id']}")).content == PNG
 
     assert (await admin.delete(f"/api/admin/web/{page['id']}/og")).status_code == 200
-    assert "/api/public/og/default?v=" in og_image((await admin.get("/w/og-priser")).text)
+    assert "/api/public/og/default?v=" in og_image((await admin.get("/og-priser")).text)
 
 
 async def test_app_html_gets_title_and_tags(tmp_path):

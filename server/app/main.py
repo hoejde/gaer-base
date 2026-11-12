@@ -1,4 +1,7 @@
-"""Gær server: API under /api, the built Vite frontend for everything else, /health for deploys."""
+"""Gær server: API under /api, the built Vite frontend for the app's pages, the website on / and /<slug>, /health.
+
+The app lives on app.<domain> (ORIGIN) and the website on <domain> (SITE_ORIGIN); one container answers both
+(app/hosts.py). Without SITE_ORIGIN both share one host."""
 
 import logging
 import os
@@ -11,7 +14,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Redirect
 from fastapi.staticfiles import StaticFiles
 from starlette.routing import Route
 
-from app import captcha, config, db, events, jobs, killswitch, mail, og, retention, settings_store, storage, webhooks
+from app import captcha, config, db, events, hosts, jobs, killswitch, mail, og, retention, settings_store, storage, webhooks
 from app import uploads  # noqa: F401  (registers the files.unzip, files.uploads_cleanup and storage.cors jobs)
 from app.mailbox import tasks as mailbox_tasks  # noqa: F401  (registers the mail.* jobs and the Lettermint handler)
 from app.mcp import hub as mcp_hub
@@ -25,7 +28,6 @@ from app.routes import (admin, admin_files, admin_ops, adoption, ai, app_store, 
 from app.routes import admin_mail
 from app.routes import mail as mail_routes
 from app.security import bootstrap_admin_email, bootstrap_admin_phone
-from app.sessions import optional_principal
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 
@@ -108,6 +110,7 @@ async def mcp_sessions(app: FastAPI):
 
 
 _html_cache: dict[str, tuple[float, str]] = {}
+HOME = "/portal"  # the app's home page; / is the website
 
 
 async def app_html(page: str, path: str) -> str:
@@ -122,11 +125,11 @@ async def app_html(page: str, path: str) -> str:
         values = await settings_store.get_all(conn)
     name = values["app_name"]
     route = route_manifest.route_for(path)
-    title = f"{route['title']} · {name}" if route and path != "/" else name
+    title = f"{route['title']} · {name}" if route and path != HOME else name
     surface = og.surface_for(path)
     tags = og.meta_tags(title=title, description=og.DESCRIPTIONS.get(surface, ""), site_name=name,
                         image=og.image_url(surface, values["og_images"]),
-                        url=config.settings.origin.rstrip("/") + (path if route else "/"))
+                        url=hosts.app_origin() + path)
     html = re.sub(r"<title>.*?</title>", lambda _: f"<title>{escape(title)}</title>", cached[1], count=1)
     return html.replace("</head>", f"{tags}\n</head>", 1)
 
@@ -195,20 +198,31 @@ def create_app() -> FastAPI:
 
     @app.get("/{full_path:path}", include_in_schema=False)
     async def spa(full_path: str, request: Request):
+        """Everything the routers above do not answer: the app's pages, static files and the website (app/hosts.py)."""
         if full_path.startswith("api/"):
             return JSONResponse({"detail": "Not Found"}, status_code=404)
-        if full_path == "" and await optional_principal(request) is None:
-            return RedirectResponse("/w/", status_code=302)  # anonymous visitors get the public website
+        path = "/" + full_path
+        query = f"?{request.url.query}" if request.url.query else ""
+        where = hosts.surface(request)
         candidate = os.path.abspath(os.path.join(static_dir, full_path))
         if full_path and candidate.startswith(static_dir + os.sep) and os.path.isfile(candidate):
-            return FileResponse(candidate)
-        # /admin is a separate Vite entry (web/admin.html); everything else is the app on / (web/src/routes.json).
-        page = admin_index if route_manifest.app_for("/" + full_path) == "admin" else index
+            return FileResponse(candidate)  # favicon, manifests, service worker: on every host
+        # web/src/routes.json: "app" → index.html, "admin" → admin.html, "server" → here only the website (/{slug}).
+        app_name = route_manifest.app_for(path)
+        if app_name == "server":
+            if where == "app":
+                if full_path == "":
+                    return RedirectResponse(HOME + query, status_code=302)
+                return RedirectResponse(hosts.site_link(path) + query, status_code=308)
+            return await web.site_page(full_path, request)
+        if where == "site":
+            return RedirectResponse(hosts.app_origin() + path + query, status_code=308)
+        page = admin_index if app_name == "admin" else index
         if not os.path.isfile(page):
             return JSONResponse({"detail": "Frontend er ikke bygget. Kør npm run build i web/."}, status_code=404)
         if page == admin_index:
             return FileResponse(page, headers={"Cache-Control": "no-cache"})
-        return HTMLResponse(await app_html(page, "/" + full_path), headers={"Cache-Control": "no-cache"})
+        return HTMLResponse(await app_html(page, path), headers={"Cache-Control": "no-cache"})
 
     return app
 

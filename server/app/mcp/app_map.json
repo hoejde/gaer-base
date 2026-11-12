@@ -1,10 +1,6 @@
 {
   "generated_by": "npm run app-map --prefix web",
   "routes": {
-    "/": {
-      "title": "Overblik",
-      "anchors": []
-    },
     "/admin": {
       "title": "Statistik",
       "anchors": [
@@ -410,6 +406,10 @@
     },
     "/office-addin": {
       "title": "Office-router",
+      "anchors": []
+    },
+    "/portal": {
+      "title": "Overblik",
       "anchors": []
     },
     "/privatliv": {

@@ -130,7 +130,7 @@ async def test_prompt_knows_the_signed_in_user_and_page(client, ai_on, owner_con
     assert "logget ind som Anna Holm (" in system          # name is flattened to one line
     assert "@" not in system                              # never the e-mail address
     assert "står på siden «Klip» (/klip/12)" in system
-    assert "Klip (/klip)" in system and "Den offentlige side (/w/)" in system
+    assert "Klip (/klip)" in system and "Overblik (/portal)" in system and "Den offentlige side (/)" in system
     assert "(/login)" not in system and "(/m/chat)" not in system
 
 
@@ -146,6 +146,6 @@ async def test_page_outside_the_manifest_is_ignored(client, ai_on):
 def test_mobile_lists_its_own_pages():
     who = ai.SignedIn(name="Anna", role="admin")
     paths = [p for p, _ in ai.pages_for(who, "mobile")]
-    assert "/m/chat" in paths and "/klip" not in paths and "/admin" not in paths and paths[-1] == "/w/"
+    assert "/m/chat" in paths and "/klip" not in paths and "/admin" not in paths and paths[-1] == "/"
     hidden = ai.SignedIn(name="Anna", role="user", disabled_features=frozenset({"klip"}))
     assert "/klip" not in [p for p, _ in ai.pages_for(hidden, "app")]

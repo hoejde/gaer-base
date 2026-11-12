@@ -21,7 +21,7 @@ STATIC = os.path.join(os.path.dirname(__file__), "web_static", "og")
 # The surfaces an admin can give their own image, in the order /admin/web shows them.
 SURFACES: dict[str, str] = {
     "default": "Standard — alle offentlige sider uden eget billede",
-    "w": "Forsiden /w/",
+    "w": "Websitets forside /",
     "login": "Log ind (/login)",
     "privatliv": "Privatliv (/privatliv)",
 }
