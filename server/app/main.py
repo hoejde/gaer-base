@@ -24,8 +24,7 @@ from app import route_manifest
 from app.routes import access as access_routes
 from app.routes import (admin, admin_files, admin_ops, adoption, ai, app_store, auth, clips, consumption, data, features, files,
                         hooks, impersonation, knowledge, knowledge_admin, me, mcp_tools, nats, office, public, resources, review,
-                        security, studio, user_area, web)
-                        security, tas as tas_routes, user_area, web)
+                        security, studio, tas as tas_routes, user_area, web)
 from app.routes import admin_mail
 from app.routes import admin_secrets
 from app.routes import admin_datastore
@@ -235,8 +234,6 @@ def create_app() -> FastAPI:
               developer_studio_routes.router, developer_mcp_routes.router,
               developer_api_routes.router, gaer_api.router,
               developer_flow_routes.router, developer_flow_routes.public,
-              web.router, files.memory_router):
-              knowledge.router, knowledge_admin.router, meta_routes.router, admin_meta.router,
               tas_routes.router, web.router, files.memory_router):  # tas before web: /w/tas/… before /w/{slug}
         app.include_router(r)
 
