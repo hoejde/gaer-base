@@ -7,6 +7,9 @@ ROOT="$(pwd)"
 LOGS="$ROOT/.devcontainer/logs"
 mkdir -p "$LOGS"
 
+# .env from the template (contains dev defaults such as GRACE_LOGINS=100000)
+[ -f .env ] || cp .env.example .env
+
 # Infrastructure. MinIO's images can be unavailable from the registries;
 # Postgres + NATS are enough for everything except file storage.
 docker compose up -d postgres nats minio minio-bucket >"$LOGS/compose.log" 2>&1 \
