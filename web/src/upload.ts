@@ -131,41 +131,6 @@ async function direct(file: File, o: UploadOptions): Promise<UploadStatus> {
   try {
     const parts = await sendToBucket(file, start, `${o.base}/uploads/${start.id}/parts`, o.onProgress);
     return await api.post<UploadStatus>(`${o.base}/uploads/${start.id}/complete`, start.multipart ? { parts } : {});
-    if (!start.multipart) {
-      await putWithRetry(async () => start.url!, file, start.content_type, (sent) => progress(sent, file.size), start.headers);
-      progress(file.size, file.size);
-      return await api.post<UploadStatus>(`${o.base}/uploads/${start.id}/complete`, {});
-    }
-    const size = start.part_size!;
-    const count = start.parts!;
-    const sent = new Array<number>(count + 1).fill(0);
-    const report = () => progress(sent.reduce((a, b) => a + b, 0), file.size);
-    const urls = new Map<number, string>();
-    const urlFor = async (n: number) => {
-      if (!urls.has(n)) {
-        const numbers = Array.from({ length: Math.min(50, count - n + 1) }, (_, i) => n + i);
-        const got = await api.post<{ urls: Record<string, string> }>(`${o.base}/uploads/${start.id}/parts`, { numbers });
-        for (const [k, v] of Object.entries(got.urls)) urls.set(Number(k), v);
-      }
-      return urls.get(n)!;
-    };
-    const etags: { number: number; etag: string }[] = [];
-    let next = 1;
-    const worker = async () => {
-      while (next <= count) {
-        const n = next++;
-        const blob = file.slice((n - 1) * size, Math.min(file.size, n * size));
-        const got = await putWithRetry(() => urlFor(n), blob, null, (s) => { sent[n] = s; report(); });
-        // Azure Blob's Put Block returns no ETag; the server commits the blocks by number
-        const etag = start.part_etags === false ? got || String(n) : got;
-        if (!etag) throw new Error("Object Storage sendte ikke ETag tilbage – bucketens CORS skal vise ETag-headeren");
-        sent[n] = blob.size;
-        report();
-        etags.push({ number: n, etag });
-      }
-    };
-    await Promise.all(Array.from({ length: Math.min(PARALLEL, count) }, worker));
-    return await api.post<UploadStatus>(`${o.base}/uploads/${start.id}/complete`, { parts: etags });
   } catch (e) {
     api.del(`${o.base}/uploads/${start.id}`).catch(() => {});
     throw e;
